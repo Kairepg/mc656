@@ -3,6 +3,7 @@
 ## Membros
 
 Guilherme Henrique Ferreira da Silva - 260469
+
 Kairé Pereira Giovanetti - 260558
 
 Lucca Chinelato - 239060
