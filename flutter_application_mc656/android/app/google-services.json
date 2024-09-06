@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "59478395338",
+    "project_id": "mc656-1219f",
+    "storage_bucket": "mc656-1219f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:59478395338:android:0de16cbb7c8befa875e733",
+        "android_client_info": {
+          "package_name": "com.mc656.health"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtX92PKO2jYoGt3qcvm6Hme0gBLyBBWaU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
