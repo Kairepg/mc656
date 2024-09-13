@@ -1,4 +1,4 @@
-import 'package:fitness_buddy/pages/home/home_page.dart';
+import 'package:fitness_buddy/pages/register/register_page.dart';
 import 'package:fitness_buddy/routes/routes.dart';
 import 'package:fitness_buddy/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -20,14 +20,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: Constants.appName,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        // colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFFF56606)),
+        primaryColor: const Color(0xFFF56606) ,
         useMaterial3: true,
       ),
       initialRoute: AppRoutes.home,
       onGenerateRoute: generateRoute,
-      home: const MyHomePage(title: Constants.appName),
+      home: const RegisterPage(),
     );
   }
 }
