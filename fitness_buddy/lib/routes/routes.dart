@@ -1,0 +1,28 @@
+import 'package:flutter/material.dart';
+import 'package:fitness_buddy/pages/home/home_page.dart';
+import 'package:fitness_buddy/pages/login/login_page.dart';
+import 'package:fitness_buddy/utils/constants.dart';
+
+class AppRoutes {
+  static const String home = '/';
+  static const String login = '/login';
+}
+
+// Função para gerar as rotas do aplicativo
+Route<dynamic> generateRoute(RouteSettings settings) {
+  switch (settings.name) {
+    case AppRoutes.home:
+      return MaterialPageRoute(builder: (context) => const MyHomePage(title: Constants.appName,));
+    case AppRoutes.login:
+      return MaterialPageRoute(builder: (context) => const LoginPage());
+
+    default:
+      return MaterialPageRoute(
+        builder: (context) => Scaffold(
+          body: Center(
+            child: Text('Rota não definida: ${settings.name}'),
+          ),
+        ),
+      );
+  }
+}
