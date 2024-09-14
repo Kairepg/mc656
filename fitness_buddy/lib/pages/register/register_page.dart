@@ -27,7 +27,7 @@ class RegisterPageState extends State<RegisterPage> {
           children: [
             const Header(
                 title: "Cadastro",
-                subtitle: "Crie uma conta para começar a usar o app :D"),
+                subtitle: "Crie uma conta para começar a usar o Fitness Buddy"),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Form(
@@ -82,51 +82,27 @@ class RegisterPageState extends State<RegisterPage> {
                     ),
                     const SizedBox(height: 30),
                     // Dá para juntar isso em um widget
-                    OutlinedButton(
-                      style: OutlinedButton.styleFrom(
-                        side: BorderSide(color: Theme.of(context).primaryColor),
-                      ),
+                    BtnFilled(
+                      text: "Cadastrar",
                       onPressed: () {
-                        Navigator.pushNamed(context, '/login');
+                        if (_formKey.currentState!.validate()) {}
                       },
-                      child: Container(
-                          width: 150,
-                          height: 50,
-                          alignment: Alignment.center,
-                          child: Text(
-                            'Login',
-                            style: TextStyle(
-                              color: Theme.of(context).primaryColor,
-                              fontSize: 16,
-                            ),
-                          )),
+                      backgroundColor: Theme.of(context).primaryColor,
+                      textColor: Colors.white,
                     ),
-                    const SizedBox(height: 10),
-                    Text("ou",
+                    const SizedBox(height: 20),
+                    const Text("Já tem uma conta",
                         style: TextStyle(
-                            color: Theme.of(context).primaryColor,
-                            fontSize: 16)),
-                    const SizedBox(height: 10),
-                    FilledButton(
-                      style: FilledButton.styleFrom(
-                        backgroundColor: Theme.of(context).primaryColor,
-                      ),
+                            color: Colors.grey,
+                            fontSize: 12)),
+                    const SizedBox(height: 5),
+                    BtnFilled(
+                      text: "Cadastrar",
                       onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          // Process data
-                        }
+                        if (_formKey.currentState!.validate()) {}
                       },
-                      child: Container(
-                          width: 150,
-                          height: 50,
-                          alignment: Alignment.center,
-                          child: const Text(
-                            'Cadastrar',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                            ),
-                          )),
+                      backgroundColor: const Color.fromARGB(0, 255, 255, 255),
+                      textColor: Theme.of(context).primaryColor,
                     ),
                   ],
                 ),
