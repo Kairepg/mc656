@@ -1,6 +1,6 @@
 import 'package:fitness_buddy/pages/home/home_page.dart';
 import 'package:fitness_buddy/pages/login/login_page.dart';
-import 'package:fitness_buddy/pages/register/register_page.dart';
+import 'package:fitness_buddy/pages/signUp/sign_up_page.dart';
 import 'package:fitness_buddy/utils/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +18,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case AppRoutes.login:
       return MaterialPageRoute(builder: (context) => const LoginPage());
     case AppRoutes.register:
-      return MaterialPageRoute(builder: (context) => const RegisterPage());
+      return MaterialPageRoute(builder: (context) => const SignUpPage());
 
     default:
       return MaterialPageRoute(

@@ -16,7 +16,7 @@ class Header extends StatelessWidget {
           color: Theme.of(context).primaryColor,
           child: Container(
             width: MediaQuery.of(context).size.width * 0.9,
-            height: 45,
+            height: 60,
             alignment: Alignment.center,
             child: Text(
               title,

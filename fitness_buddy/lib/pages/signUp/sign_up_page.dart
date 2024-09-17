@@ -1,14 +1,15 @@
-import 'package:fitness_buddy/pages/register/register_view.dart';
+import 'package:fitness_buddy/pages/signUp/sign_up_view.dart';
+import 'package:fitness_buddy/routes/routes.dart';
 import 'package:flutter/material.dart';
 
-class RegisterPage extends StatefulWidget {
-  const RegisterPage({super.key});
+class SignUpPage extends StatefulWidget {
+  const SignUpPage({super.key});
 
   @override
-  RegisterPageState createState() => RegisterPageState();
+  SignUpPageState createState() => SignUpPageState();
 }
 
-class RegisterPageState extends State<RegisterPage> {
+class SignUpPageState extends State<SignUpPage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
@@ -36,6 +37,7 @@ class RegisterPageState extends State<RegisterPage> {
                   children: <Widget>[
                     TextFormField(
                       controller: _nameController,
+                      // style: const TextStyle(fontSize: 12.0),
                       decoration: const InputDecoration(labelText: 'Name'),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -47,6 +49,7 @@ class RegisterPageState extends State<RegisterPage> {
                     TextFormField(
                       controller: _emailController,
                       decoration: const InputDecoration(labelText: 'Email'),
+                      // style: const TextStyle(fontSize: 12.0),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter your email';
@@ -57,6 +60,7 @@ class RegisterPageState extends State<RegisterPage> {
                     TextFormField(
                       controller: _passwordController,
                       decoration: const InputDecoration(labelText: 'Password'),
+                      // style: const TextStyle(fontSize: 12.0),
                       obscureText: true,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -69,6 +73,7 @@ class RegisterPageState extends State<RegisterPage> {
                       controller: _confirmPasswordController,
                       decoration:
                           const InputDecoration(labelText: 'Confirm Password'),
+                      // style: const TextStyle(fontSize: 12.0),
                       obscureText: true,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -85,21 +90,35 @@ class RegisterPageState extends State<RegisterPage> {
                     BtnFilled(
                       text: "Cadastrar",
                       onPressed: () {
-                        if (_formKey.currentState!.validate()) {}
+                        SnackBar snackBar;
+
+                        if (_formKey.currentState!.validate()) {
+                          snackBar = const SnackBar(
+                            backgroundColor: Colors.green,
+                            content: Text("Usuário cadastrado com sucesso"),
+                            duration: Duration(seconds: 2),
+                          );
+                        } else {
+                          snackBar = const SnackBar(
+                            backgroundColor: Colors.red,
+                            content: Text("Erro ao cadastrar usuário"),
+                            duration: Duration(seconds: 2),
+                          );
+                        }
+
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       },
                       backgroundColor: Theme.of(context).primaryColor,
                       textColor: Colors.white,
                     ),
                     const SizedBox(height: 20),
                     const Text("Já tem uma conta",
-                        style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 12)),
+                        style: TextStyle(color: Colors.grey, fontSize: 12)),
                     const SizedBox(height: 5),
                     BtnFilled(
-                      text: "Cadastrar",
+                      text: "Fazer login",
                       onPressed: () {
-                        if (_formKey.currentState!.validate()) {}
+                        Navigator.pushNamed(context, AppRoutes.login);
                       },
                       backgroundColor: const Color.fromARGB(0, 255, 255, 255),
                       textColor: Theme.of(context).primaryColor,
