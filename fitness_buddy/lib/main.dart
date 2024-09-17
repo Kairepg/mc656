@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:fitness_buddy/firebase_options.dart';
-import 'package:fitness_buddy/pages/register/register_page.dart';
+import 'package:fitness_buddy/pages/home/home_page.dart';
 import 'package:fitness_buddy/routes/routes.dart';
+import 'package:fitness_buddy/services/firebase_options.dart';
 import 'package:fitness_buddy/utils/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -22,15 +22,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: Constants.appName,
+      title: 'Flutter Demo',
       theme: ThemeData(
-        // colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFFF56606)),
-        primaryColor: const Color(0xFFF56606) ,
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
       initialRoute: AppRoutes.home,
       onGenerateRoute: generateRoute,
-      home: const RegisterPage(),
+      home: const MyHomePage(title: Constants.appName),
     );
   }
 }
