@@ -1,14 +1,16 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:fitness_buddy/pages/home/home_page.dart';
 import 'package:fitness_buddy/routes/routes.dart';
+import 'package:fitness_buddy/services/firebase_options.dart';
 import 'package:fitness_buddy/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 Future<void> main() async {
   // firebase initialization
-  // WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp(
-  //   options: DefaultFirebaseOptions.currentPlatform,
-  // );
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   // run the app
   runApp(const MyApp());
