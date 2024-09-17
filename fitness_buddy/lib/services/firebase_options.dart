@@ -42,17 +42,17 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions web = FirebaseOptions(
     apiKey: 'AIzaSyB2ZDfTZYUelLtlzLt86e_h19CnrJqENEk',
-    appId: '1:59478395338:web:6a62dc7147abbc5475e733',
+    appId: '1:59478395338:web:ae6bbb8d33a0b8f975e733',
     messagingSenderId: '59478395338',
     projectId: 'mc656-1219f',
     authDomain: 'mc656-1219f.firebaseapp.com',
     storageBucket: 'mc656-1219f.appspot.com',
-    measurementId: 'G-NS2TK9QBDF',
+    measurementId: 'G-1321ELWTC4',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyCtX92PKO2jYoGt3qcvm6Hme0gBLyBBWaU',
-    appId: '1:59478395338:android:0de16cbb7c8befa875e733',
+    appId: '1:59478395338:android:00eff0136d2064df75e733',
     messagingSenderId: '59478395338',
     projectId: 'mc656-1219f',
     storageBucket: 'mc656-1219f.appspot.com',
@@ -60,29 +60,29 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyDu2vmZ5cAaU3lw1P4bcs_AL_g5EFfikgo',
-    appId: '1:59478395338:ios:b19f1d5aac6a2a3075e733',
+    appId: '1:59478395338:ios:ab7e0c06bc67734c75e733',
     messagingSenderId: '59478395338',
     projectId: 'mc656-1219f',
     storageBucket: 'mc656-1219f.appspot.com',
-    iosBundleId: 'com.example.flutterApplicationMc656',
+    iosBundleId: 'com.example.fitnessBuddy',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyDu2vmZ5cAaU3lw1P4bcs_AL_g5EFfikgo',
-    appId: '1:59478395338:ios:b19f1d5aac6a2a3075e733',
+    appId: '1:59478395338:ios:ab7e0c06bc67734c75e733',
     messagingSenderId: '59478395338',
     projectId: 'mc656-1219f',
     storageBucket: 'mc656-1219f.appspot.com',
-    iosBundleId: 'com.example.flutterApplicationMc656',
+    iosBundleId: 'com.example.fitnessBuddy',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
     apiKey: 'AIzaSyB2ZDfTZYUelLtlzLt86e_h19CnrJqENEk',
-    appId: '1:59478395338:web:037b678006674e9875e733',
+    appId: '1:59478395338:web:8410e5a1227c6e5875e733',
     messagingSenderId: '59478395338',
     projectId: 'mc656-1219f',
     authDomain: 'mc656-1219f.firebaseapp.com',
     storageBucket: 'mc656-1219f.appspot.com',
-    measurementId: 'G-V5CW4X8F46',
+    measurementId: 'G-8SLGRNG522',
   );
 }
