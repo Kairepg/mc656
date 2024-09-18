@@ -1,6 +1,8 @@
 import 'package:fitness_buddy/pages/signUp/sign_up_view.dart';
 import 'package:fitness_buddy/routes/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -14,8 +16,25 @@ class SignUpPageState extends State<SignUpPage> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController =
-      TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+Future<void> _registerUser() async {
+    try {
+      await _auth.createUserWithEmailAndPassword(
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        // Lide com o erro
+      } else if (e.code == 'email-already-in-use') {
+        // Lide com o erro
+      }
+    } catch (e) {
+        // Lide com o erro
+    }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -38,10 +57,10 @@ class SignUpPageState extends State<SignUpPage> {
                     TextFormField(
                       controller: _nameController,
                       // style: const TextStyle(fontSize: 12.0),
-                      decoration: const InputDecoration(labelText: 'Name'),
+                      decoration: const InputDecoration(labelText: 'Nome'),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter your name';
+                          return 'Por favor insira seu nome';
                         }
                         return null;
                       },
@@ -52,19 +71,19 @@ class SignUpPageState extends State<SignUpPage> {
                       // style: const TextStyle(fontSize: 12.0),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter your email';
+                          return 'Por favor insira seu email';
                         }
                         return null;
                       },
                     ),
                     TextFormField(
                       controller: _passwordController,
-                      decoration: const InputDecoration(labelText: 'Password'),
+                      decoration: const InputDecoration(labelText: 'Senha'),
                       // style: const TextStyle(fontSize: 12.0),
                       obscureText: true,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter your password';
+                          return 'Por favor insira sua senha';
                         }
                         return null;
                       },
@@ -72,15 +91,15 @@ class SignUpPageState extends State<SignUpPage> {
                     TextFormField(
                       controller: _confirmPasswordController,
                       decoration:
-                          const InputDecoration(labelText: 'Confirm Password'),
+                          const InputDecoration(labelText: 'Confirme sua senha'),
                       // style: const TextStyle(fontSize: 12.0),
                       obscureText: true,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please confirm your password';
+                          return 'Por favor confirme sua senha';
                         }
                         if (value != _passwordController.text) {
-                          return 'Passwords do not match';
+                          return 'As senhas não coincidem';
                         }
                         return null;
                       },
@@ -93,6 +112,7 @@ class SignUpPageState extends State<SignUpPage> {
                         SnackBar snackBar;
 
                         if (_formKey.currentState!.validate()) {
+                          _registerUser();  // Função para registrar usuário
                           snackBar = const SnackBar(
                             backgroundColor: Colors.green,
                             content: Text("Usuário cadastrado com sucesso"),
@@ -112,7 +132,7 @@ class SignUpPageState extends State<SignUpPage> {
                       textColor: Colors.white,
                     ),
                     const SizedBox(height: 20),
-                    const Text("Já tem uma conta",
+                    const Text("Já tem uma conta?",
                         style: TextStyle(color: Colors.grey, fontSize: 12)),
                     const SizedBox(height: 5),
                     BtnFilled(
