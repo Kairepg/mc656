@@ -52,7 +52,7 @@ class SnackBars {
   static SnackBar emailNaoEncontrado() {
     return const SnackBar(
       backgroundColor: Colors.red,
-      content: Text("Nenhum usuário encontrado para esse email"),
+      content: Text("Email inválido"),
       duration: Duration(seconds: 2),
     );
   }
