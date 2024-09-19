@@ -40,4 +40,36 @@ class SnackBars {
       duration: Duration(seconds: 2),
     );
   }
+
+  static SnackBar usuarioLogado() {
+    return const SnackBar(
+      backgroundColor: Colors.green,
+      content: Text("Login realizado com sucesso"),
+      duration: Duration(seconds: 2),
+    );
+  }
+
+  static SnackBar emailNaoEncontrado() {
+    return const SnackBar(
+      backgroundColor: Colors.red,
+      content: Text("Nenhum usuário encontrado para esse email"),
+      duration: Duration(seconds: 2),
+    );
+  }
+
+  static SnackBar senhaErrada() {
+    return const SnackBar(
+      backgroundColor: Colors.red,
+      content: Text("Senha incorreta"),
+      duration: Duration(seconds: 2),
+    );
+  }
+
+  static SnackBar erroAoLogar() {
+    return const SnackBar(
+      backgroundColor: Colors.red,
+      content: Text("Erro ao logar usuário"),
+      duration: Duration(seconds: 2),
+    );
+  }
 }
