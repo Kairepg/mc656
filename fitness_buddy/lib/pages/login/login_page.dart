@@ -1,6 +1,9 @@
 import 'package:fitness_buddy/pages/login/login_view.dart';
 import 'package:fitness_buddy/routes/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:fitness_buddy/widgets/snackbars.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -13,8 +16,42 @@ class LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  Future<void> _loginUser(scaffoldMessenger) async {
+    SnackBar? snackBar;
+    try {
+      await _auth.signInWithEmailAndPassword(
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
 
 
+      snackBar = SnackBars.usuarioLogado();
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        snackBar = SnackBars.emailNaoEncontrado();
+      } else if (e.code == 'wrong-password') {
+        snackBar = SnackBars.senhaErrada();
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+      snackBar = SnackBars.erroAoLogar();
+    }
+
+    scaffoldMessenger.showSnackBar(snackBar);
+  }
+
+  onPressBtnLogin() {
+    // Captura o ScaffoldMessenger antes de qualquer operação assíncrona
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
+
+    if (_formKey.currentState!.validate()) {
+      _loginUser(scaffoldMessenger);
+    } else {
+      scaffoldMessenger.showSnackBar(SnackBars.erroAoLogar());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,9 +98,7 @@ class LoginPageState extends State<LoginPage> {
                     // Dá para juntar isso em um widget
                     BtnFilled(
                       text: "Entrar",
-                      onPressed: (){
-                        Navigator.pushNamed(context, AppRoutes.home);
-                      },
+                      onPressed: onPressBtnLogin,
                       backgroundColor: Theme.of(context).primaryColor,
                       textColor: Colors.white,
                     ),
