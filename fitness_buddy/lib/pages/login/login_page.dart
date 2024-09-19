@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:fitness_buddy/widgets/snackbars.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -29,9 +28,9 @@ class LoginPageState extends State<LoginPage> {
 
       snackBar = SnackBars.usuarioLogado();
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
+      if (e.code == 'invalid-email') {
         snackBar = SnackBars.emailNaoEncontrado();
-      } else if (e.code == 'wrong-password') {
+      } else if (e.code == 'invalid-credential') {
         snackBar = SnackBars.senhaErrada();
       }
     } catch (e) {
