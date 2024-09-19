@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 class Header extends StatelessWidget {
   final String title;
   final String subtitle;
@@ -10,7 +11,7 @@ class Header extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Image(image: AssetImage("assets/images/logo.png")),
+        const Image(image: AssetImage("assets/images/logo.png"), height: 86),
         const SizedBox(height: 32),
         Card(
           color: Theme.of(context).primaryColor,

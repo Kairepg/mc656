@@ -1,8 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitness_buddy/pages/signUp/sign_up_view.dart';
 import 'package:fitness_buddy/routes/routes.dart';
+import 'package:fitness_buddy/widgets/snackbars.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -16,25 +17,53 @@ class SignUpPageState extends State<SignUpPage> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-Future<void> _registerUser() async {
+  Future<void> _registerUser(scaffoldMessenger) async {
+    SnackBar? snackBar;
     try {
       await _auth.createUserWithEmailAndPassword(
         email: _emailController.text,
         password: _passwordController.text,
       );
+
+      final user = _auth.currentUser;
+      if (user != null) {
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(user.email)
+            .set({
+          'name': _nameController.text,
+        });
+      }
+
+      snackBar = SnackBars.usuarioCadastrado();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        // Lide com o erro
+        snackBar = SnackBars.senhaFraca();
       } else if (e.code == 'email-already-in-use') {
-        // Lide com o erro
+        snackBar = SnackBars.emailEmUso();
       }
     } catch (e) {
-        // Lide com o erro
+      debugPrint(e.toString());
+      snackBar = SnackBars.erroAoCadastrar();
     }
-}
+
+    scaffoldMessenger.showSnackBar(snackBar);
+  }
+
+  onPressBtnSingUp() {
+    // Captura o ScaffoldMessenger antes de qualquer operação assíncrona
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
+
+    if (_formKey.currentState!.validate()) {
+      _registerUser(scaffoldMessenger);
+    } else {
+      scaffoldMessenger.showSnackBar(SnackBars.erroAoCadastrar());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -90,8 +119,8 @@ Future<void> _registerUser() async {
                     ),
                     TextFormField(
                       controller: _confirmPasswordController,
-                      decoration:
-                          const InputDecoration(labelText: 'Confirme sua senha'),
+                      decoration: const InputDecoration(
+                          labelText: 'Confirme sua senha'),
                       // style: const TextStyle(fontSize: 12.0),
                       obscureText: true,
                       validator: (value) {
@@ -108,26 +137,7 @@ Future<void> _registerUser() async {
                     // Dá para juntar isso em um widget
                     BtnFilled(
                       text: "Cadastrar",
-                      onPressed: () {
-                        SnackBar snackBar;
-
-                        if (_formKey.currentState!.validate()) {
-                          _registerUser();  // Função para registrar usuário
-                          snackBar = const SnackBar(
-                            backgroundColor: Colors.green,
-                            content: Text("Usuário cadastrado com sucesso"),
-                            duration: Duration(seconds: 2),
-                          );
-                        } else {
-                          snackBar = const SnackBar(
-                            backgroundColor: Colors.red,
-                            content: Text("Erro ao cadastrar usuário"),
-                            duration: Duration(seconds: 2),
-                          );
-                        }
-
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                      },
+                      onPressed: onPressBtnSingUp,
                       backgroundColor: Theme.of(context).primaryColor,
                       textColor: Colors.white,
                     ),
