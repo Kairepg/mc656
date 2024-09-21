@@ -33,7 +33,7 @@ class SnackBars {
     );
   }
 
-  static SnackBar desconhecido() {
+  static SnackBar erroDesconhecido() {
     return const SnackBar(
       backgroundColor: Colors.red,
       content: Text("Erro desconhecido"),

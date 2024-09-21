@@ -1,8 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitness_buddy/pages/login/login_view.dart';
 import 'package:fitness_buddy/routes/routes.dart';
-import 'package:flutter/material.dart';
 import 'package:fitness_buddy/widgets/snackbars.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -25,7 +25,6 @@ class LoginPageState extends State<LoginPage> {
         password: _passwordController.text,
       );
 
-
       snackBar = SnackBars.usuarioLogado();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'invalid-email') {
@@ -47,6 +46,9 @@ class LoginPageState extends State<LoginPage> {
 
     if (_formKey.currentState!.validate()) {
       _loginUser(scaffoldMessenger);
+      if (_auth.currentUser != null) {
+        Navigator.pushNamed(context, AppRoutes.home);
+      }
     } else {
       scaffoldMessenger.showSnackBar(SnackBars.erroAoLogar());
     }
@@ -93,7 +95,7 @@ class LoginPageState extends State<LoginPage> {
                         return null;
                       },
                     ),
-                    const SizedBox(height: 30),
+                    const SizedBox(height: 132),
                     // Dá para juntar isso em um widget
                     BtnFilled(
                       text: "Entrar",

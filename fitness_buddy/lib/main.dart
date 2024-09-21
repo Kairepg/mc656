@@ -24,14 +24,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: Constants.appName,
       theme: ThemeData(
-        // colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFFF56606)),
-        primaryColor: const Color(0xFFF56606) ,
+        primaryColor: const Color(0xFFF56606),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFFF56606)),
         useMaterial3: true,
       ),
-      initialRoute: AppRoutes.home,
+      initialRoute: AppRoutes.login,
       onGenerateRoute: generateRoute,
       home: const LoginPage(),
     );
   }
 }
-
