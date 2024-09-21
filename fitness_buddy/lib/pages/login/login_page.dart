@@ -17,7 +17,7 @@ class LoginPageState extends State<LoginPage> {
   final TextEditingController _passwordController = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  Future<void> _loginUser(scaffoldMessenger) async {
+  Future<void> _loginUser(context) async {
     SnackBar? snackBar;
     try {
       await _auth.signInWithEmailAndPassword(
@@ -37,7 +37,10 @@ class LoginPageState extends State<LoginPage> {
       snackBar = SnackBars.erroAoLogar();
     }
 
-    scaffoldMessenger.showSnackBar(snackBar);
+    ScaffoldMessenger.of(context).showSnackBar(snackBar!);
+    if (_auth.currentUser != null) {
+      Navigator.pushNamed(context, AppRoutes.home);
+    }
   }
 
   onPressBtnLogin() {
@@ -45,11 +48,7 @@ class LoginPageState extends State<LoginPage> {
     final scaffoldMessenger = ScaffoldMessenger.of(context);
 
     if (_formKey.currentState!.validate()) {
-      _loginUser(scaffoldMessenger);
-      debugPrint(_auth.currentUser?.email);
-      if (_auth.currentUser != null) {
-        Navigator.pushNamed(context, AppRoutes.home);
-      }
+      _loginUser(context);
     } else {
       scaffoldMessenger.showSnackBar(SnackBars.erroAoLogar());
     }
