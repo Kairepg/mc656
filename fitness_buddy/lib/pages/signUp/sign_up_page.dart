@@ -60,6 +60,10 @@ class SignUpPageState extends State<SignUpPage> {
 
     if (_formKey.currentState!.validate()) {
       _registerUser(scaffoldMessenger);
+
+      if(_auth.currentUser != null) {
+        Navigator.pushNamed(context, AppRoutes.home);
+      }
     } else {
       scaffoldMessenger.showSnackBar(SnackBars.erroAoCadastrar());
     }
