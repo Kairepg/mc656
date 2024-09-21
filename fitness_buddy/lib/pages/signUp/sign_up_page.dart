@@ -1,56 +1,71 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fitness_buddy/pages/login/login_view.dart';
+import 'package:fitness_buddy/pages/signUp/sign_up_view.dart';
 import 'package:fitness_buddy/routes/routes.dart';
 import 'package:fitness_buddy/widgets/snackbars.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class SignUpPage extends StatefulWidget {
+  const SignUpPage({super.key});
 
   @override
-  LoginPageState createState() => LoginPageState();
+  SignUpPageState createState() => SignUpPageState();
 }
 
-class LoginPageState extends State<LoginPage> {
+class SignUpPageState extends State<SignUpPage> {
   final _formKey = GlobalKey<FormState>();
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  Future<void> _loginUser(scaffoldMessenger) async {
+  Future<void> _registerUser(scaffoldMessenger) async {
     SnackBar? snackBar;
     try {
-      await _auth.signInWithEmailAndPassword(
+      await _auth.createUserWithEmailAndPassword(
         email: _emailController.text,
         password: _passwordController.text,
       );
 
-      snackBar = SnackBars.usuarioLogado();
+      final user = _auth.currentUser;
+      if (user != null) {
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(user.email)
+            .set({
+          'name': _nameController.text,
+        });
+      }
+
+      snackBar = SnackBars.usuarioCadastrado();
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'invalid-email') {
-        snackBar = SnackBars.emailNaoEncontrado();
-      } else if (e.code == 'invalid-credential') {
-        snackBar = SnackBars.senhaErrada();
+      if (e.code == 'weak-password') {
+        snackBar = SnackBars.senhaFraca();
+      } else if (e.code == 'email-already-in-use') {
+        snackBar = SnackBars.emailEmUso();
       }
     } catch (e) {
       debugPrint(e.toString());
-      snackBar = SnackBars.erroAoLogar();
+      snackBar = SnackBars.erroAoCadastrar();
     }
 
     scaffoldMessenger.showSnackBar(snackBar);
   }
 
-  onPressBtnLogin() {
+  onPressBtnSingUp() {
     // Captura o ScaffoldMessenger antes de qualquer operação assíncrona
     final scaffoldMessenger = ScaffoldMessenger.of(context);
 
     if (_formKey.currentState!.validate()) {
-      _loginUser(scaffoldMessenger);
-      if (_auth.currentUser != null) {
+      _registerUser(scaffoldMessenger);
+
+      if(_auth.currentUser != null) {
         Navigator.pushNamed(context, AppRoutes.home);
       }
     } else {
-      scaffoldMessenger.showSnackBar(SnackBars.erroAoLogar());
+      scaffoldMessenger.showSnackBar(SnackBars.erroAoCadastrar());
     }
   }
 
@@ -64,14 +79,25 @@ class LoginPageState extends State<LoginPage> {
         child: Column(
           children: [
             const Header(
-                title: "Login",
-                subtitle: "Entre na sua conta da Fitness Buddy"),
+                title: "Cadastro",
+                subtitle: "Crie uma conta para começar a usar o Fitness Buddy"),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Form(
                 key: _formKey,
                 child: Column(
                   children: <Widget>[
+                    TextFormField(
+                      controller: _nameController,
+                      // style: const TextStyle(fontSize: 12.0),
+                      decoration: const InputDecoration(labelText: 'Nome'),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Por favor insira seu nome';
+                        }
+                        return null;
+                      },
+                    ),
                     TextFormField(
                       controller: _emailController,
                       decoration: const InputDecoration(labelText: 'Email'),
@@ -95,22 +121,38 @@ class LoginPageState extends State<LoginPage> {
                         return null;
                       },
                     ),
-                    const SizedBox(height: 132),
+                    TextFormField(
+                      controller: _confirmPasswordController,
+                      decoration: const InputDecoration(
+                          labelText: 'Confirme sua senha'),
+                      // style: const TextStyle(fontSize: 12.0),
+                      obscureText: true,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Por favor confirme sua senha';
+                        }
+                        if (value != _passwordController.text) {
+                          return 'As senhas não coincidem';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 30),
                     // Dá para juntar isso em um widget
                     BtnFilled(
-                      text: "Entrar",
-                      onPressed: onPressBtnLogin,
+                      text: "Cadastrar",
+                      onPressed: onPressBtnSingUp,
                       backgroundColor: Theme.of(context).primaryColor,
                       textColor: Colors.white,
                     ),
                     const SizedBox(height: 20),
-                    const Text("Não tem uma conta?",
+                    const Text("Já tem uma conta?",
                         style: TextStyle(color: Colors.grey, fontSize: 12)),
                     const SizedBox(height: 5),
                     BtnFilled(
-                      text: "Fazer cadastro",
+                      text: "Fazer login",
                       onPressed: () {
-                        Navigator.pushNamed(context, AppRoutes.register);
+                        Navigator.pushNamed(context, AppRoutes.login);
                       },
                       backgroundColor: const Color.fromARGB(0, 255, 255, 255),
                       textColor: Theme.of(context).primaryColor,
