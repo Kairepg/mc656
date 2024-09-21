@@ -61,7 +61,7 @@ class SignUpPageState extends State<SignUpPage> {
     if (_formKey.currentState!.validate()) {
       _registerUser(scaffoldMessenger);
 
-      if(_auth.currentUser != null) {
+      if(_auth.currentUser?.uid != null) {
         Navigator.pushNamed(context, AppRoutes.home);
       }
     } else {

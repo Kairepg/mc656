@@ -46,6 +46,7 @@ class LoginPageState extends State<LoginPage> {
 
     if (_formKey.currentState!.validate()) {
       _loginUser(scaffoldMessenger);
+      debugPrint(_auth.currentUser?.email);
       if (_auth.currentUser != null) {
         Navigator.pushNamed(context, AppRoutes.home);
       }
