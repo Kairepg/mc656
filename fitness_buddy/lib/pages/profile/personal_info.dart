@@ -1,16 +1,17 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fitness_buddy/pages/profile/profile_page.dart';
 import 'package:fitness_buddy/pages/profile/profile_view.dart';
 import 'package:fitness_buddy/routes/routes.dart';
 import 'package:flutter/material.dart';
 
-class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+class PersonalInfo extends ProfilePage {
+  const PersonalInfo({super.key});
 
   @override
-  State<ProfilePage> createState() => _ProfilePageState();
+  State<PersonalInfo> createState() => _PersonalInfoState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _PersonalInfoState extends State<PersonalInfo> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
@@ -19,19 +20,19 @@ class _ProfilePageState extends State<ProfilePage> {
       const Icon(Icons.account_circle, size: 100),
       CardButton(
         onPressed: () {
-          Navigator.pushNamed(context, '/accountInfo');
+          Navigator.pushNamed(context, AppRoutes.home);
         },
         text: 'Informações da conta',
       ),
       CardButton(
         onPressed: () {
-          Navigator.pushNamed(context, '/personalInfo');
+          Navigator.pushNamed(context, AppRoutes.home);
         },
-        text: 'Informações pessoais',
+        text: 'Informações da pessoais',
       ),
       CardButton(
         onPressed: () {
-          Navigator.pushNamed(context, '/changeNotifications');
+          Navigator.pushNamed(context, AppRoutes.home);
         },
         text: 'Ativar notificações',
       ),
