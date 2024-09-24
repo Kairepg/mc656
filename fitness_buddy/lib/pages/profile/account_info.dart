@@ -1,7 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitness_buddy/pages/profile/profile_page.dart';
-import 'package:fitness_buddy/pages/profile/profile_view.dart';
-import 'package:fitness_buddy/routes/routes.dart';
 import 'package:flutter/material.dart';
 
 class AccountInfo extends ProfilePage {
@@ -12,43 +9,37 @@ class AccountInfo extends ProfilePage {
 }
 
 class _AccountInfoState extends State<AccountInfo> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-
   @override
   Widget build(BuildContext context) {
     return Column(children: [
       const Icon(Icons.account_circle, size: 100),
-      CardButton(
-        onPressed: () {
-          Navigator.pushNamed(context, AppRoutes.home);
-        },
-        text: 'Informações da conta',
+      Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 64, vertical: 8),
+          child: TextFormField(
+            decoration: const InputDecoration(
+              border: UnderlineInputBorder(),
+              labelText: 'E-mail',
+            ),
+          ),
       ),
-      CardButton(
-        onPressed: () {
-          Navigator.pushNamed(context, AppRoutes.home);
-        },
-        text: 'Informações da pessoais',
+      Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 64, vertical: 8),
+          child: TextFormField(
+            decoration: const InputDecoration(
+              border: UnderlineInputBorder(),
+              labelText: 'Senha',
+            ),
+          ),
       ),
-      CardButton(
-        onPressed: () {
-          Navigator.pushNamed(context, AppRoutes.home);
-        },
-        text: 'Ativar notificações',
-      ),
-      CardButton(
-        onPressed: () {
-          Navigator.pushNamed(context, AppRoutes.home);
-        },
-        text: 'Excluir conta',
-      ),
-      CardButton(
-        onPressed: () {
-          _auth.signOut();
-          Navigator.pushNamed(context, AppRoutes.login);
-        },
-        text: 'Logout',
-      ),
+      Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 64, vertical: 8),
+          child: TextFormField(
+            decoration: const InputDecoration(
+              border: UnderlineInputBorder(),
+              labelText: 'Conta Privada',
+            ),
+          ),
+      ),  
     ]);
   }
 }

@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitness_buddy/pages/profile/profile_view.dart';
-import 'package:fitness_buddy/routes/routes.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -37,14 +36,14 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
       CardButton(
         onPressed: () {
-          Navigator.pushNamed(context, AppRoutes.home);
+          Navigator.pushNamed(context, '/deleteAccount');
         },
         text: 'Excluir conta',
       ),
       CardButton(
         onPressed: () {
           _auth.signOut();
-          Navigator.pushNamed(context, AppRoutes.login);
+          Navigator.pushNamed(context, '/logoff');
         },
         text: 'Logout',
       ),

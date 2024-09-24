@@ -1,4 +1,7 @@
+import 'package:fitness_buddy/pages/login/login_page.dart';
 import 'package:fitness_buddy/pages/profile/account_info.dart';
+import 'package:fitness_buddy/pages/profile/delete_account.dart';
+import 'package:fitness_buddy/pages/profile/notifications_config.dart';
 import 'package:fitness_buddy/pages/profile/personal_info.dart';
 import 'package:fitness_buddy/pages/profile/profile_page.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +36,12 @@ class _ProfileNavigatorState extends State<ProfileNavigator> {
                   return  const AccountInfo();
                 case '/personalInfo':
                   return  const PersonalInfo();
+                case '/deleteAccount':
+                  return const DeleteAccount();
+                case '/changeNotifications':
+                  return const ChangeNotifications();
+                case '/logoff':
+                  return const LoginPage();
                 default:
                   return const ProfilePage();
               }
