@@ -27,10 +27,8 @@ class LoginPageState extends State<LoginPage> {
 
       snackBar = SnackBars.usuarioLogado();
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'invalid-email') {
-        snackBar = SnackBars.emailNaoEncontrado();
-      } else if (e.code == 'invalid-credential') {
-        snackBar = SnackBars.senhaErrada();
+      if (e.code == 'invalid-email' || e.code == 'invalid-credential') {
+        snackBar = SnackBars.loginNaoEncontrado();
       }
     } catch (e) {
       debugPrint(e.toString());
