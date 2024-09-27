@@ -141,6 +141,15 @@ class _AccountInfoViewState extends State<AccountInfoView> {
           backgroundColor: Theme.of(context).primaryColor,
           textColor: Colors.white,
         ),
+      const SizedBox(height: 30),
+        BtnFilled(
+          text: "Voltar",
+          onPressed: () {
+            Navigator.pushNamed(context, '/');
+          },
+          backgroundColor: Colors.white,
+          textColor: Theme.of(context).primaryColor
+        )
     ]);
   }
 }
@@ -188,7 +197,16 @@ class _AccountInfoChangeState extends State<AccountInfoChange> {
               labelText: 'Conta Privada',
             ),
           ),
-      ),  
+      ), 
+      const SizedBox(height: 30),
+        BtnFilled(
+          text: "Voltar",
+          onPressed: () {
+            Navigator.pushNamed(context, '/accountInfoView');
+          },
+          backgroundColor: Colors.white,
+          textColor: Theme.of(context).primaryColor
+        ) 
     ]);
   }
 }
