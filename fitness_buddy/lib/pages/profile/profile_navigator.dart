@@ -32,8 +32,10 @@ class _ProfileNavigatorState extends State<ProfileNavigator> {
               switch (settings.name) {
                 case '/':
                   return const ProfilePage();
-                case '/accountInfo':
-                  return  const AccountInfo();
+                case '/accountInfoView':
+                  return  const AccountInfoView();
+                case '/accountInfoChange':
+                  return  const AccountInfoChange();
                 case '/personalInfo':
                   return  const PersonalInfo();
                 case '/deleteAccount':

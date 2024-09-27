@@ -18,7 +18,7 @@ class _ProfilePageState extends State<ProfilePage> {
       const Icon(Icons.account_circle, size: 100),
       CardButton(
         onPressed: () {
-          Navigator.pushNamed(context, '/accountInfo');
+          Navigator.pushNamed(context, '/accountInfoView');
         },
         text: 'Informações da conta',
       ),
