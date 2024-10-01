@@ -45,7 +45,7 @@ jobs:
     name: Build Flutter (Android)
     needs: [flutter_test]
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'  # Executa apenas na branch 'main'
+    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main'  # Executa em pull requests ou na branch 'main'
     steps:
       - uses: actions/checkout@v2
 
