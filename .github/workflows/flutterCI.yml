@@ -3,11 +3,13 @@ on:
   push:
     branches:
       - main
-      - features/*
+      - feature/*
       - develop
   pull_request:
     branches:
       - master
+      - feature/*
+      - develop
 
 jobs:
   flutter_test:
@@ -24,15 +26,18 @@ jobs:
         with:
           channel: "stable"
 
-      - run: |
+      - name: Install Dependencies
+        run: |
           cd fitness_buddy
           flutter pub get
 
-      - run: |
+      - name: Analyze
+        run: |
           cd fitness_buddy
           flutter analyze
 
-      - run: |
+      - name: tests
+        run: |
           cd fitness_buddy
           flutter test
 
@@ -40,6 +45,7 @@ jobs:
     name: Build Flutter (Android)
     needs: [flutter_test]
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'  # Executa apenas na branch 'main'
     steps:
       - uses: actions/checkout@v2
 
