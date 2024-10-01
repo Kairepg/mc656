@@ -24,11 +24,17 @@ jobs:
         with:
           channel: "stable"
 
-      - run: flutter pub get
+      - run: |
+          cd fitness_buddy
+          flutter pub get
 
-      - run: flutter analyze
+      - run: |
+          cd fitness_buddy
+          flutter analyze
 
-      - run: flutter test
+      - run: |
+          cd fitness_buddy
+          flutter test
 
   build_appbundle:
     name: Build Flutter (Android)
@@ -45,8 +51,14 @@ jobs:
         with:
           channel: "stable"
 
-      - run: flutter pub get
+      - run: |
+          cd fitness_buddy
+          flutter pub get
 
-      - run: flutter clean
+      - run: |
+          cd fitness_buddy
+          flutter clean
 
-      - run: flutter build appbundle
+      - run: |
+          cd fitness_buddy
+          flutter build appbundle
