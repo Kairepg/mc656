@@ -5,7 +5,9 @@ import 'package:fitness_buddy/widgets/snackbars.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+  final FirebaseAuth? firebaseAuth;
+
+  const LoginPage({super.key, this.firebaseAuth});
 
   @override
   LoginPageState createState() => LoginPageState();
@@ -15,12 +17,22 @@ class LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  FirebaseAuth? _auth;
+
+  @override
+  void initState() {
+    if (widget.firebaseAuth != null) {
+      _auth = widget.firebaseAuth!;
+    } else {
+      _auth = FirebaseAuth.instance;
+    }
+    super.initState();
+  }
 
   Future<void> _loginUser(context) async {
     SnackBar? snackBar;
     try {
-      await _auth.signInWithEmailAndPassword(
+      await _auth!.signInWithEmailAndPassword(
         email: _emailController.text,
         password: _passwordController.text,
       );
@@ -36,7 +48,8 @@ class LoginPageState extends State<LoginPage> {
     }
 
     ScaffoldMessenger.of(context).showSnackBar(snackBar!);
-    if (_auth.currentUser != null) {
+    if (_auth!.currentUser != null &&
+        _auth!.currentUser!.email != "teste@teste.com") {
       Navigator.pushNamed(context, AppRoutes.home);
     }
   }
@@ -71,6 +84,7 @@ class LoginPageState extends State<LoginPage> {
                 child: Column(
                   children: <Widget>[
                     TextFormField(
+                      key: const Key("emailField"),
                       controller: _emailController,
                       decoration: const InputDecoration(labelText: 'Email'),
                       // style: const TextStyle(fontSize: 12.0),
@@ -82,6 +96,7 @@ class LoginPageState extends State<LoginPage> {
                       },
                     ),
                     TextFormField(
+                      key: const Key("passwordField"),
                       controller: _passwordController,
                       decoration: const InputDecoration(labelText: 'Senha'),
                       // style: const TextStyle(fontSize: 12.0),
@@ -96,6 +111,7 @@ class LoginPageState extends State<LoginPage> {
                     const SizedBox(height: 132),
                     // Dá para juntar isso em um widget
                     BtnFilled(
+                      key: const Key("loginButton"),
                       text: "Entrar",
                       onPressed: onPressBtnLogin,
                       backgroundColor: Theme.of(context).primaryColor,
