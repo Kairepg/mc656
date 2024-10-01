@@ -1,7 +1,7 @@
-import 'package:fitness_buddy/pages/profile/profile_page.dart';
+import 'package:fitness_buddy/pages/profile/menu/menu_navigator_page.dart';
 import 'package:flutter/material.dart';
 
-class ChangeNotifications extends ProfilePage {
+class ChangeNotifications extends MenuNavigatorPage {
   const ChangeNotifications({super.key});
 
   @override

@@ -1,8 +1,8 @@
-import 'package:fitness_buddy/pages/profile/profile_page.dart';
-import 'package:fitness_buddy/pages/profile/profile_view.dart';
+import 'package:fitness_buddy/pages/profile/menu/menu_navigator_page.dart';
+import 'package:fitness_buddy/pages/profile/menu/menu_navigator_view.dart';
 import 'package:flutter/material.dart';
 
-class DeleteAccount extends ProfilePage {
+class DeleteAccount extends MenuNavigatorPage {
   const DeleteAccount({super.key});
 
   @override

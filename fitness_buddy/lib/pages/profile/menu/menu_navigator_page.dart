@@ -1,15 +1,19 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fitness_buddy/pages/profile/profile_view.dart';
+import 'package:fitness_buddy/pages/profile/menu/menu_navigator_view.dart';
+import 'package:fitness_buddy/routes/routes.dart';
 import 'package:flutter/material.dart';
 
-class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+class MenuNavigatorPage extends StatefulWidget {
+  // Contexto das rotas maiores
+  final BuildContext? contextRotasTema;
+
+  const MenuNavigatorPage({super.key, this.contextRotasTema});
 
   @override
-  State<ProfilePage> createState() => _ProfilePageState();
+  State<MenuNavigatorPage> createState() => _MenuNavigatorPageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _MenuNavigatorPageState extends State<MenuNavigatorPage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
@@ -43,7 +47,7 @@ class _ProfilePageState extends State<ProfilePage> {
       CardButton(
         onPressed: () {
           _auth.signOut();
-          Navigator.pushNamed(context, '/logoff');
+          Navigator.pushNamed(widget.contextRotasTema!, AppRoutes.login);
         },
         text: 'Logout',
       ),
