@@ -1,14 +1,79 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitness_buddy/pages/profile/menu/menu_navigator_page.dart';
+import 'package:fitness_buddy/pages/profile/menu/menu_navigator_view.dart';
+import 'package:fitness_buddy/pages/profile/personal_info/personal_info_view.dart';
 import 'package:flutter/material.dart';
 
-class PersonalInfo extends MenuNavigatorPage {
-  const PersonalInfo({super.key});
+class PersonalInfoView extends MenuNavigatorPage {
+  const PersonalInfoView({super.key});
 
   @override
-  State<PersonalInfo> createState() => _PersonalInfoState();
+  State<PersonalInfoView> createState() => _PersonalInfoViewState();
 }
 
-class _PersonalInfoState extends State<PersonalInfo> {
+
+class _PersonalInfoViewState extends State<PersonalInfoView> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  @override
+  Widget build(BuildContext context) {
+    final user = _auth.currentUser;
+    String emailId = '';
+
+    if (user != null) {
+      emailId = user.email ?? '';
+    }
+
+    Widget nameDisplay = getUserName(emailId);
+    Widget birthDisplay = getUserBirth(emailId);
+    Widget heightDisplay = getUserHeight(emailId);
+
+    return Column(children: [
+      DisplayCard(
+        text: nameDisplay,
+        subtitle: "Nome:",
+        showIcon: false,
+      ),
+      DisplayCard(
+        text: birthDisplay,
+        subtitle: "Data de Nascimento:",
+        showIcon: false,
+      ),
+      DisplayCard(
+        text: heightDisplay,
+        subtitle: "Altura:",
+        showIcon: false,
+      ),
+      const SizedBox(height: 30),
+      BtnFilled(
+        text: "Alterar dados",
+        onPressed: () {
+          Navigator.pushNamed(context, '/personalInfoChange');
+        },
+        backgroundColor: Theme.of(context).primaryColor,
+        textColor: Colors.white,
+      ),
+      const SizedBox(height: 30),
+      BtnFilled(
+          text: "Voltar",
+          onPressed: () {
+            Navigator.pushNamed(context, '/');
+          },
+          backgroundColor: Colors.white,
+          textColor: Theme.of(context).primaryColor)
+    ]);
+  }
+}
+
+
+class PersonalInfoChange extends MenuNavigatorPage {
+  const PersonalInfoChange({super.key});
+
+  @override
+  State<PersonalInfoChange> createState() => _PersonalInfoChangeState();
+}
+
+class _PersonalInfoChangeState extends State<PersonalInfoChange> {
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +106,14 @@ class _PersonalInfoState extends State<PersonalInfo> {
             ),
           ),
       ),  
+      const SizedBox(height: 30),
+      BtnFilled(
+          text: "Voltar",
+          onPressed: () {
+            Navigator.pushNamed(context, '/personalInfoView');
+          },
+          backgroundColor: Colors.white,
+          textColor: Theme.of(context).primaryColor)
     ]);
   }
 }

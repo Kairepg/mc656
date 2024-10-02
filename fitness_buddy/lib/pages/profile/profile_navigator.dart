@@ -30,8 +30,10 @@ class _ProfileNavigatorState extends State<ProfileNavigator> {
                   return const AccountInfoView();
                 case '/accountInfoChange':
                   return const AccountInfoChange();
-                case '/personalInfo':
-                  return const PersonalInfo();
+                case '/personalInfoView':
+                  return const PersonalInfoView();
+                case '/personalInfoChange':
+                  return const PersonalInfoChange();
                 case '/deleteAccount':
                   return const DeleteAccount();
                 case '/changeNotifications':

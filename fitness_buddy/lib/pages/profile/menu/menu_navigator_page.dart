@@ -28,7 +28,7 @@ class _MenuNavigatorPageState extends State<MenuNavigatorPage> {
       ),
       CardButton(
         onPressed: () {
-          Navigator.pushNamed(context, '/personalInfo');
+          Navigator.pushNamed(context, '/personalInfoView');
         },
         text: 'Informações pessoais',
       ),

@@ -36,7 +36,9 @@ class SignUpPageState extends State<SignUpPage> {
             .doc(user.email)
             .set({
           'name': _nameController.text,
-          'password': _passwordController.text
+          'password': _passwordController.text,
+          'height': null,
+          'birth': null
         });
       }
 
