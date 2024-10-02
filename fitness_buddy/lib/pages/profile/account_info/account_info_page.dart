@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitness_buddy/pages/profile/account_info/account_info_view.dart';
 import 'package:fitness_buddy/pages/profile/menu/menu_navigator_page.dart';
@@ -86,26 +87,53 @@ class AccountInfoChange extends MenuNavigatorPage {
 }
 
 class _AccountInfoChangeState extends State<AccountInfoChange> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  
   @override
   Widget build(BuildContext context) {
+    final user = _auth.currentUser;
+    String emailId = '';
+
+    if (user != null) {
+      emailId = user.email ?? '';
+    }
+
+    Widget emailDisplay = Text(emailId);
+    _emailController.text = emailId;
+    Widget passwordDisplay = getUserPassword(emailId);
+
     return Column(children: [
       const Icon(Icons.account_circle, size: 100),
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 64, vertical: 8),
         child: TextFormField(
+          initialValue: '${(emailDisplay as Text).data}',
           decoration: const InputDecoration(
             border: UnderlineInputBorder(),
             labelText: 'E-mail',
           ),
+          onChanged: (name) {
+            setState(() {
+              _emailController.text = name;
+            });
+          }
         ),
       ),
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 64, vertical: 8),
         child: TextFormField(
+          //initialValue: getUserPasswordString(emailId),
           decoration: const InputDecoration(
             border: UnderlineInputBorder(),
             labelText: 'Senha',
           ),
+          onChanged: (senha) {
+            setState(() {
+              _passwordController.text = senha;
+            });
+          }
         ),
       ),
       Padding(
@@ -121,6 +149,18 @@ class _AccountInfoChangeState extends State<AccountInfoChange> {
       BtnFilled(
           text: "Voltar",
           onPressed: () {
+            Navigator.pushNamed(context, '/accountInfoView');
+          },
+          backgroundColor: Colors.white,
+          textColor: Theme.of(context).primaryColor),
+      const SizedBox(height: 30),
+      BtnFilled(
+          text: "Confirmar",
+          onPressed: () {
+            if (user != null) {
+              FirebaseFirestore.instance.collection('users').doc(emailId).update({'password': _passwordController.text});
+              user.updatePassword(_passwordController.text);
+            }
             Navigator.pushNamed(context, '/accountInfoView');
           },
           backgroundColor: Colors.white,
