@@ -31,7 +31,6 @@ class _AccountInfoViewState extends State<AccountInfoView> {
       emailId = user.email ?? '';
     }
 
-    Widget nameDisplay = getUserName(emailId);
     Widget emailDisplay = Text(emailId);
     Widget passwordDisplay = getUserPassword(emailId);
 
@@ -48,11 +47,6 @@ class _AccountInfoViewState extends State<AccountInfoView> {
     );
 
     return Column(children: [
-      DisplayCard(
-        text: nameDisplay,
-        subtitle: "Nome:",
-        showIcon: false,
-      ),
       DisplayCard(
         text: emailDisplay,
         subtitle: "Email:",
