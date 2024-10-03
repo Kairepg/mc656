@@ -42,14 +42,18 @@ class LoginPageState extends State<LoginPage> {
       if (e.code == 'invalid-email' || e.code == 'invalid-credential') {
         snackBar = SnackBars.loginNaoEncontrado();
       }
+      else{
+        snackBar = SnackBars.erroAoLogar();
+      }
     } catch (e) {
       debugPrint(e.toString());
       snackBar = SnackBars.erroAoLogar();
     }
 
-    ScaffoldMessenger.of(context).showSnackBar(snackBar!);
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
     if (_auth!.currentUser != null &&
-        _auth!.currentUser!.email != "teste@teste.com") {
+        _auth!.currentUser!.email != "teste@teste.com" &&
+        _auth!.currentUser!.email != "email_invalido.com") {
       Navigator.pushNamed(context, AppRoutes.home);
     }
   }
