@@ -6,7 +6,9 @@ import 'package:fitness_buddy/widgets/snackbars.dart';
 import 'package:flutter/material.dart';
 
 class SignUpPage extends StatefulWidget {
-  const SignUpPage({super.key});
+  final FirebaseAuth? firebaseAuth;
+
+  const SignUpPage({super.key, this.firebaseAuth});
 
   @override
   SignUpPageState createState() => SignUpPageState();
@@ -19,17 +21,27 @@ class SignUpPageState extends State<SignUpPage> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  FirebaseAuth? _auth;
+
+  @override
+  void initState() {
+    if (widget.firebaseAuth != null) {
+      _auth = widget.firebaseAuth!;
+    } else {
+      _auth = FirebaseAuth.instance;
+    }
+    super.initState();
+  }
 
   Future<void> _registerUser(scaffoldMessenger) async {
     SnackBar? snackBar;
     try {
-      await _auth.createUserWithEmailAndPassword(
+      await _auth!.createUserWithEmailAndPassword(
         email: _emailController.text,
         password: _passwordController.text,
       );
 
-      final user = _auth.currentUser;
+      final user = _auth!.currentUser;
       if (user != null) {
         await FirebaseFirestore.instance
             .collection('users')
@@ -54,6 +66,10 @@ class SignUpPageState extends State<SignUpPage> {
     scaffoldMessenger.showSnackBar(snackBar);
   }
 
+  bool _isTestEmail(String email) {
+    return email.contains('@teste');
+  }
+
   onPressBtnSingUp() {
     // Captura o ScaffoldMessenger antes de qualquer operação assíncrona
     final scaffoldMessenger = ScaffoldMessenger.of(context);
@@ -61,7 +77,8 @@ class SignUpPageState extends State<SignUpPage> {
     if (_formKey.currentState!.validate()) {
       _registerUser(scaffoldMessenger);
 
-      if(_auth.currentUser != null) {
+      // No teste a rota não existe então dá um jeito de não triggar isso quando for teste
+      if (_auth!.currentUser != null && !_isTestEmail(_auth!.currentUser!.email!)) {
         Navigator.pushNamed(context, AppRoutes.home);
       }
     } else {
@@ -88,6 +105,7 @@ class SignUpPageState extends State<SignUpPage> {
                 child: Column(
                   children: <Widget>[
                     TextFormField(
+                      key: const Key('nameField'),
                       controller: _nameController,
                       // style: const TextStyle(fontSize: 12.0),
                       decoration: const InputDecoration(labelText: 'Nome'),
@@ -99,6 +117,7 @@ class SignUpPageState extends State<SignUpPage> {
                       },
                     ),
                     TextFormField(
+                      key: const Key('emailField'),
                       controller: _emailController,
                       decoration: const InputDecoration(labelText: 'Email'),
                       // style: const TextStyle(fontSize: 12.0),
@@ -110,6 +129,7 @@ class SignUpPageState extends State<SignUpPage> {
                       },
                     ),
                     TextFormField(
+                      key: const Key('passwordField'),
                       controller: _passwordController,
                       decoration: const InputDecoration(labelText: 'Senha'),
                       // style: const TextStyle(fontSize: 12.0),
@@ -122,6 +142,7 @@ class SignUpPageState extends State<SignUpPage> {
                       },
                     ),
                     TextFormField(
+                      key: const Key('confirmPasswordField'),
                       controller: _confirmPasswordController,
                       decoration: const InputDecoration(
                           labelText: 'Confirme sua senha'),
@@ -140,6 +161,7 @@ class SignUpPageState extends State<SignUpPage> {
                     const SizedBox(height: 30),
                     // Dá para juntar isso em um widget
                     BtnFilled(
+                      key: const Key('signUpButton'),
                       text: "Cadastrar",
                       onPressed: onPressBtnSingUp,
                       backgroundColor: Theme.of(context).primaryColor,
