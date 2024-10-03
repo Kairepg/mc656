@@ -56,6 +56,62 @@ void main() {
 
       // Verificar se o usuário foi autenticado
       expect(mockFirebaseAuth.currentUser, isNotNull);
+
+      expect(find.text("Login realizado com sucesso"), findsOneWidget);
     },
   );
+
+  testWidgets(
+    'Testando tela de login com Firebase - Login inválido',
+    (WidgetTester tester) async {
+      // Mock do FirebaseAuth
+      final mockFirebaseAuth = MockFirebaseAuth();
+      final mockUser = MockUser(); // Simular um usuário autenticado
+     
+
+      // Configurar o comportamento simulado do login para lançar uma exceção
+      when(mockFirebaseAuth.signInWithEmailAndPassword(
+        email: 'teste@teste.com',
+        password: 'senha_invalida',
+      )).thenThrow(FirebaseAuthException(
+        code: 'invalid-credential'
+      ));
+
+      // Simular que o usuário não está autenticado após o login
+      when(mockFirebaseAuth.currentUser).thenReturn(mockUser);
+
+      when(mockUser.email).thenReturn('teste@teste.com');
+
+      // Construir a tela de login
+      await tester.pumpWidget(
+          MaterialApp(home: LoginPage(firebaseAuth: mockFirebaseAuth)));
+
+      // Encontrar os campos de texto e o botão
+      final emailField = find.byKey(const Key('emailField'));
+      final passwordField = find.byKey(const Key('passwordField'));
+      final loginButton = find.byKey(const Key('loginButton'));
+
+      // Inserir texto nos campos
+      await tester.enterText(emailField, 'teste@teste.com');
+      await tester.enterText(passwordField, 'senha_invalida');
+
+      // Clicar no botão de login
+      await tester.tap(loginButton);
+
+      // Atualizar a tela após o clique
+      await tester.pump();
+
+      // Verificar se o método de login foi chamado
+      verify(mockFirebaseAuth.signInWithEmailAndPassword(
+        email: 'teste@teste.com',
+        password: 'senha_invalida',
+      )).called(1);
+
+      // Verificar se uma mensagem de erro foi exibida
+      //expect(loginPage., "Login inválido");
+      expect(find.text("Login inválido"),findsOneWidget );
+    },
+  );
+
+
 }
