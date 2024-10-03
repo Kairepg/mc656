@@ -32,18 +32,19 @@ class _MenuNavigatorPageState extends State<MenuNavigatorPage> {
         },
         text: 'Informações pessoais',
       ),
-      CardButton(
-        onPressed: () {
-          Navigator.pushNamed(context, '/changeNotifications');
-        },
-        text: 'Ativar notificações',
-      ),
-      CardButton(
-        onPressed: () {
-          Navigator.pushNamed(context, '/deleteAccount');
-        },
-        text: 'Excluir conta',
-      ),
+      //TODO
+      // CardButton(
+      //   onPressed: () {
+      //     Navigator.pushNamed(context, '/changeNotifications');
+      //   },
+      //   text: 'Ativar notificações',
+      // ),
+      // CardButton(
+      //   onPressed: () {
+      //     Navigator.pushNamed(context, '/deleteAccount');
+      //   },
+      //   text: 'Excluir conta',
+      // ),
       CardButton(
         onPressed: () {
           _auth.signOut();
