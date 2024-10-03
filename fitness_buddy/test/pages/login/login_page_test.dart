@@ -62,7 +62,7 @@ void main() {
   );
 
   testWidgets(
-    'Testando tela de login com Firebase - Login inválido',
+    'Login inválido com senha errada',
     (WidgetTester tester) async {
       // Mock do FirebaseAuth
       final mockFirebaseAuth = MockFirebaseAuth();
@@ -110,6 +110,162 @@ void main() {
       // Verificar se uma mensagem de erro foi exibida
       //expect(loginPage., "Login inválido");
       expect(find.text("Login inválido"),findsOneWidget );
+    },
+  );
+
+  testWidgets(
+    'Login inválido com email e senha errada',
+    (WidgetTester tester) async {
+      // Mock do FirebaseAuth
+      final mockFirebaseAuth = MockFirebaseAuth();
+      final mockUser = MockUser(); // Simular um usuário autenticado
+     
+
+      // Configurar o comportamento simulado do login para lançar uma exceção
+      when(mockFirebaseAuth.signInWithEmailAndPassword(
+        email: 'email_invalido.com',
+        password: 'senha_invalida',
+      )).thenThrow(FirebaseAuthException(
+        code: 'invalid-email'
+      ));
+
+      // Simular que o usuário não está autenticado após o login
+      when(mockFirebaseAuth.currentUser).thenReturn(mockUser);
+
+      when(mockUser.email).thenReturn('email_invalido.com');
+
+      // Construir a tela de login
+      await tester.pumpWidget(
+          MaterialApp(home: LoginPage(firebaseAuth: mockFirebaseAuth)));
+
+      // Encontrar os campos de texto e o botão
+      final emailField = find.byKey(const Key('emailField'));
+      final passwordField = find.byKey(const Key('passwordField'));
+      final loginButton = find.byKey(const Key('loginButton'));
+
+      // Inserir texto nos campos
+      await tester.enterText(emailField, 'email_invalido.com');
+      await tester.enterText(passwordField, 'senha_invalida');
+
+      // Clicar no botão de login
+      await tester.tap(loginButton);
+
+      // Atualizar a tela após o clique
+      await tester.pump();
+
+      // Verificar se o método de login foi chamado
+      verify(mockFirebaseAuth.signInWithEmailAndPassword(
+        email: 'email_invalido.com',
+        password: 'senha_invalida',
+      )).called(1);
+
+      // Verificar se uma mensagem de erro foi exibida
+      //expect(loginPage., "Login inválido");
+      expect(find.text("Login inválido"),findsOneWidget );
+    },
+  );
+
+  testWidgets(
+    'Login inválido com email errado',
+    (WidgetTester tester) async {
+      // Mock do FirebaseAuth
+      final mockFirebaseAuth = MockFirebaseAuth();
+      final mockUser = MockUser(); // Simular um usuário autenticado
+     
+
+      // Configurar o comportamento simulado do login para lançar uma exceção
+      when(mockFirebaseAuth.signInWithEmailAndPassword(
+        email: 'email_invalido.com',
+        password: '123456',
+      )).thenThrow(FirebaseAuthException(
+        code: 'invalid-email'
+      ));
+
+      // Simular que o usuário não está autenticado após o login
+      when(mockFirebaseAuth.currentUser).thenReturn(mockUser);
+
+      when(mockUser.email).thenReturn('email_invalido.com');
+
+      // Construir a tela de login
+      await tester.pumpWidget(
+          MaterialApp(home: LoginPage(firebaseAuth: mockFirebaseAuth)));
+
+      // Encontrar os campos de texto e o botão
+      final emailField = find.byKey(const Key('emailField'));
+      final passwordField = find.byKey(const Key('passwordField'));
+      final loginButton = find.byKey(const Key('loginButton'));
+
+      // Inserir texto nos campos
+      await tester.enterText(emailField, 'email_invalido.com');
+      await tester.enterText(passwordField, '123456');
+
+      // Clicar no botão de login
+      await tester.tap(loginButton);
+
+      // Atualizar a tela após o clique
+      await tester.pump();
+
+      // Verificar se o método de login foi chamado
+      verify(mockFirebaseAuth.signInWithEmailAndPassword(
+        email: 'email_invalido.com',
+        password: '123456',
+      )).called(1);
+
+      // Verificar se uma mensagem de erro foi exibida
+      //expect(loginPage., "Login inválido");
+      expect(find.text("Login inválido"),findsOneWidget );
+    },
+  );
+
+  testWidgets(
+    'Login inválido com erro desconhecido',
+    (WidgetTester tester) async {
+      // Mock do FirebaseAuth
+      final mockFirebaseAuth = MockFirebaseAuth();
+      final mockUser = MockUser(); // Simular um usuário autenticado
+     
+
+      // Configurar o comportamento simulado do login para lançar uma exceção
+      when(mockFirebaseAuth.signInWithEmailAndPassword(
+        email: 'email_invalido.com',
+        password: 'senha_invalida',
+      )).thenThrow(FirebaseAuthException(
+        code: 'wrong-password'
+      ));
+
+      // Simular que o usuário não está autenticado após o login
+      when(mockFirebaseAuth.currentUser).thenReturn(mockUser);
+
+      when(mockUser.email).thenReturn('email_invalido.com');
+
+      // Construir a tela de login
+      await tester.pumpWidget(
+          MaterialApp(home: LoginPage(firebaseAuth: mockFirebaseAuth)));
+
+      // Encontrar os campos de texto e o botão
+      final emailField = find.byKey(const Key('emailField'));
+      final passwordField = find.byKey(const Key('passwordField'));
+      final loginButton = find.byKey(const Key('loginButton'));
+
+      // Inserir texto nos campos
+      await tester.enterText(emailField, 'email_invalido.com');
+      await tester.enterText(passwordField, 'senha_invalida');
+
+      // Clicar no botão de login
+      await tester.tap(loginButton);
+
+      // Atualizar a tela após o clique
+      await tester.pump();
+
+      // Verificar se o método de login foi chamado
+      verify(mockFirebaseAuth.signInWithEmailAndPassword(
+        email: 'email_invalido.com',
+        password: 'senha_invalida',
+      )).called(1);
+
+      // Verificar se uma mensagem de erro foi exibida
+      //expect(loginPage., "Login inválido");
+      expect(find.text("Erro ao logar usuário"),findsOneWidget );
     },
   );
 
