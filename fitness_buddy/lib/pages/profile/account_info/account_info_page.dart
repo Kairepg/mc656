@@ -25,7 +25,6 @@ class _AccountInfoViewState extends State<AccountInfoView> {
     });
   }
 
-
   @override
   void initState() {
     final user = _auth.currentUser;
@@ -40,11 +39,9 @@ class _AccountInfoViewState extends State<AccountInfoView> {
     final Stream<QuerySnapshot> usersStream =
         FirebaseFirestore.instance.collection('users').snapshots();
 
-
     return StreamBuilder(
         stream: usersStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          
           Widget emailDisplay = Text(emailId);
           Widget visibility = IconButton(
             onPressed: _togglePasswordView,
@@ -55,9 +52,8 @@ class _AccountInfoViewState extends State<AccountInfoView> {
 
           final userDoc =
               snapshot.data!.docs.firstWhere((doc) => doc.id == emailId);
-          
-          final data = userDoc.data() as Map<String, dynamic>;
 
+          final data = userDoc.data() as Map<String, dynamic>;
 
           if (snapshot.hasData) {
             return Column(children: [
@@ -107,12 +103,52 @@ class AccountInfoChange extends MenuNavigatorPage {
 class _AccountInfoChangeState extends State<AccountInfoChange> {
   final _formKey = GlobalKey<FormState>();
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final TextEditingController _emailController = TextEditingController();
+  // final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   String emailId = '';
   String passwordDisplay = '';
 
+  Future<void> _changeAccountInfo(scaffoldMessenger, documentId) async {
+    SnackBar? snackBar;
+    final user = _auth.currentUser;
+    
+    try {
+      if (user != null) {
+        await user.updatePassword(_passwordController.text);
+        FirebaseFirestore.instance
+            .collection('users')
+            .doc(documentId)
+            .update({"password": _passwordController.text});
+      }
 
+      snackBar = SnackBars.usuarioAtualizado();
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        snackBar = SnackBars.senhaFraca();
+      } else if (e.code == 'email-already-in-use') {
+        snackBar = SnackBars.emailEmUso();
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+      snackBar = SnackBars.erroAoAtualizarUsuario();
+    }
+    scaffoldMessenger.showSnackBar(snackBar);
+  }
+
+  onPressBtnChangeInfo() {
+    // Captura o ScaffoldMessenger antes de qualquer operação assíncrona
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
+    // final null_check = (_formKey.currentState)?.validate();
+    if ((_formKey.currentState)!.validate()) {
+      _changeAccountInfo(scaffoldMessenger, emailId);
+
+      if (_auth.currentUser?.uid != null) {
+        Navigator.pushNamed(context, '/accountInfoView');
+      }
+    } else {
+      scaffoldMessenger.showSnackBar(SnackBars.erroAoAtualizarUsuario());
+    }
+  }
 
   @override
   void initState() {
@@ -127,7 +163,7 @@ class _AccountInfoChangeState extends State<AccountInfoChange> {
   Widget build(BuildContext context) {
     final Stream<QuerySnapshot> usersStream =
         FirebaseFirestore.instance.collection('users').snapshots();
-    Widget emailDisplay = Text(emailId);
+    // Widget emailDisplay = Text(emailId);
 
     return StreamBuilder(
         stream: usersStream,
@@ -138,72 +174,58 @@ class _AccountInfoChangeState extends State<AccountInfoChange> {
               snapshot.data!.docs.firstWhere((doc) => doc.id == emailId);
           final data = userDoc.data() as Map<String, dynamic>;
 
+          _passwordController.text = data['password'];
+
           if (snapshot.hasData) {
             return Column(children: [
               const Icon(Icons.account_circle, size: 100),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 64, vertical: 8),
-                child: TextFormField(
-                    initialValue: '${(emailDisplay as Text).data}',
-                    decoration: const InputDecoration(
-                      border: UnderlineInputBorder(),
-                      labelText: 'E-mail',
+                child: Form(
+                  key: _formKey,
+                  child: Column(children: [
+                    // TextFormField(
+                    //     initialValue: '${(emailDisplay as Text).data}',
+                    //     decoration: const InputDecoration(
+                    //       border: UnderlineInputBorder(),
+                    //       labelText: 'E-mail',
+                    //     ),
+                    //     onChanged: (name) {
+                    //       setState(() {
+                    //         _emailController.text = name;
+                    //       });
+                    //     }),
+                    TextFormField(
+                      controller: _passwordController,
+                      decoration: const InputDecoration(
+                        border: UnderlineInputBorder(),
+                        labelText: 'Senha',
+                      ),
                     ),
-                    onChanged: (name) {
-                      setState(() {
-                        _emailController.text = name;
-                      });
-                    }),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 64, vertical: 8),
-                child: TextFormField(
-                    initialValue: data['password'],
-                    decoration: const InputDecoration(
-                      border: UnderlineInputBorder(),
-                      labelText: 'Senha',
-                    ),
-                    onChanged: (senha) {
-                      setState(() {
-                        _passwordController.text = senha;
-                      });
-                    }),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 64, vertical: 8),
-                child: TextFormField(
-                  decoration: const InputDecoration(
-                    border: UnderlineInputBorder(),
-                    labelText: 'Conta Privada',
-                  ),
+                    const SizedBox(height: 30),
+                    BtnFilled(
+                        text: "Confirmar",
+                        onPressed: () {
+                          if (user != null) {
+                            onPressBtnChangeInfo();
+                          }
+                          Navigator.pushNamed(context, '/accountInfoView');
+                        },
+                        backgroundColor: Theme.of(context).primaryColor,
+                        textColor: Colors.white),
+                    const SizedBox(height: 30),
+                    BtnFilled(
+                        text: "Voltar",
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/accountInfoView');
+                        },
+                        backgroundColor: Colors.white,
+                        textColor: Theme.of(context).primaryColor),
+                    const SizedBox(height: 30)
+                  ]),
                 ),
               ),
-              const SizedBox(height: 30),
-              BtnFilled(
-                  text: "Voltar",
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/accountInfoView');
-                  },
-                  backgroundColor: Colors.white,
-                  textColor: Theme.of(context).primaryColor),
-              const SizedBox(height: 30),
-              BtnFilled(
-                  text: "Confirmar",
-                  onPressed: () {
-                    if (user != null) {
-                      FirebaseFirestore.instance
-                          .collection('users')
-                          .doc(emailId)
-                          .update({'password': _passwordController.text});
-                      user.updatePassword(_passwordController.text);
-                    }
-                    Navigator.pushNamed(context, '/accountInfoView');
-                  },
-                  backgroundColor: Colors.white,
-                  textColor: Theme.of(context).primaryColor)
             ]);
           }
 

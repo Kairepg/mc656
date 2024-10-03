@@ -9,6 +9,22 @@ class SnackBars {
     );
   }
 
+  static SnackBar usuarioAtualizado() {
+    return const SnackBar(
+      backgroundColor: Colors.green,
+      content: Text("Dados do usuário atualizados com sucesso"),
+      duration: Duration(seconds: 2),
+    );
+  }
+
+  static SnackBar erroAoAtualizarUsuario() {
+    return const SnackBar(
+      backgroundColor: Colors.red,
+      content: Text("Erro ao atualizar os dados do usuário"),
+      duration: Duration(seconds: 2),
+    );
+  }
+
   static SnackBar senhaFraca() {
     return const SnackBar(
       backgroundColor: Colors.yellow,
