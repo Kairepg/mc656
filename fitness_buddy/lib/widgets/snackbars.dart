@@ -88,4 +88,20 @@ class SnackBars {
       duration: Duration(seconds: 2),
     );
   }
+
+    static SnackBar loginNaoEncontrado() {
+    return const SnackBar(
+      backgroundColor: Colors.red,
+      content: Text("Login inválido"),
+      duration: Duration(seconds: 2),
+    );
+  }
+
+  static SnackBar dataInvalida() {
+    return const SnackBar(
+      backgroundColor: Colors.red,
+      content: Text("Data de nascimento inválida"),
+      duration: Duration(seconds: 2),
+    );
+  }
 }

@@ -4,15 +4,17 @@ import 'package:fitness_buddy/pages/profile/menu/menu_navigator_page.dart';
 import 'package:fitness_buddy/pages/profile/menu/menu_navigator_view.dart';
 import 'package:fitness_buddy/widgets/snackbars.dart';
 import 'package:flutter/material.dart';
+import 'package:convert/convert.dart';
 
-class PersonalInfoView extends MenuNavigatorPage {
-  const PersonalInfoView({super.key});
+
+class PersonalInfoViewPage extends MenuNavigatorPage {
+  const PersonalInfoViewPage({super.key});
 
   @override
-  State<PersonalInfoView> createState() => _PersonalInfoViewState();
+  State<PersonalInfoViewPage> createState() => _PersonalInfoViewPageState();
 }
 
-class _PersonalInfoViewState extends State<PersonalInfoView> {
+class _PersonalInfoViewPageState extends State<PersonalInfoViewPage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   String emailId = '';
 
@@ -37,8 +39,8 @@ class _PersonalInfoViewState extends State<PersonalInfoView> {
               snapshot.data!.docs.firstWhere((doc) => doc.id == emailId);
           final data = userDoc.data() as Map<String, dynamic>;
 
-          Text displayBirth = const Text("Não informado.");
-          Text displayHeight = const Text("Não informado.");
+          Text displayBirth = const Text("Nï¿½o informado.");
+          Text displayHeight = const Text("Nï¿½o informado.");
           if ((data['birth']) != null) {
             displayBirth = Text(data['birth']);
           }
@@ -87,6 +89,11 @@ class _PersonalInfoViewState extends State<PersonalInfoView> {
   }
 }
 
+
+
+
+
+
 class PersonalInfoChange extends MenuNavigatorPage {
   const PersonalInfoChange({super.key});
 
@@ -102,12 +109,41 @@ class _PersonalInfoChangeState extends State<PersonalInfoChange> {
   final TextEditingController _heightController = TextEditingController();
   String emailId = '';
 
+
+
+  void verifyDateTime(String validade)
+{
+  List<String> validadeSplit = validade.split('/');
+  
+  if(validadeSplit.length > 1)
+  {
+      String day = validadeSplit[0].toString();
+      String month = validadeSplit[1].toString(); 
+      String year = validadeSplit[2].toString();
+      if (int.parse(day) > 31 || int.parse(month) > 12){
+        throw const FormatException();
+      } else if ((int.parse(day)) == 31 && 
+                (((int.parse(month)) < 8 && (int.parse(month)) % 2 == 0) ||
+                ((int.parse(month)) >= 8 && (int.parse(month)) % 2 != 0))){
+        throw const FormatException();    
+          
+      }
+     DateTime.parse('$year-$month-$day 00:00:00.000');
+  }
+  else{
+    throw const FormatException();
+  }
+ 
+}
+
+
   Future<void> _changePersonalInfo(scaffoldMessenger, documentId) async {
     SnackBar? snackBar;
     final user = _auth.currentUser;
 
-    // ainda nao temos exceções para esse tipo de dados
-    // try {
+    try {
+
+    verifyDateTime(_birthController.text);
 
     if (user != null) {
       await FirebaseFirestore.instance
@@ -121,16 +157,9 @@ class _PersonalInfoChangeState extends State<PersonalInfoChange> {
     }
 
     snackBar = SnackBars.usuarioAtualizado();
-    // } on FirebaseAuthException catch (e) {
-    //   if (e.code == 'weak-password') {
-    //     snackBar = SnackBars.senhaFraca();
-    //   } else if (e.code == 'email-already-in-use') {
-    //     snackBar = SnackBars.emailEmUso();
-    //   }
-    // } catch (e) {
-    //   debugPrint(e.toString());
-    //   snackBar = SnackBars.erroAoAtualizarUsuario();
-    // }
+    } on FormatException catch (e) {
+      snackBar = SnackBars.dataInvalida();
+    }
     scaffoldMessenger.showSnackBar(snackBar);
   }
 
@@ -190,6 +219,7 @@ class _PersonalInfoChangeState extends State<PersonalInfoChange> {
                       key: _formKey,
                       child: Column(children: [
                         TextFormField(
+                          key: const Key("nameField"),
                           controller: _nameController,
                           decoration: const InputDecoration(
                             border: UnderlineInputBorder(),
@@ -197,6 +227,7 @@ class _PersonalInfoChangeState extends State<PersonalInfoChange> {
                           ),
                         ),
                         TextFormField(
+                          key: const Key("birthField"),
                           controller: _birthController,
                           decoration: const InputDecoration(
                             border: UnderlineInputBorder(),
@@ -204,6 +235,7 @@ class _PersonalInfoChangeState extends State<PersonalInfoChange> {
                           ),
                         ),
                         TextFormField(
+                          key: const Key("heightField"),
                           controller: _heightController,
                           decoration: const InputDecoration(
                             border: UnderlineInputBorder(),
@@ -212,6 +244,7 @@ class _PersonalInfoChangeState extends State<PersonalInfoChange> {
                         ),
                         const SizedBox(height: 30),
                         BtnFilled(
+                            key: const Key('confirmButton'),
                             text: "Confirmar",
                             onPressed: () {
                               if (user != null) {
