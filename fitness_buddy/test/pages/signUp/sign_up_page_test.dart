@@ -52,7 +52,7 @@ void main() {
       // // Atualizar a tela após o clique
       await tester.pump();
 
-      // Verificar se o método de login foi chamado
+      // Verificar se o método de cadastro foi chamado
       verify(mockFirebaseAuth.createUserWithEmailAndPassword(
         email: 'testadastro@teste.com',
         password: 'senha12345',
@@ -60,6 +60,99 @@ void main() {
 
       // Verificar se o usuário foi autenticado
       expect(mockFirebaseAuth.currentUser, isNotNull);
+
+      expect(find.text("Usuário cadastrado com sucesso"), findsOneWidget);
+    },
+  );
+
+  testWidgets(
+    'Cadastro inválido com confirmação de senha diferente',
+    (WidgetTester tester) async {
+      // Mock do FirebaseAuth
+      final mockFirebaseAuth = MockFirebaseAuth();
+      
+      // Construir a tela de cadastro
+      await tester.pumpWidget(
+          MaterialApp(home: SignUpPage(firebaseAuth: mockFirebaseAuth)));
+
+      // Encontrar os campos de texto e o botão
+      final nameField = find.byKey(const Key('nameField'));
+      final emailField = find.byKey(const Key('emailField'));
+      final passwordField = find.byKey(const Key('passwordField'));
+      final confirmPasswordField = find.byKey(const Key('confirmPasswordField'));
+      final signUpButton = find.byKey(const Key('signUpButton'));
+
+      // Inserir texto nos campos
+      await tester.enterText(nameField, 'Testadastro');
+      await tester.enterText(emailField, 'testadastro@teste.com');
+      await tester.enterText(passwordField, 'senha12345');
+      await tester.enterText(confirmPasswordField, 'senha54321');
+
+      // Clicar no botão de cadastro
+      await tester.tap(signUpButton);
+
+      // Atualizar a tela após o clique
+      await tester.pump();
+
+      // Verificar se o método de cadastro NÃO foi chamado
+      verifyNever(mockFirebaseAuth.createUserWithEmailAndPassword(
+        email: 'testadastro@teste.com',
+        password: 'senha12345',
+      ));
+
+      // Verificar se a mensagem de erro é exibida
+      expect(find.text('As senhas não coincidem'), findsOneWidget);
+    },
+  );
+
+  testWidgets(
+    'Cadastro inválido com e-mail já utilizado',
+    (WidgetTester tester) async {
+      // Mock do FirebaseAuth
+      final mockFirebaseAuth = MockFirebaseAuth();
+      final mockUser = MockUser();
+
+      // Configurar o comportamento simulado do cadastro com erro de e-mail já em uso
+      when(mockFirebaseAuth.createUserWithEmailAndPassword(
+        email: 'testexistente@teste.com',
+        password: 'senha12345',
+      )).thenThrow(FirebaseAuthException(code: 'email-already-in-use'));
+
+      when(mockFirebaseAuth.currentUser).thenReturn(mockUser);
+      when(mockUser.email).thenReturn('testexistente@teste.com');
+
+      // Construir a tela de cadastro
+      await tester.pumpWidget(
+          MaterialApp(home: SignUpPage(firebaseAuth: mockFirebaseAuth)));
+
+      // Encontrar os campos de texto e o botão
+      final nameField = find.byKey(const Key('nameField'));
+      final emailField = find.byKey(const Key('emailField'));
+      final passwordField = find.byKey(const Key('passwordField'));
+      final confirmPasswordField = find.byKey(const Key('confirmPasswordField'));
+      final signUpButton = find.byKey(const Key('signUpButton'));
+
+      // Inserir texto nos campos
+      await tester.enterText(nameField, 'Testexistente');
+      await tester.enterText(emailField, 'testexistente@teste.com');
+      await tester.enterText(passwordField, 'senha12345');
+      await tester.enterText(confirmPasswordField, 'senha12345');
+
+      // Clicar no botão de cadastro
+      await tester.tap(signUpButton);
+
+      // Atualizar a tela após o clique
+      await tester.pump();
+
+      // Verificar se o método de cadastro foi chamado
+      verify(mockFirebaseAuth.createUserWithEmailAndPassword(
+        email: 'testexistente@teste.com',
+        password: 'senha12345',
+      )).called(1);
+
+      // Verificar se a mensagem de erro é exibida
+      // Brother eu fiz 37 testes errados e o problema era que tava escrito "e-mail" kkkkkkkk
+      expect(find.text('O email já está em uso'), findsOneWidget);
     },
   );
 }

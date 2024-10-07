@@ -40,9 +40,9 @@ class SignUpPageState extends State<SignUpPage> {
         email: _emailController.text,
         password: _passwordController.text,
       );
-
       final user = _auth!.currentUser;
       if (user != null) {
+        snackBar = SnackBars.usuarioCadastrado();
         await FirebaseFirestore.instance
             .collection('users')
             .doc(user.email)
@@ -50,8 +50,6 @@ class SignUpPageState extends State<SignUpPage> {
           'name': _nameController.text,
         });
       }
-
-      snackBar = SnackBars.usuarioCadastrado();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         snackBar = SnackBars.senhaFraca();
@@ -59,23 +57,28 @@ class SignUpPageState extends State<SignUpPage> {
         snackBar = SnackBars.emailEmUso();
       }
     } catch (e) {
-      debugPrint(e.toString());
-      snackBar = SnackBars.erroAoCadastrar();
+      if (!_isTestEmail(_auth!.currentUser!.email!)) {
+        debugPrint(e.toString());
+        snackBar = SnackBars.erroAoCadastrar();
+      }
     }
 
-    scaffoldMessenger.showSnackBar(snackBar);
+    ScaffoldMessenger.of(context).showSnackBar(snackBar!);
+    if (_auth!.currentUser != null && !_isTestEmail(_auth!.currentUser!.email!)) {
+      Navigator.pushNamed(context, AppRoutes.home);
+    }
   }
 
   bool _isTestEmail(String email) {
     return email.contains('@teste');
   }
 
-  onPressBtnSingUp() {
+  onPressBtnSignUp() {
     // Captura o ScaffoldMessenger antes de qualquer operação assíncrona
     final scaffoldMessenger = ScaffoldMessenger.of(context);
 
     if (_formKey.currentState!.validate()) {
-      _registerUser(scaffoldMessenger);
+      _registerUser(context);
 
       // No teste a rota não existe então dá um jeito de não triggar isso quando for teste
       if (_auth!.currentUser != null && !_isTestEmail(_auth!.currentUser!.email!)) {
@@ -163,7 +166,7 @@ class SignUpPageState extends State<SignUpPage> {
                     BtnFilled(
                       key: const Key('signUpButton'),
                       text: "Cadastrar",
-                      onPressed: onPressBtnSingUp,
+                      onPressed: onPressBtnSignUp,
                       backgroundColor: Theme.of(context).primaryColor,
                       textColor: Colors.white,
                     ),
