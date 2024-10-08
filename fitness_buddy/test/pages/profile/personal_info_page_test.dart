@@ -1,63 +1,28 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fitness_buddy/main.dart';
-// import 'package:fitness_buddy/pages/login/login_page.dart';
-import 'package:fitness_buddy/pages/profile/personal_info/personal_info_page.dart';
+import 'package:fitness_buddy/pages/profile/personal_info/personal_info_change_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:firebase_core/firebase_core.dart';
+
 import 'personal_info_page_test.mocks.dart';
 
-// class MockDocumentReference extends Mock
-//     implements DocumentReference<Map<String, dynamic>> {}
-
-// class MockCollectionReference extends Mock
-//     implements CollectionReference<Map<String, dynamic>> {}
-
-// class MockDocumentSnapshot extends Mock
-//     implements DocumentSnapshot<Map<String, dynamic>> {
-//   // @override
-//   // Map<String, dynamic>? data() {
-//   //     String newName = "nomeAntigo";
-//   //     String newBirth = "01/01/2001";
-//   //     String newHeight = "1.80";
-
-//   //   Map<String, dynamic> newData = {
-//   //       'name': newName,
-//   //       'height': newHeight,
-//   //       'birth': newBirth
-//   //     };
-
-//   //   return newData;
-//   // }
-
-//   // @override
-//   // String get id => 'teste@teste.com';
-// }
-
-// Gerar mocks para FirebaseAuth
-@GenerateMocks([FirebaseAuth, User, UserCredential, FirebaseFirestore, CollectionReference, DocumentReference, DocumentSnapshot ])
+@GenerateMocks([
+  FirebaseAuth,
+  User,
+  FirebaseFirestore,
+  CollectionReference,
+  DocumentReference,
+  DocumentSnapshot
+])
 void main() {
   final mockFirebaseAuth = MockFirebaseAuth();
   late MockFirebaseFirestore mockFirestore;
-  late MockCollectionReference mockCollectionReference;
-  late MockDocumentReference mockDocumentReference;
-  late MockDocumentSnapshot mockDocumentSnapshot;
-
-  // final mockUserCredential = MockUserCredential();
+  late MockCollectionReference<Map<String, dynamic>> mockCollectionReference;
+  late MockDocumentReference<Map<String, dynamic>> mockDocumentReference;
+  late MockDocumentSnapshot<Map<String, dynamic>> mockDocumentSnapshot;
   final mockUser = MockUser(); // Simular um usuário autenticado
-  // // final mockFirebaseFirestore = MockFirebaseFirestore();
-  // final mockCollectionReference = MockCollectionReference();
-  // final mockDocumentReference = MockDocumentReference();
-
-// Simular que o usuário está autenticado após o cadastro
-  when(mockFirebaseAuth.currentUser).thenReturn(mockUser);
-  // Simular o comportamento do email do usuário
-  when(mockUser.email).thenReturn('testadastro@teste.com');
-
 
   const String collectionPath = 'users';
   String? documentPath = 'teste@teste.com';
@@ -68,84 +33,81 @@ void main() {
     'birth': '01/01/2001'
   };
 
+  when(mockFirebaseAuth.currentUser).thenReturn(mockUser);
+  when(mockUser.email).thenReturn(documentPath);
+  when(mockUser.uid).thenReturn("test");
+
   setUp(() {
-  mockFirestore = MockFirebaseFirestore();
-
-  mockCollectionReference = MockCollectionReference();
-
-  mockDocumentReference = MockDocumentReference();
-
+    mockFirestore = MockFirebaseFirestore();
+    mockDocumentReference = MockDocumentReference();
+    mockCollectionReference = MockCollectionReference();
+    mockDocumentSnapshot = MockDocumentSnapshot();
   });
 
   testWidgets(
-    'Testando alterações pessoais com Firebase',
+    'Testando visualização de dados pessoais com Firebase',
     (WidgetTester tester) async {
-      String newName = "nomeAntigo";
-      String newBirth = "01/01/2001";
-      String newHeight = "1.80";
+      String newName = "novoNome";
+      String newBirth = "01/01/2005";
+      String newHeight = "1.70";
 
-      Map<String, dynamic> newData = {
-        'name': newName,
-        'height': newHeight,
-        'birth': newBirth
-      };
-
-      when(mockFirestore.collection(collectionPath).snapshots())
+      // Configuração dos mocks
+      when(mockFirestore.collection(collectionPath))
           .thenReturn(mockCollectionReference);
+      when(mockCollectionReference.doc(documentPath))
+          .thenReturn(mockDocumentReference);
+      when(mockDocumentReference.get())
+          .thenAnswer((_) async => mockDocumentSnapshot);
+      when(mockDocumentSnapshot.data()).thenReturn(data);
 
-      when(mockCollectionReference.doc(documentPath)).thenReturn(mockDocumentReference);
-
-      // when(mockDocumentReference.set(data)).thenReturn());
-      await mockDocumentReference.set(data);
-      // when(mockDocumentSnapshot.data()).thenReturn(newData);
-
-      // when(mockDocumentSnapshot.id).thenReturn(documentPath);
-
-      // when(mockFirestore.doc(documentPath)).thenReturn(mockDocumentReference);
-
-      // when(mockDocumentReference.get()).thenAnswer((_) async => mockDocumentSnapshot);
-
-      // when(mockDocumentReference.update(newData)).thenAnswer((_) async {});
-
-      //     when(mockFirestore.collection(collectionPath).doc(documentPath).set(
-      //   data
-      // )).thenAnswer((_) async {});
-
+      // Aqui você está incluindo um Scaffold para garantir que a tela renderize corretamente
       await tester.pumpWidget(MaterialApp(
-        home: PersonalInfoChange(
+        home: Scaffold(
+          body: PersonalInfoChangePage(
             firebaseAuth: mockFirebaseAuth,
-            firebaseInstance: mockFirestore), // Pass the mock Firestore
+            firebaseInstance: mockFirestore, // Pass the mock Firestore
+          ),
+        ),
       ));
 
+      expect(find.text('Loading'), findsOneWidget);
+
+      await tester.pumpAndSettle();
+
+      // Localizando os campos e o botão
       final nameField = find.byKey(const Key('nameField'));
       final birthField = find.byKey(const Key('birthField'));
       final heightField = find.byKey(const Key('heightField'));
       final confirmButton = find.byKey(const Key('confirmButton'));
 
-      // // Inserir texto nos campos
+      // Verificar se os campos existem
+      expect(nameField, findsOneWidget);
+      expect(birthField, findsOneWidget);
+      expect(heightField, findsOneWidget);
+
+      // Inserir texto nos campos
       await tester.enterText(nameField, newName);
       await tester.enterText(birthField, newBirth);
       await tester.enterText(heightField, newHeight);
 
-      // // Clicar no botão de login
+      // Clicar no botão de confirmação
       await tester.tap(confirmButton);
 
-      // // // Atualizar a tela após o clique
-      await tester.pump();
+      // Atualizar a tela após o clique
+      await tester
+          .pumpAndSettle(); // Garantir que todas as animações e mudanças de estado terminem
 
-      // verify(mockDocumentReference.update(newData));
-
+      // Verificar se o SnackBar foi exibido
       expect(find.text('Dados do usuário atualizados com sucesso'),
           findsOneWidget);
 
-      // //
-      // final DocumentSnapshot<Map<String, dynamic>> documentSnapshot =
-      //     await firestore.collection(collectionPath).doc(documentPath).get();
-      // final Map<String, dynamic> newData = documentSnapshot.data()!;
+      // Mensagens de log para diagnóstico
+      debugPrint("Nome atualizado: $newName");
+      debugPrint("Nascimento atualizado: $newBirth");
+      debugPrint("Altura atualizada: $newHeight");
 
-      // expect(newData as Future<void>, data);
-      // expect(newData['name'], data['name']);
-      // expect(newData['name'], data['name']);
+      // Verificar se o SnackBar realmente foi exibido (diagnóstico extra)
+      expect(find.byType(SnackBar), findsOneWidget);
     },
   );
 }

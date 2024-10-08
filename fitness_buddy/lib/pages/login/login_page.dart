@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitness_buddy/pages/login/login_view.dart';
 import 'package:fitness_buddy/routes/routes.dart';
+import 'package:fitness_buddy/widgets/buttons.dart';
 import 'package:fitness_buddy/widgets/snackbars.dart';
 import 'package:flutter/material.dart';
 
@@ -109,7 +110,7 @@ class LoginPageState extends State<LoginPage> {
                       },
                     ),
                     const SizedBox(height: 132),
-                    // Dá para juntar isso em um widget
+                    // Dá para junior isso em um widget
                     BtnFilled(
                       key: const Key("loginButton"),
                       text: "Entrar",

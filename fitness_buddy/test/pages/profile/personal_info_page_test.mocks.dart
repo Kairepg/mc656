@@ -1133,15 +1133,6 @@ class MockUser extends _i1.Mock implements _i4.User {
       ) as _i7.Future<void>);
 }
 
-/// A class which mocks [UserCredential].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockUserCredential extends _i1.Mock implements _i4.UserCredential {
-  MockUserCredential() {
-    _i1.throwOnMissingStub(this);
-  }
-}
-
 /// A class which mocks [FirebaseFirestore].
 ///
 /// See the documentation for Mockito's code generation for more information.

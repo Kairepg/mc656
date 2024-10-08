@@ -39,6 +39,8 @@ dependencies:
   firebase_auth: ^5.3.0
   flutter_svg: ^2.0.10+1
   cloud_firestore: ^5.4.2
+
+  # Packages para test
   mockito: ^5.3.0  # Certifique-se de verificar a versão mais recente
   build_runner: ^2.1.0
 

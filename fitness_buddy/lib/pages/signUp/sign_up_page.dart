@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitness_buddy/pages/signUp/sign_up_view.dart';
 import 'package:fitness_buddy/routes/routes.dart';
+import 'package:fitness_buddy/widgets/buttons.dart';
 import 'package:fitness_buddy/widgets/snackbars.dart';
 import 'package:flutter/material.dart';
 

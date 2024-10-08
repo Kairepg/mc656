@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fitness_buddy/pages/profile/account_info/account_info_view.dart';
 import 'package:fitness_buddy/pages/profile/menu/menu_navigator_page.dart';
 import 'package:fitness_buddy/pages/profile/menu/menu_navigator_view.dart';
+import 'package:fitness_buddy/widgets/buttons.dart';
 import 'package:fitness_buddy/widgets/snackbars.dart';
 import 'package:flutter/material.dart';
 
