@@ -33,7 +33,7 @@ class SignUpPageState extends State<SignUpPage> {
     super.initState();
   }
 
-  Future<void> _registerUser(scaffoldMessenger) async {
+  Future<void> _registerUser(context, scaffoldMessenger) async {
     SnackBar? snackBar;
     try {
       await _auth!.createUserWithEmailAndPassword(
@@ -63,6 +63,7 @@ class SignUpPageState extends State<SignUpPage> {
       }
     }
 
+    // TODO - Isso ainda é uma má prática mas por enquanto é oq temos  
     ScaffoldMessenger.of(context).showSnackBar(snackBar!);
     if (_auth!.currentUser != null && !_isTestEmail(_auth!.currentUser!.email!)) {
       Navigator.pushNamed(context, AppRoutes.home);
@@ -78,7 +79,7 @@ class SignUpPageState extends State<SignUpPage> {
     final scaffoldMessenger = ScaffoldMessenger.of(context);
 
     if (_formKey.currentState!.validate()) {
-      _registerUser(context);
+      _registerUser(context, scaffoldMessenger);
 
       // No teste a rota não existe então dá um jeito de não triggar isso quando for teste
       if (_auth!.currentUser != null && !_isTestEmail(_auth!.currentUser!.email!)) {
