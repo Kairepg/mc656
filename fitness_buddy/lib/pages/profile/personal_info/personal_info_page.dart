@@ -7,19 +7,35 @@ import 'package:flutter/material.dart';
 import 'package:convert/convert.dart';
 
 
-class PersonalInfoViewPage extends MenuNavigatorPage {
-  const PersonalInfoViewPage({super.key});
+class PersonalInfoViewPage extends MenuNavigatorPage 
+{
+  final FirebaseAuth? firebaseAuth;
+  final FirebaseFirestore? firebaseInstance;
+  const PersonalInfoViewPage({super.key, this.firebaseAuth, this.firebaseInstance,});
 
   @override
   State<PersonalInfoViewPage> createState() => _PersonalInfoViewPageState();
 }
 
 class _PersonalInfoViewPageState extends State<PersonalInfoViewPage> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  FirebaseAuth _auth = FirebaseAuth.instance;
+  FirebaseFirestore users = FirebaseFirestore.instance;
   String emailId = '';
 
   @override
   void initState() {
+
+    if (widget.firebaseAuth != null) {
+      _auth = widget.firebaseAuth!;
+    } else {
+      _auth = FirebaseAuth.instance;
+    }
+    
+    if (widget.firebaseInstance != null) {
+      users = widget.firebaseInstance!;
+    } else {
+      users = users;
+    }
     final user = _auth.currentUser;
     if (user != null) {
       emailId = user.email ?? '';
@@ -30,7 +46,7 @@ class _PersonalInfoViewPageState extends State<PersonalInfoViewPage> {
   @override
   Widget build(BuildContext context) {
     final Stream<QuerySnapshot> usersStream =
-        FirebaseFirestore.instance.collection('users').snapshots();
+        users.collection('users').snapshots();
 
     return StreamBuilder(
         stream: usersStream,
@@ -95,7 +111,10 @@ class _PersonalInfoViewPageState extends State<PersonalInfoViewPage> {
 
 
 class PersonalInfoChange extends MenuNavigatorPage {
-  const PersonalInfoChange({super.key});
+  final FirebaseAuth? firebaseAuth;
+  final FirebaseFirestore? firebaseInstance;
+  const PersonalInfoChange({super.key, this.firebaseAuth, this.firebaseInstance});
+  
 
   @override
   State<PersonalInfoChange> createState() => _PersonalInfoChangeState();
@@ -103,11 +122,12 @@ class PersonalInfoChange extends MenuNavigatorPage {
 
 class _PersonalInfoChangeState extends State<PersonalInfoChange> {
   final _formKey = GlobalKey<FormState>();
-  final FirebaseAuth _auth = FirebaseAuth.instance;
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _birthController = TextEditingController();
   final TextEditingController _heightController = TextEditingController();
   String emailId = '';
+  FirebaseAuth? _auth;
+  FirebaseFirestore? users;
 
 
 
@@ -137,18 +157,18 @@ class _PersonalInfoChangeState extends State<PersonalInfoChange> {
 }
 
 
-  Future<void> _changePersonalInfo(scaffoldMessenger, documentId) async {
+  Future<void> _changePersonalInfo(scaffoldMessenger) async {
     SnackBar? snackBar;
-    final user = _auth.currentUser;
+    final user = _auth!.currentUser;
 
     try {
 
     verifyDateTime(_birthController.text);
 
     if (user != null) {
-      await FirebaseFirestore.instance
+      await users!
           .collection('users')
-          .doc(documentId)
+          .doc(emailId)
           .update({
         "name": _nameController.text,
         "birth": _birthController.text,
@@ -168,9 +188,9 @@ class _PersonalInfoChangeState extends State<PersonalInfoChange> {
     final scaffoldMessenger = ScaffoldMessenger.of(context);
     // final null_check = (_formKey.currentState)?.validate();
     if ((_formKey.currentState)!.validate()) {
-      _changePersonalInfo(scaffoldMessenger, emailId);
+      _changePersonalInfo(scaffoldMessenger);
 
-      if (_auth.currentUser?.uid != null) {
+      if (_auth!.currentUser?.uid != null) {
         Navigator.pushNamed(context, '/personalInfoView');
       }
     } else {
@@ -180,22 +200,38 @@ class _PersonalInfoChangeState extends State<PersonalInfoChange> {
 
   @override
   void initState() {
-    final user = _auth.currentUser;
+    if (widget.firebaseAuth != null) {
+      _auth = widget.firebaseAuth!;
+    } else {
+      _auth = FirebaseAuth.instance;
+    }
+    
+    if (widget.firebaseInstance != null) {
+      users = widget.firebaseInstance!;
+    } else {
+      users = users;
+    }
+
+    final user = _auth!.currentUser;
     if (user != null) {
       emailId = user.email ?? '';
     }
+
+
+
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     final Stream<QuerySnapshot> usersStream =
-        FirebaseFirestore.instance.collection('users').snapshots();
+        users!.collection('users').snapshots();
 
     return StreamBuilder(
         stream: usersStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          final user = _auth.currentUser;
+          final user = _auth!.currentUser;
           final userDoc =
               snapshot.data!.docs.firstWhere((doc) => doc.id == emailId);
           final data = userDoc.data() as Map<String, dynamic>;
