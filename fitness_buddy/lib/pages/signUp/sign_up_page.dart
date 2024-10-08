@@ -33,7 +33,7 @@ class SignUpPageState extends State<SignUpPage> {
     super.initState();
   }
 
-  Future<void> _registerUser(context, scaffoldMessenger) async {
+  Future<void> _registerUser(context) async {
     SnackBar? snackBar;
     try {
       await _auth!.createUserWithEmailAndPassword(
@@ -79,7 +79,7 @@ class SignUpPageState extends State<SignUpPage> {
     final scaffoldMessenger = ScaffoldMessenger.of(context);
 
     if (_formKey.currentState!.validate()) {
-      _registerUser(context, scaffoldMessenger);
+      _registerUser(context);
 
       // No teste a rota não existe então dá um jeito de não triggar isso quando for teste
       if (_auth!.currentUser != null && !_isTestEmail(_auth!.currentUser!.email!)) {
