@@ -173,8 +173,9 @@ class _PersonalInfoChangePageState extends State<PersonalInfoChangePage> {
                             if (user != null) {
                               onPressBtnChangeInfo();
                             }
-                            if(_auth!.currentUser?.email != "teste@teste.com")
+                            if(_auth!.currentUser?.email != "teste@teste.com") {
                               Navigator.pushNamed(context, '/personalInfoView');
+                            }
                           },
                           backgroundColor: Theme.of(context).primaryColor,
                           textColor: Colors.white),

@@ -48,7 +48,7 @@ class _MenuNavigatorPageState extends State<MenuNavigatorPage> {
       CardButton(
         onPressed: () {
           _auth.signOut();
-          Navigator.pushNamed(widget.contextRotasTema!, AppRoutes.login);
+          Navigator.pushReplacementNamed(widget.contextRotasTema!, AppRoutes.login);
         },
         text: 'Logout',
       ),

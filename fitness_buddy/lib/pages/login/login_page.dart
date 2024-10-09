@@ -19,6 +19,7 @@ class LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   FirebaseAuth? _auth;
+  bool _isLoading = false;
 
   @override
   void initState() {
@@ -31,6 +32,10 @@ class LoginPageState extends State<LoginPage> {
   }
 
   Future<void> _loginUser(context) async {
+    setState(() {
+      _isLoading = true;
+    });
+
     SnackBar? snackBar;
     try {
       await _auth!.signInWithEmailAndPassword(
@@ -48,6 +53,10 @@ class LoginPageState extends State<LoginPage> {
       snackBar = SnackBars.erroAoLogar();
     }
 
+    setState(() {
+      _isLoading = false;
+    });
+
     ScaffoldMessenger.of(context).showSnackBar(snackBar!);
     if (_auth!.currentUser != null &&
         _auth!.currentUser!.email != "teste@teste.com") {
@@ -56,7 +65,8 @@ class LoginPageState extends State<LoginPage> {
   }
 
   onPressBtnLogin() {
-    // Captura o ScaffoldMessenger antes de qualquer operação assíncrona
+    if (_isLoading) return;
+
     final scaffoldMessenger = ScaffoldMessenger.of(context);
 
     if (_formKey.currentState!.validate()) {
@@ -71,6 +81,7 @@ class LoginPageState extends State<LoginPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(''),
+        leading: Container(),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -88,7 +99,6 @@ class LoginPageState extends State<LoginPage> {
                       key: const Key("emailField"),
                       controller: _emailController,
                       decoration: const InputDecoration(labelText: 'Email'),
-                      // style: const TextStyle(fontSize: 12.0),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Por favor insira seu email';
@@ -100,7 +110,6 @@ class LoginPageState extends State<LoginPage> {
                       key: const Key("passwordField"),
                       controller: _passwordController,
                       decoration: const InputDecoration(labelText: 'Senha'),
-                      // style: const TextStyle(fontSize: 12.0),
                       obscureText: true,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -110,14 +119,15 @@ class LoginPageState extends State<LoginPage> {
                       },
                     ),
                     const SizedBox(height: 132),
-                    // Dá para junior isso em um widget
-                    BtnFilled(
-                      key: const Key("loginButton"),
-                      text: "Entrar",
-                      onPressed: onPressBtnLogin,
-                      backgroundColor: Theme.of(context).primaryColor,
-                      textColor: Colors.white,
-                    ),
+                    _isLoading
+                        ? const CircularProgressIndicator()
+                        : BtnFilled(
+                            key: const Key("loginButton"),
+                            text: "Entrar",
+                            onPressed: onPressBtnLogin,
+                            backgroundColor: Theme.of(context).primaryColor,
+                            textColor: Colors.white,
+                          ),
                     const SizedBox(height: 20),
                     const Text("Não tem uma conta?",
                         style: TextStyle(color: Colors.grey, fontSize: 12)),

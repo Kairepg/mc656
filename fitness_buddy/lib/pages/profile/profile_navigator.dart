@@ -1,3 +1,4 @@
+import 'package:fitness_buddy/pages/profile/account_info/account_info_change_page.dart';
 import 'package:fitness_buddy/pages/profile/account_info/account_info_page.dart';
 import 'package:fitness_buddy/pages/profile/delete_account/delete_account_page.dart';
 import 'package:fitness_buddy/pages/profile/menu/menu_navigator_page.dart';
@@ -15,6 +16,14 @@ class ProfileNavigator extends StatefulWidget {
 GlobalKey<NavigatorState> _profileNavigatorKey = GlobalKey<NavigatorState>();
 
 class _ProfileNavigatorState extends State<ProfileNavigator> {
+  BuildContext? contexto;
+
+  @override
+  void initState() {
+    super.initState();
+    contexto = context;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Navigator(
@@ -27,9 +36,9 @@ class _ProfileNavigatorState extends State<ProfileNavigator> {
                 case '/menu':
                   return MenuNavigatorPage(contextRotasTema: context);
                 case '/accountInfoView':
-                  return const AccountInfoView();
+                  return const AccountInfoViewPage();
                 case '/accountInfoChange':
-                  return const AccountInfoChange();
+                  return const AccountInfoChangePage();
                 case '/personalInfoView':
                   return const PersonalInfoViewPage();
                 case '/personalInfoChange':
@@ -39,7 +48,7 @@ class _ProfileNavigatorState extends State<ProfileNavigator> {
                 case '/changeNotifications':
                   return const ChangeNotifications();
                 default:
-                  return MenuNavigatorPage(contextRotasTema: context);
+                  return MenuNavigatorPage(contextRotasTema: contexto);
               }
             });
       },

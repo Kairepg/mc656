@@ -4,6 +4,7 @@ import 'package:fitness_buddy/pages/signUp/sign_up_page.dart';
 import 'package:flutter/material.dart';
 
 class AppRoutes {
+  static const String splashScreen = '/';
   static const String login = '/login';
   static const String register = '/register';
   static const String home = '/home';
