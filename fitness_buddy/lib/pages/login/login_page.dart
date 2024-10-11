@@ -19,7 +19,6 @@ class LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   FirebaseAuth? _auth;
-  bool _isLoading = false;
 
   @override
   void initState() {
@@ -32,10 +31,6 @@ class LoginPageState extends State<LoginPage> {
   }
 
   Future<void> _loginUser(context) async {
-    setState(() {
-      _isLoading = true;
-    });
-
     SnackBar? snackBar;
     try {
       await _auth!.signInWithEmailAndPassword(
@@ -48,25 +43,23 @@ class LoginPageState extends State<LoginPage> {
       if (e.code == 'invalid-email' || e.code == 'invalid-credential') {
         snackBar = SnackBars.loginNaoEncontrado();
       }
+      else{
+        snackBar = SnackBars.erroAoLogar();
+      }
     } catch (e) {
       debugPrint(e.toString());
       snackBar = SnackBars.erroAoLogar();
     }
 
-    setState(() {
-      _isLoading = false;
-    });
-
-    ScaffoldMessenger.of(context).showSnackBar(snackBar!);
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
     if (_auth!.currentUser != null &&
-        _auth!.currentUser!.email != "teste@teste.com") {
+        _auth!.currentUser!.email != "teste@teste.com" &&
+        _auth!.currentUser!.email != "email_invalido.com") {
       Navigator.pushNamed(context, AppRoutes.home);
     }
   }
 
   onPressBtnLogin() {
-    if (_isLoading) return;
-
     final scaffoldMessenger = ScaffoldMessenger.of(context);
 
     if (_formKey.currentState!.validate()) {
@@ -119,15 +112,14 @@ class LoginPageState extends State<LoginPage> {
                       },
                     ),
                     const SizedBox(height: 132),
-                    _isLoading
-                        ? const CircularProgressIndicator()
-                        : BtnFilled(
-                            key: const Key("loginButton"),
-                            text: "Entrar",
-                            onPressed: onPressBtnLogin,
-                            backgroundColor: Theme.of(context).primaryColor,
-                            textColor: Colors.white,
-                          ),
+                    // Dá para juntar isso em um widget
+                    BtnFilled(
+                      key: const Key("loginButton"),
+                      text: "Entrar",
+                      onPressed: onPressBtnLogin,
+                      backgroundColor: Theme.of(context).primaryColor,
+                      textColor: Colors.white,
+                    ),
                     const SizedBox(height: 20),
                     const Text("Não tem uma conta?",
                         style: TextStyle(color: Colors.grey, fontSize: 12)),

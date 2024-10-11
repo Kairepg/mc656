@@ -81,18 +81,10 @@ class SnackBars {
     );
   }
 
-  static SnackBar emailNaoEncontrado() {
+  static SnackBar loginNaoEncontrado() {
     return const SnackBar(
       backgroundColor: Colors.red,
-      content: Text("Email inválido"),
-      duration: Duration(seconds: 2),
-    );
-  }
-
-  static SnackBar senhaErrada() {
-    return const SnackBar(
-      backgroundColor: Colors.red,
-      content: Text("Senha incorreta"),
+      content: Text("Login inválido"),
       duration: Duration(seconds: 2),
     );
   }
@@ -101,14 +93,6 @@ class SnackBars {
     return const SnackBar(
       backgroundColor: Colors.red,
       content: Text("Erro ao logar usuário"),
-      duration: Duration(seconds: 2),
-    );
-  }
-
-    static SnackBar loginNaoEncontrado() {
-    return const SnackBar(
-      backgroundColor: Colors.red,
-      content: Text("Login inválido"),
       duration: Duration(seconds: 2),
     );
   }
