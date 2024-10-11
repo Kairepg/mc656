@@ -1,5 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:fitness_buddy/pages/login/login_page.dart';
+import 'package:fitness_buddy/pages/splash/splash_page.dart';
 import 'package:fitness_buddy/routes/routes.dart';
 import 'package:fitness_buddy/services/firebase_options.dart';
 import 'package:fitness_buddy/utils/constants.dart';
@@ -28,9 +28,9 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFFF56606)),
         useMaterial3: true,
       ),
-      initialRoute: AppRoutes.login,
+      initialRoute: AppRoutes.splashScreen,
       onGenerateRoute: generateRoute,
-      home: const LoginPage(),
+      home: const SplashPage(),
     );
   }
 }

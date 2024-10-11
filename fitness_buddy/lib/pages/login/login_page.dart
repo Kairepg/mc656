@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitness_buddy/pages/login/login_view.dart';
 import 'package:fitness_buddy/routes/routes.dart';
+import 'package:fitness_buddy/widgets/buttons.dart';
 import 'package:fitness_buddy/widgets/snackbars.dart';
 import 'package:flutter/material.dart';
 
@@ -59,7 +60,6 @@ class LoginPageState extends State<LoginPage> {
   }
 
   onPressBtnLogin() {
-    // Captura o ScaffoldMessenger antes de qualquer operação assíncrona
     final scaffoldMessenger = ScaffoldMessenger.of(context);
 
     if (_formKey.currentState!.validate()) {
@@ -74,6 +74,7 @@ class LoginPageState extends State<LoginPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(''),
+        leading: Container(),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -91,7 +92,6 @@ class LoginPageState extends State<LoginPage> {
                       key: const Key("emailField"),
                       controller: _emailController,
                       decoration: const InputDecoration(labelText: 'Email'),
-                      // style: const TextStyle(fontSize: 12.0),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Por favor insira seu email';
@@ -103,7 +103,6 @@ class LoginPageState extends State<LoginPage> {
                       key: const Key("passwordField"),
                       controller: _passwordController,
                       decoration: const InputDecoration(labelText: 'Senha'),
-                      // style: const TextStyle(fontSize: 12.0),
                       obscureText: true,
                       validator: (value) {
                         if (value == null || value.isEmpty) {

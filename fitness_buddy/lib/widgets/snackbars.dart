@@ -9,10 +9,42 @@ class SnackBars {
     );
   }
 
+  static SnackBar usuarioAtualizado() {
+    return const SnackBar(
+      backgroundColor: Colors.green,
+      content: Text("Dados do usuário atualizados com sucesso"),
+      duration: Duration(seconds: 2),
+    );
+  }
+
+  static SnackBar erroAoAtualizarUsuario() {
+    return const SnackBar(
+      backgroundColor: Colors.red,
+      content: Text("Erro ao atualizar os dados do usuário"),
+      duration: Duration(seconds: 2),
+    );
+  }
+
   static SnackBar senhaFraca() {
     return const SnackBar(
       backgroundColor: Colors.yellow,
       content: Text("A senha é muito fraca", style: TextStyle(color: Colors.black)),
+      duration: Duration(seconds: 2),
+    );
+  }
+
+  static SnackBar senhaVazia() {
+    return const SnackBar(
+      backgroundColor: Colors.yellow,
+      content: Text("O campo 'Senha' não pode ser vazio", style: TextStyle(color: Colors.black)),
+      duration: Duration(seconds: 2),
+    );
+  }
+
+   static SnackBar nomeVazio() {
+    return const SnackBar(
+      backgroundColor: Colors.yellow,
+      content: Text("O campo 'Nome' não pode ser vazio", style: TextStyle(color: Colors.black)),
       duration: Duration(seconds: 2),
     );
   }
@@ -61,6 +93,14 @@ class SnackBars {
     return const SnackBar(
       backgroundColor: Colors.red,
       content: Text("Erro ao logar usuário"),
+      duration: Duration(seconds: 2),
+    );
+  }
+
+  static SnackBar dataInvalida() {
+    return const SnackBar(
+      backgroundColor: Colors.red,
+      content: Text("Data de nascimento inválida"),
       duration: Duration(seconds: 2),
     );
   }
