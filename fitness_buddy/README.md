@@ -1,4 +1,4 @@
-# flutter_application_mc656
+# fitness_buddy
 
 A new Flutter project.
 

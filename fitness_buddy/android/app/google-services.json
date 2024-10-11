@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:59478395338:android:0de16cbb7c8befa875e733",
+        "mobilesdk_app_id": "1:59478395338:android:00eff0136d2064df75e733",
         "android_client_info": {
-          "package_name": "com.mc656.health"
+          "package_name": "com.example.fitness_buddy"
         }
       },
       "oauth_client": [],
