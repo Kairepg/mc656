@@ -51,6 +51,10 @@ class _PersonalInfoChangePageState extends State<PersonalInfoChangePage> {
     try {
       verifyDateTime(_birthController.text);
 
+      if (_nameController.text.isEmpty) {
+        throw (FirebaseAuthException(code: 'invalid-display-name'));
+      }
+
       if (user != null) {
         await users!.collection('users').doc(emailId).update({
           "name": _nameController.text,
@@ -62,6 +66,10 @@ class _PersonalInfoChangePageState extends State<PersonalInfoChangePage> {
       snackBar = SnackBars.usuarioAtualizado();
     } on FormatException {
       snackBar = SnackBars.dataInvalida();
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'invalid-display-name') {
+        snackBar = SnackBars.nomeVazio();
+      }
     }
     scaffoldMessenger.showSnackBar(snackBar);
   }
@@ -73,7 +81,8 @@ class _PersonalInfoChangePageState extends State<PersonalInfoChangePage> {
     if ((_formKey.currentState)!.validate()) {
       _changePersonalInfo(scaffoldMessenger);
 
-      if (_auth!.currentUser?.uid != null && _auth!.currentUser?.uid != "test") {
+      if (_auth!.currentUser?.uid != null &&
+          _auth!.currentUser?.uid != "test") {
         Navigator.pushNamed(context, '/personalInfoView');
       }
     } else {
@@ -92,7 +101,7 @@ class _PersonalInfoChangePageState extends State<PersonalInfoChangePage> {
     if (widget.firebaseInstance != null) {
       users = widget.firebaseInstance!;
     } else {
-      users = users;
+      users = FirebaseFirestore.instance;
     }
 
     final user = _auth!.currentUser;
@@ -112,7 +121,8 @@ class _PersonalInfoChangePageState extends State<PersonalInfoChangePage> {
   Widget build(BuildContext context) {
     return FutureBuilder(
         future: _getUserData(),
-        builder: (BuildContext context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
+        builder: (BuildContext context,
+            AsyncSnapshot<Map<String, dynamic>> snapshot) {
           final user = _auth!.currentUser;
 
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -173,7 +183,8 @@ class _PersonalInfoChangePageState extends State<PersonalInfoChangePage> {
                             if (user != null) {
                               onPressBtnChangeInfo();
                             }
-                            if(_auth!.currentUser?.email != "teste@teste.com") {
+                            if (_auth!.currentUser?.email !=
+                                "teste@teste.com") {
                               Navigator.pushNamed(context, '/personalInfoView');
                             }
                           },

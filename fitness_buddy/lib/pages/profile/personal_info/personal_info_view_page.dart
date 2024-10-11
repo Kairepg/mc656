@@ -34,7 +34,7 @@ class _PersonalInfoViewPageState extends State<PersonalInfoViewPage> {
     if (widget.firebaseInstance != null) {
       users = widget.firebaseInstance!;
     } else {
-      users = users;
+      users = FirebaseFirestore.instance;
     }
     final user = _auth!.currentUser;
     if (user != null) {

@@ -33,6 +33,22 @@ class SnackBars {
     );
   }
 
+  static SnackBar senhaVazia() {
+    return const SnackBar(
+      backgroundColor: Colors.yellow,
+      content: Text("O campo 'Senha' não pode ser vazio", style: TextStyle(color: Colors.black)),
+      duration: Duration(seconds: 2),
+    );
+  }
+
+   static SnackBar nomeVazio() {
+    return const SnackBar(
+      backgroundColor: Colors.yellow,
+      content: Text("O campo 'Nome' não pode ser vazio", style: TextStyle(color: Colors.black)),
+      duration: Duration(seconds: 2),
+    );
+  }
+
   static SnackBar erroAoCadastrar() {
     return const SnackBar(
       backgroundColor: Colors.red,
