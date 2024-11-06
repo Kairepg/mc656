@@ -130,6 +130,83 @@ Aplicativo de acompanhamento nutricional
 
 ### Pontos de atenção encontrados
 
+
+### [Samsung Health](https://www.samsung.com/br/apps/samsung-health/)
+
+
+
+Aplicativo para acompanhamento de atividades físicas e hábitos diários
+
+#### Documentação de Features e Funcionalidades
+
+- Progresso do usuário
+  
+  <img src="images/samsung_health/home1.jpeg" alt="Página principal" width="250" height="auto">
+  <img src="images/samsung_health/home2.jpeg" alt="Página principal" width="250" height="auto">
+
+  O usuário pode disponibilizar suas informações, tais como peso, horas de sono e alimentos ingeridos, para acompanhar seu progresso e bem-estar. 
+  Também é disponibilizado o seu progresso em calorias perdidas, passos dados, horas de sono e tempo gasto em atividades.
+  
+
+- Foco e exercícios favoritos
+  
+  <img src="images/samsung_health/my_exercises.jpeg" alt="Página principal" width="250" height="auto">
+  <img src="images/samsung_health/home1.jpeg" alt="Página principal" width="250" height="auto">
+
+  Usuário pode escolher qual seu foco principal com o uso do aplicativo (Exercícios, Sono, Peso ou Saúde em geral). Além disso, pode favoritar os tipos de exercício de maior interesse.
+
+
+- Perfil do usuário
+  
+  <img src="images/samsung_health/profile.jpeg" alt="Página principal" width="250" height="auto">
+  <img src="images/samsung_health/challenge.jpeg" alt="Página principal" width="250" height="auto">
+
+  Perfil apresenta um sístema de níveis e títulos de progresso. Usuário pode acompanhar seu reseumo semanal, badges conquistadas e desafios dos quais faz parte.
+
+  Há também um QR code disponível para compartilhamento do perfil, além das amizades já feitas.
+  
+
+- "Fitness" - Exercícios e atividades disponíveis
+
+  <img src="images/samsung_health/fitness.jpeg" alt="Página principal" width="250" height="auto">
+  <img src="images/samsung_health/fitness.jpeg" alt="Página principal" width="250" height="auto">
+  <img src="images/samsung_health/fitness.jpeg" alt="Página principal" width="250" height="auto">
+
+  Representa um conjunto de programas disponíveis ao usuário, compostos por vídeos e rotinas.
+  Para cada conteúdo, separados por categoria, há um nível de dificuldade, e o app calcula o tempo de duração.
+  O usuário pode adicionar o programa ao seu perfil, onde ficam registrados os exercícios completos, incompletos e perdidos.
+  
+  Há um sistema de filtros, divididos em categoria, dificuldade, duração, parte do corpo e necessidade de equipamentos.
+  
+  
+- "Together" - Rankings e desafios
+  
+   <img src="images/samsung_health/together.jpeg" alt="Página principal" width="250" height="auto">
+   <img src="images/samsung_health/challenge.jpeg" alt="Página principal" width="250" height="auto">
+
+   Permite compartilhar exercícios e desafios com amigos e outras pessoas. Há um sistema de rankings por desafio e um sistema de visualização de progresso.
+
+#### Pontos positivos e negativos
+
+- Positivos
+  - Na aba Fitness, há uma variedade muito grande de programas, contendo rotinas de corrida, ciclismo, dança e até exercícios de respiração.
+  - Ainda na aba Fitness, há conteúdos que são disponibilizados por outros serviços, e não pelo próprio app. Isso possibilita um maior número de abordagens e métodos para exercícios.
+  - O sistema de rotinas permite que o usuário se organize de acordo com suas agendas e programas.
+  - A determinação de metas e o sistema de níveis estimulam o usuário a continuar se exercitando.
+  - Os desafios de bater as próprias marcas pessoais estimulam o usuário a ultrapassar seus limites.
+  - Ao possibilitar que o usuário escolha o seu foco, permite-se um desenvolvimento mais eficiente.
+  - Visualização de progresso possibilita um melhor acompanhamento do usuário e permite que ele avalie o que pode ser melhorado.
+  
+
+
+- Negativos
+  - O sistema de níveis é bem interessante,  mas as recompensas por avançar de nível não são muito claras.
+  - Seria útil se fosse possível pesquisar o perfil de outros usuários.
+  - Apesar de ter um ótimo sistema de filtros, não é possível pesquisar programas e atividade por nome na aba "Fitness".
+
+  
+
+
 ## Técnica escolhida: Entrevista com uso de cenários
 
 Durante a elicitção de requisitos foram identificados...
