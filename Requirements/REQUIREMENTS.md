@@ -150,8 +150,8 @@ Aplicativo para acompanhamento de atividades físicas e hábitos diários
 
 - Foco e exercícios favoritos
   
+  <img src="images/samsung_health/focus.jpeg" alt="Página principal" width="250" height="auto">
   <img src="images/samsung_health/my_exercises.jpeg" alt="Página principal" width="250" height="auto">
-  <img src="images/samsung_health/home1.jpeg" alt="Página principal" width="250" height="auto">
 
   Usuário pode escolher qual seu foco principal com o uso do aplicativo (Exercícios, Sono, Peso ou Saúde em geral). Além disso, pode favoritar os tipos de exercício de maior interesse.
 
@@ -159,7 +159,7 @@ Aplicativo para acompanhamento de atividades físicas e hábitos diários
 - Perfil do usuário
   
   <img src="images/samsung_health/profile.jpeg" alt="Página principal" width="250" height="auto">
-  <img src="images/samsung_health/challenge.jpeg" alt="Página principal" width="250" height="auto">
+  <img src="images/samsung_health/profile2.jpeg" alt="Página principal" width="250" height="auto">
 
   Perfil apresenta um sístema de níveis e títulos de progresso. Usuário pode acompanhar seu reseumo semanal, badges conquistadas e desafios dos quais faz parte.
 
@@ -169,8 +169,8 @@ Aplicativo para acompanhamento de atividades físicas e hábitos diários
 - "Fitness" - Exercícios e atividades disponíveis
 
   <img src="images/samsung_health/fitness.jpeg" alt="Página principal" width="250" height="auto">
-  <img src="images/samsung_health/fitness.jpeg" alt="Página principal" width="250" height="auto">
-  <img src="images/samsung_health/fitness.jpeg" alt="Página principal" width="250" height="auto">
+  <img src="images/samsung_health/fitness2.jpeg" alt="Página principal" width="250" height="auto">
+  <img src="images/samsung_health/filters.jpeg" alt="Página principal" width="250" height="auto">
 
   Representa um conjunto de programas disponíveis ao usuário, compostos por vídeos e rotinas.
   Para cada conteúdo, separados por categoria, há um nível de dificuldade, e o app calcula o tempo de duração.
