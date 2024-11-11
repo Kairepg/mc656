@@ -15,6 +15,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class LoginPageState extends State<LoginPage> {
+  bool loading = false;
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -27,6 +28,10 @@ class LoginPageState extends State<LoginPage> {
     } else {
       _auth = FirebaseAuth.instance;
     }
+
+    // _emailController.text = "Ludivikeduardo@gmail.com";
+    // _passwordController.text = "12345678";
+
     super.initState();
   }
 
@@ -61,6 +66,9 @@ class LoginPageState extends State<LoginPage> {
 
   onPressBtnLogin() {
     final scaffoldMessenger = ScaffoldMessenger.of(context);
+    setState(() {
+      loading = true;
+    });
 
     if (_formKey.currentState!.validate()) {
       _loginUser(context);
@@ -113,13 +121,16 @@ class LoginPageState extends State<LoginPage> {
                     ),
                     const SizedBox(height: 132),
                     // Dá para juntar isso em um widget
-                    BtnFilled(
-                      key: const Key("loginButton"),
-                      text: "Entrar",
-                      onPressed: onPressBtnLogin,
-                      backgroundColor: Theme.of(context).primaryColor,
-                      textColor: Colors.white,
-                    ),
+                    !loading
+                    ? BtnFilled(
+                        key: const Key("loginButton"),
+                        text: "Entrar",
+                        onPressed: onPressBtnLogin,
+                        backgroundColor: Theme.of(context).primaryColor,
+                        textColor: Colors.white,
+                      )
+                    : const CircularProgressIndicator(),
+                    
                     const SizedBox(height: 20),
                     const Text("Não tem uma conta?",
                         style: TextStyle(color: Colors.grey, fontSize: 12)),
