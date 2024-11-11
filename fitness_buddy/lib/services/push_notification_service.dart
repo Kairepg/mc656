@@ -37,6 +37,7 @@ class PushNotificationService {
 
       if (notification != null && android != null) {
         showDialog(
+          // ignore: use_build_context_synchronously
           context: context,
           builder: (context) => AlertDialog(
             title: Text(notification.title ?? ""),
