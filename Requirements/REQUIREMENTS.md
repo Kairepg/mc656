@@ -1,8 +1,44 @@
 # Features a serem desenvolvidas no projeto
 
-1. Cadastro de usuários
-2. Cadastro de produtos
-3. Cadastro de categorias
+Epic 1: Onboarding e Tutorial do App
+
+- User Story 1.1: Tutorial para novos usuários
+  - “Como novo usuário, quero ser guiado por um tutorial para entender as principais funcionalidades do app, para usá-lo de maneira eficiente.”
+
+- User Story 1.2: Opção de pular o tutorial
+  - “Como usuário, quero a opção de pular o tutorial caso já conheça o app, para economizar tempo.”
+
+Epic 2: Treinos
+
+- User Story 2.1: Visualizar treinos em progresso
+  - "Como usuário, quero visualizar meus treinos em progresso, para acompanhar meu desenvolvimento."
+ 
+- User Story 2.2: Procurar novos treinos
+  - "Como usuário, quero poder procurar novos treinos para diversificar minha rotina de exercícios."
+ 
+- User Story 2.3: Acessar vídeos dos treinos
+  - “Como usuário, quero acessar vídeos dos treinos a partir da página de treinos, para realizar os exercícios corretamente.”
+ 
+Epic 3: Perfil e Configurações
+
+- User Story 3.1: Editar perfil
+  - "Como usuário, quero editar minha foto, email, nome e senha para manter minhas informações pessoais atualizadas."
+
+- User Story 3.2: Visualizar calendário de treino e descanso
+  - "Como usuário, quero visualizar um calendário com meus dias de treino e descanso, para planejar minha rotina de exercícios."
+
+- User Story 3.3: Receber lembretes para a hora do treino
+  - "Como usuário, quero receber lembretes para a hora do treino, para não perder minha rotina."
+
+- User Story 3.4: Links para avaliação do app e redes sociais
+  - "Como usuário, quero acessar links para avaliar o app e seguir suas redes sociais, para apoiar e interagir com a comunidade do app."
+
+- User Story 3.5: Logout
+  - "Como usuário, quero poder sair da minha conta, para garantir a privacidade dos meus dados."
+
+User Story 3.6: Termos e condições
+  - "Como usuário, quero poder ler os termos e condições do app, para entender melhor meus direitos e responsabilidades."
+
 
 # Registro da execução da técnica de elicitação de requisitos
 ## Técnica escolhida: BENCHMARKING
