@@ -164,9 +164,6 @@ Aplicativo de acompanhamento nutricional
   - Processo trabalhoso para adicionar uma refeição/alimento pela primeira vez.
   
 
-### Pontos de atenção encontrados
-
-
 ### [Samsung Health](https://www.samsung.com/br/apps/samsung-health/)
 
 
@@ -241,6 +238,68 @@ Aplicativo para acompanhamento de atividades físicas e hábitos diários
   - Apesar de ter um ótimo sistema de filtros, não é possível pesquisar programas e atividade por nome na aba "Fitness".
 
   
+### [STRAVA](https://www.strava.com/?hl=pt-BR)
+
+Aplicativo de registro e acompanhamento de exercícios físicos.
+
+### Documentação de Features e Funcionalidades
+
+- Acompanhamento do progresso nas atividades
+
+  <img src="images/strava/progresso.jpeg" alt="Página principal" width="250" height="auto">
+  <img src="images/strava/progresso2.jpeg" alt="Página principal" width="250" height="auto">
+
+  Permite ao usuário acompanhar o número de atividades, dias, quilômetros, ou outras medidas de exercícios físicos realizados ao longo de um certo período de tempo, e em comparação com períodos anteriores.
+
+
+- Interação com outros usuários
+  
+  <img src="images/strava/atividade_conhecido.jpeg" alt="Página principal" width="250" height="auto">
+  <img src="images/strava/perfil_conhecido.jpeg" alt="Página principal" width="250" height="auto">
+  <img src="images/strava/interacao.jpeg" alt="Página principal" width="250" height="auto">
+
+  As atividades das pessoas seguidas por um usuário são exibidas na tela inicial, e é possível acessar os perfis para acompanhar também seu progresso. Ademais, o aplicativo permite interações básicas com essas atividades, como a realização de comentários, e "dar kudos", a versão do aplicativo de um "like".
+
+
+- Medalhas e "Stickers" de incentivo
+  
+  <img src="images/strava/medalhas.jpeg" alt="Página principal" width="250" height="auto">
+  <img src="images/strava/progresso_medalhas.jpeg" alt="Página principal" width="250" height="auto">
+  <img src="images/strava/trofeus.jpeg" alt="Página principal" width="250" height="auto">
+
+  Ao realizar uma atividade, é possível receber medalhas, de ouro, prata, ou bronze, com base em como ela se compara às suas atividades realizadas anteriormente. É possível participar, também, de desafios específicos, para cumprir certas metas, sendo recompensado com "Stickers" no aplicativo.
+
+
+- Grupos de pessoas que praticam atividades
+
+  <img src="images/strava/grupos.jpeg" alt="Página principal" width="250" height="auto">
+  <img src="images/strava/grupos2.jpeg" alt="Página principal" width="250" height="auto">
+
+  O aplicativo permite a participação de grupos de realização de atividades, nos quais pode-se registrar os exercícios realizados em conjunto, além de acompanhar estatísticas do grupo, postar fotos, e interagir com os outros membros.
+
+
+- Integração com outros aplicativos
+
+  <img src="images/strava/spotify.jpeg" alt="Página principal" width="250" height="auto">
+  <img src="images/strava/spotify2.jpeg" alt="Página principal" width="250" height="auto">
+
+  É possível integrar outros aplicativos ao Strava, permitindo escutar músicas, migrar seus dados de outros aplicativos utilizados anteriormente, e postar suas atividades nas redes sociais.
+
+
+#### Pontos positivos e negativos
+
+- Positivos
+  - Fácil de iniciar a realização de uma atividade, diminuindo possíveis distrações e “desculpas”.
+  - O acompanhamento do progresso, em conjunto com as medalhas, são uma fonte de motivação efetiva.
+  - O “kudos” e os comentários servem como uma maneira simples e divertida de interagir, incentivando o uso frequente do aplicativo, e, consequentemente, a prática frequente de atividades físicas.
+
+
+- Negativos
+  - Certas funções de acompanhamento de progresso estão barradas por uma inscrição paga.
+  - Apesar de ser um aplicativo para atividades físicas em geral, há bem mais funções para corrida e pedalada se comparado a outras atividades.
+  - Navegação confusa entre a aba “Você” e o perfil do usuário, nem sempre fica claro o que está onde.
+  - O sistema de “Stickers” é rígido, não permitindo a definição de metas pessoais, e desafios menores ou maiores do que os já estabelecidos pelo aplicativo.
+
 
 
 ## Técnica escolhida: Entrevista com uso de cenários
