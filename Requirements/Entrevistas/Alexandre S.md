@@ -1,37 +1,67 @@
-Ludivik: oi, bom dia
+# Entrevista com Alexandre Seixas
 
-Alexandre: bom dia de novo
+- 1ª Parte
 
-Ludivik: posso gravar nossa conversa?
+P: Com que frequencia você pratica atividade fisica?
 
-Alexandre: eu permito essa gravação
+R: 6 vezes na semana
 
-Ludivik: nos tivemos nossa conversa anteriormente, e vimos que você é nosso usuário tipo 1 na verdade, então: imagina que você está em um cenário específico, você é um usuário que completa uma corrida de 10km e que registrar essa atividade e visualizar as estatísticas dela, e comprarar com corridas anteriores
+P: Ja utilizou app? Com que frequencia?
 
-Alexandre: tá
+R: já utilizei um app da MI band, usa pra correr o nike run
 
-Ludivik: Imagina isso, quais métricas são mais importantes para registrar em uma corrida? É tempo? distancia? frequência cardíaca? o que você acha?
+P: Como você classificaria sua experiencia com atividade fisica?
 
-Alexandre: Nossa, o tempo é um dos mais importantes se não mais importante senão o mais importante, mais uma coisa que eu acho que é um diferencial é o quanto em cada km você fez, e a altura. Dá para ver como você está melhorando, a frequência e importante, mas não sei o quanto é importante em relação aos outros
+R: Acho que sou intermediário ou avançado.
 
-Ludivik: E que tipos de relatórios você gostaria de analisar após a corrida?
+P: Você se sente confortável em utilizar os app para treinar?
 
-Alexandre: O tradicional, o caminho percorrido, o tempo, quanto fiz por km, quer dizer minuto por km
+R: Acho que é tranquilo,
 
-Ludivik: prefere uma interface mais minimalista ou mais detalhada?
+P: acha que ajuda?
 
-Alexandre: mas de corrida ou...
+R: Com certeza!
 
-Ludivik: do seu esporte, pode falar de corrida e de musculação se você quiser.
+P: Tem metas específicas relacionadas as suas atividades?
 
-Alexandre: Acho que depende, pra eu utilizar o aplicativo ou das estatísticas?
+R: Sim, principalmente corrida, consegue ter uma metrica melhor, agora musculação é mais estética.
 
-Ludivik: das estatísticas:
+- 2ª Parte
 
-Alexandre: Quanto mais melhor, mas isso pode acabar confundindo um pouco
+P: oi, bom dia
 
-Ludivik: Talvez ter uma opção mais minimalista e algo mais detalhado?
+R: bom dia de novo
 
-Alexandre: É
+P: posso gravar nossa conversa?
 
-Ludivik: Ta bom então muito obrigado.
+R: eu permito essa gravação
+
+P: nos tivemos nossa conversa anteriormente, e vimos que você é nosso usuário tipo 1 na verdade, então: imagina que você está em um cenário específico, você é um usuário que completa uma corrida de 10km e que registrar essa atividade e visualizar as estatísticas dela, e comprarar com corridas anteriores
+
+R: tá
+
+P: Imagina isso, quais métricas são mais importantes para registrar em uma corrida? É tempo? distancia? frequência cardíaca? o que você acha?
+
+R: Nossa, o tempo é um dos mais importantes se não mais importante senão o mais importante, mais uma coisa que eu acho que é um diferencial é o quanto em cada km você fez, e a altura. Dá para ver como você está melhorando, a frequência e importante, mas não sei o quanto é importante em relação aos outros
+
+P: E que tipos de relatórios você gostaria de analisar após a corrida?
+
+R: O tradicional, o caminho percorrido, o tempo, quanto fiz por km, quer dizer minuto por km
+
+P: prefere uma interface mais minimalista ou mais detalhada?
+
+R: mas de corrida ou...
+
+P: do seu esporte, pode falar de corrida e de musculação se você quiser.
+
+R: Acho que depende, pra eu utilizar o aplicativo ou das estatísticas?
+
+P: das estatísticas:
+
+R: Quanto mais melhor, mas isso pode acabar confundindo um pouco
+
+P: Talvez ter uma opção mais minimalista e algo mais detalhado?
+
+R: É
+
+P: Ta bom então muito obrigado.
