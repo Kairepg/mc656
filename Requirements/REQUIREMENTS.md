@@ -396,4 +396,4 @@ Além disso, foram separadas algumas funções gerais essenciais para o funciona
   - Sign Out.
   - Termos e condições do app.
 
-Então, para cada função foram atribuídos Story Points depois de uma discussão em grupo, e a cada membro foi atribuída a tarefa de desenvolver determinadas funções.
+Então, para cada função foram atribuídos Story Points depois de uma discussão em grupo, e cada membro ficou encarregado de desenvolver determinadas funções.
