@@ -304,6 +304,96 @@ Aplicativo de registro e acompanhamento de exercícios físicos.
 
 ## Técnica escolhida: Entrevista com uso de cenários
 
-Durante a elicitção de requisitos foram identificados...
+A técnica escolhida para a coleta de dados foi entrevistar possíveis usuários com o uso de um cenário para guiar a entrevista. A motivação por trás do uso de um cenário foi a possibilidade de tornar a entrevista mais focada, já que, com ele, é possível centralizar a discussão em torno de funcionalidades de um aplicativo, em vez de assuntos mais gerais quanto à prática de atividade física.
+
+Com isso em mente, as entrevistas foram feitas pessoalmente, um a um, com conhecidos dos membros do grupo. Nelas, o membro fez o papel de entrevistador, seguindo um roteiro de perguntas previamente preparado e registrando as respostas dadas por escrito ou por áudio. 
+
+Cada entrevista foi separada em 2 fases. Na primeira, foram feitas perguntas para definir o tipo de usuário sendo entrevistado quanto a dois critérios: sua experiência em praticar atividade física, e sua experiência em a usar apps de acompanhamento para atividade física. As perguntas foram as seguintes:
+
+- Perguntas da 1° fase:
+  - Com que frequência você pratica atividade física?
+  - Já utilizou algum aplicativo para monitorar sua atividade física?
+  - Como você classificaria seu nível de experiência com atividade física (iniciante, intermediário ou avançado)?
+  - Você se sente confortável em usar aplicativos para monitorar sua atividade física?
+
+Com a primeira fase da entrevista concluída, o entrevistador então, classifica o entrevistado em 1 de 4 tipos. De acordo com o tipo, é apresentado um determinado cenário e, a partir dele, são feitas perguntas referentes ao funcionamento do aplicativo no cenário apresentado. Os tipos de usuário, junto de seus respectivos cenários e perguntas, foram os seguintes:
+
+
+- Tipo 1: Usuário Experiente em Atividades Físicas e Experiente com Apps de Atividade Física
+  - Classificação dada a um usuário que pratica atividade física regurlarmente com o acompanhamento de um aplicativo.
+
+  - Cenário:
+    - O usuário completa uma corrida de 10 km e quer registrar a atividade, visualizar estatísticas e compará-las com corridas anteriores.
+
+  - Perguntas:
+    - Quais métricas são mais importantes para você ao registrar uma corrida? (tempo, distância, frequência cardíaca, etc.)
+    - Que tipo de relatórios ou análises você gostaria de visualizar após suas atividades?
+    - Você prefere uma interface minimalista ou com informações detalhadas?
+
+
+- Tipo 2: Usuário Experiente em Atividades Físicas e Inexperiente com Apps de Atividade Física
+  - Classificação dada a um usuário que pratica atividade física regularmente, mas sem usar algum aplicativo.
+
+  - Cenário:
+    - O usuário usa o app pela primeira vez para registrar uma sessão de musculação e busca tutoriais ou orientações.
+
+  - Perguntas:
+    - O que você considera mais desafiador ao usar um novo app de fitness?
+    - Que tipo de suporte ou orientação você gostaria ao usar o app pela primeira vez?
+    - Você se sentiria motivado com feedback do app sobre suas atividades?
+
+
+- Tipo 3: Usuário Inexperiente em Atividades Físicas e Experiente com Apps de Atividade Física
+  - Classificação dada um usuário que, mesmo sem praticar atividade física regularmente, tem conhecimento profundo de aplicativos de atividade física.
+  
+  - Cenário:
+    -O usuário quer iniciar um programa de exercícios e procura opções que se ajustem à sua rotina, utilizando o app para acompanhar seu progresso.
+
+  - Perguntas:
+    - Quais atividades você tem interesse em experimentar? (ex: yoga, corrida, musculação)
+    - O app deve sugerir atividades com base no seu nível de condicionamento físico?
+    - Como você gostaria de acompanhar seu progresso? (gráficos, relatórios, etc.)
+
+
+- Tipo 4: Usuário Inexperiente em Atividades Físicas e Inexperiente com Apps de Atividade Física
+  - Classificação dada a um usuário que não pratica atividade física regularmente e não tem conhecimento profundo de aplicativos de atividade física.
+
+  - Cenário:
+    - O usuário quer se inscrever em um programa de caminhada e precisa de um guia passo a passo para começar a usar o app.
+
+  - Perguntas:
+    - Quais funcionalidades você considera essenciais para iniciantes? (ex: vídeos explicativos, dicas de segurança)
+    - Gostaria de receber lembretes para se manter ativo?
+    - Como você imagina a interface ideal, considerando sua falta de experiência?
+
+Ao término do processo, todo o material recolhido das entrevistas foi colocado em um Drive compartilhado do grupo, para então ser analisado pela equipe.
+
+As entrevistas transcritas em arquivos .md podem ser encontradas na pasta Requirements -> Entrevistas.
 
 ### Pontos de atenção encontrados
+
+A partir das entrevistas, foram separadas as funções sugeridas, direta ou indiretamente, pelos entrevistados, de acordo com o que foi por eles considerado essencial para um aplicativo de acompanhamento de atividade física. Essa seleção foi feita manualmente pelos membros do grupo, a partir das gravações ou transcrições feitas.
+
+No processo sugestões referentes a funções iguais ou parecidas foram unificadas em ideias menos específicas, as quais, posteriormente, foram classificadas quanto à sua popularidade (isto é, o quanto foram citadas pelos entrevistados) e quanto à sua dificuldade de desenvolvimento (definida por discussões entre os membros).
+
+Dessa forma, foi definida uma lista de prioridades que destacou as funções mais essenciais (enquanto ainda viáveis) para um aplicativo de acompanhamento de atividade física. Estas foram as seguintes:
+
+- Funções propostas escolhidas:
+  - Videos de explicação e tutoriais (sobre musculação, nutrição e corrida). Com uma pesquisa mais fácil e direta.
+  - Treinos (uma página que o usuário pode ver os treinos em progresso ou procurar novos treinos). A partir daí podem navegar para a página de videos dos treinos.  
+  - Calendário contendo os dias de treino e descanso.
+  - Reminder para a hora do treino.
+  - Registros de melhores marcas pessoais.
+  - Sistema de níveis.
+  - Ranking entre amigos.
+
+Além disso, foram separadas algumas funções gerais essenciais para o funcionamento de qualquer aplicativo. Estas foram:
+
+- Funções essenciais:
+  - Login e cadastro.
+  - Perfil e configurações.
+  - Editar perfil (foto, email, nome, senha).
+  - Sign Out.
+  - Termos e condições do app.
+
+Então, para cada função foram atribuídos Story Points depois de uma discussão em grupo, e a cada membro foi atribuída a tarefa de desenvolver determinadas funções.
