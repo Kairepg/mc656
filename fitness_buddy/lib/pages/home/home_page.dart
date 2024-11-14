@@ -1,5 +1,5 @@
-import 'package:fitness_buddy/services/permissions.dart';
-import 'package:fitness_buddy/services/push_notification_service.dart';
+import 'package:fitness_buddy/services/notify/permissions.dart';
+import 'package:fitness_buddy/services/notify/push_notification_service.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {

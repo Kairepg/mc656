@@ -17,7 +17,7 @@ class _SplashPageState extends State<SplashPage> {
 
   _navigateToLogin(context) async {
     await Future.delayed(const Duration(milliseconds: 600), () {});
-    Navigator.pushReplacementNamed(context, AppRoutes.login);
+    Navigator.pushReplacementNamed(context, AppRoutes.onboarding);
   }
 
   @override

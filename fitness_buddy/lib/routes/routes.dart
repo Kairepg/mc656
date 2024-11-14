@@ -1,12 +1,14 @@
-import 'package:fitness_buddy/pages/login/login_page.dart';
+import 'package:fitness_buddy/pages/auth/login/login_page.dart';
+import 'package:fitness_buddy/pages/auth/onboarding/onboarding_page.dart';
+import 'package:fitness_buddy/pages/auth/signUp/sign_up_page.dart';
 import 'package:fitness_buddy/pages/page_manager.dart';
-import 'package:fitness_buddy/pages/signUp/sign_up_page.dart';
 import 'package:flutter/material.dart';
 
 class AppRoutes {
   static const String splashScreen = '/';
   static const String login = '/login';
   static const String register = '/register';
+  static const String onboarding = '/onboarding';
   static const String home = '/home';
   static const String favorite = '/home/favorite';
   static const String profile = '/home/profile';
@@ -21,6 +23,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => const LoginPage());
     case AppRoutes.register:
       return MaterialPageRoute(builder: (context) => const SignUpPage());
+    case AppRoutes.onboarding:
+      return MaterialPageRoute(builder: (context) => OnboardingPage());
     case AppRoutes.home:
       return MaterialPageRoute(
           builder: (context) => const PageManager(initialPage: 0));
