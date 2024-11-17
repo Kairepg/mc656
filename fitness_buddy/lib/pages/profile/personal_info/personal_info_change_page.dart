@@ -77,7 +77,6 @@ class _PersonalInfoChangePageState extends State<PersonalInfoChangePage> {
   onPressBtnChangeInfo() {
     // Captura o ScaffoldMessenger antes de qualquer operação assíncrona
     final scaffoldMessenger = ScaffoldMessenger.of(context);
-    // final null_check = (_formKey.currentState)?.validate();
     if ((_formKey.currentState)!.validate()) {
       _changePersonalInfo(scaffoldMessenger);
 
