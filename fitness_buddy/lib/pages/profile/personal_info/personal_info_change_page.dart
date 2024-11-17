@@ -45,7 +45,7 @@ class _PersonalInfoChangePageState extends State<PersonalInfoChangePage> {
   }
 
   Future<void> _changePersonalInfo(scaffoldMessenger) async {
-    SnackBar? snackBar;
+    SnackBar snackBar = SnackBars.erroDesconhecido();
     final user = _auth!.currentUser;
 
     try {

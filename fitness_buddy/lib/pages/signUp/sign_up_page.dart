@@ -35,7 +35,7 @@ class SignUpPageState extends State<SignUpPage> {
   }
 
   Future<void> _registerUser(context) async {
-    SnackBar? snackBar;
+    SnackBar snackBar = SnackBars.erroDesconhecido();
     try {
       await _auth!.createUserWithEmailAndPassword(
         email: _emailController.text,
@@ -67,8 +67,7 @@ class SignUpPageState extends State<SignUpPage> {
       }
     }
 
-    // TODO - Isso ainda é uma má prática mas por enquanto é oq temos  
-    ScaffoldMessenger.of(context).showSnackBar(snackBar!);
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
     if (_auth!.currentUser != null && !_isTestEmail(_auth!.currentUser!.email!)) {
       Navigator.pushNamed(context, AppRoutes.home);
     }
