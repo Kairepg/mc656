@@ -11,3 +11,9 @@ Lucca Chinelato - 239060
 Ludivik de Paula - 235075
 
 Pedro Antônio Félix Borges - 260628
+
+
+
+- DiagramaC4
+
+![DiagramaC4](Requirements/images/others/diagramaC4.jpg)
