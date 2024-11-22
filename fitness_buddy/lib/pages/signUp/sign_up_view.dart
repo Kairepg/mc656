@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/gestures.dart';
 
 class Header extends StatelessWidget {
   final String title;
@@ -37,5 +38,69 @@ class Header extends StatelessWidget {
         ),
       ],
     );
+  }
+}
+
+class LinkedLabelCheckbox extends StatelessWidget {
+  const LinkedLabelCheckbox({
+    super.key,
+    required this.label,
+    required this.padding,
+    required this.checkValue,
+    required this.onChanged,
+    required this.contextRoute,
+    required this.route,
+  });
+
+  final String label;
+  final EdgeInsets padding;
+  final bool checkValue;
+  final ValueChanged<bool> onChanged;
+  final BuildContext contextRoute;
+  final String route;
+
+  @override
+  Widget build(BuildContext context) {
+    return FormField(builder: (state){ return Column(
+      // padding: padding,
+      children: [Row(
+        children: <Widget>[
+          Checkbox(
+            checkColor: Theme.of(context).primaryColor,
+            value: checkValue,
+            onChanged: (bool? newValue) {
+              onChanged(newValue!);
+            },
+          ),
+          Expanded(
+            child: RichText(
+              text: TextSpan(
+                text: label,
+                style: TextStyle(
+                  color: Theme.of(context).primaryColor,
+                  decoration: TextDecoration.underline,
+                ),
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () {
+                    Navigator.pushNamed(contextRoute, route);
+                  },
+              ),
+            ),
+          ),
+          Text(
+          state.errorText ?? '',
+          style: const TextStyle(
+            color: Colors.red,
+          ),
+        )
+        ],
+      )],
+    );},validator: (value) {
+    if (!checkValue) {
+      return 'Você precisa aceitar os termos e condições';
+    } else {
+      return null;
+    }
+  }, );
   }
 }

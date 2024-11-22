@@ -23,6 +23,8 @@ class SignUpPageState extends State<SignUpPage> {
   final TextEditingController _confirmPasswordController =
       TextEditingController();
   FirebaseAuth? _auth;
+  bool _isSelected = false;
+
 
   @override
   void initState() {
@@ -165,6 +167,19 @@ class SignUpPageState extends State<SignUpPage> {
                         }
                         return null;
                       },
+                    ),
+                    const SizedBox(height: 30),
+                    LinkedLabelCheckbox(
+                        label: 'Li e concordo com os termos e condições',
+                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                        checkValue: _isSelected,
+                        contextRoute: context,
+                        route: AppRoutes.terms,
+                        onChanged: (bool newValue) {
+                          setState(() {
+                            _isSelected = newValue;
+                          });
+                        },
                     ),
                     const SizedBox(height: 30),
                     // Dá para juntar isso em um widget
