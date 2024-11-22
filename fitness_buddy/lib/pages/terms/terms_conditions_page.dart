@@ -21,7 +21,7 @@ class _TermsAndConditionsPageState extends State<TermsAndConditionsPage> {
       body: const SingleChildScrollView(
         child: Column(
           children: [
-            const Header(
+            Header(
                 title:"Termos e condições",
                 subtitle: "Leia nossos termos e condições de uso"),
             Padding(
