@@ -49,6 +49,7 @@ dependencies:
   bloc: ^8.1.4
   meta: ^1.15.0
   flutter_secure_storage: ^4.2.1
+  sliding_up_panel: ^2.0.0+1
 
 dev_dependencies:
   flutter_test:
@@ -79,6 +80,7 @@ flutter:
   assets:
     - assets/images/
     - assets/workouts_images/
+    - assets/workout_details_images/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
