@@ -12,6 +12,7 @@ class AppRoutes {
   static const String profile = '/home/profile';
   static const String activity = '/home/activity';
   static const String ranking = '/home/ranking';
+  static const String workouts = '/home/workouts';
 }
 
 // Função para gerar as rotas do aplicativo
@@ -27,7 +28,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case AppRoutes.favorite:
       return MaterialPageRoute(
           builder: (context) => const PageManager(initialPage: 1));
-    case AppRoutes.activity:
+    case AppRoutes.workouts:
       return MaterialPageRoute(
           builder: (context) => const PageManager(initialPage: 2));
     case AppRoutes.ranking:
