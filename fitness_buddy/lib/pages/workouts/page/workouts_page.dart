@@ -30,6 +30,7 @@ class WorkoutsPage extends StatelessWidget {
               builder: (_) => WorkoutDetailsPage(workout: state.workout),
             ),
            );
+            // ignore: use_build_context_synchronously
             final bloc = BlocProvider.of<WorkoutsBloc>(context);
             bloc.add(WorkoutsInitialEvent());
           }
