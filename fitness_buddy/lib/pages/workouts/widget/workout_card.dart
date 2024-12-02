@@ -62,6 +62,7 @@ class WorkoutCard extends StatelessWidget {
                               maxLines: 2),
                           const SizedBox(height: 3),
                           Text(
+                              // ignore: prefer_interpolation_to_compose_strings
                               '${_getWorkoutMinutes()}' " " +
                                   TextConstants.minutes,
                               style: const TextStyle(

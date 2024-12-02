@@ -134,6 +134,7 @@ class TextConstants {
 
   // Reminder day of the week
   static const String everyday = "Everyday";
+  // ignore: constant_identifier_names
   static const String monday_friday = "Mon - Fri";
   static const String weekends = "Weekends";
   static const String monday = "Monday";
