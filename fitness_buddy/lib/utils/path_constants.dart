@@ -42,7 +42,7 @@ class PathConstants {
   static const String twitter = 'assets/icons/social_networks/twitter.png';
 
   // Start workout -> Yoga
-  static const String recliningVideo = 'assets/videos/workouts/reclining.mp4';
-  static const String cowPoseVideo = 'assets/videos/workouts/cow.mp4';
-  static const String warriorIIVideo = 'assets/videos/workouts/warriorII.mp4';
+  static const String recliningVideo = 'assets/videos/reclining.mp4';
+  static const String cowPoseVideo = 'assets/videos/cow.mp4';
+  static const String warriorIIVideo = 'assets/videos/warriorII.mp4';
 }

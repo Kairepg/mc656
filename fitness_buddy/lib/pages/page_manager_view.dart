@@ -76,7 +76,7 @@ class AppBarHome extends StatelessWidget implements PreferredSizeWidget {
       leading: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Image.asset(
-          'assets/images/logo.png',
+          'assets/logo_images/logo.png',
           height: 50,
         ),
       ),
