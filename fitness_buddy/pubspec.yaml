@@ -28,6 +28,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  image_picker: ^1.0.7
   flutter:
     sdk: flutter
 
@@ -44,6 +45,7 @@ dependencies:
   build_runner: ^2.1.0
   permission_handler: ^11.3.1
   firebase_messaging: ^15.1.4
+  firebase_storage: ^12.3.6
 
 dev_dependencies:
   flutter_test:
