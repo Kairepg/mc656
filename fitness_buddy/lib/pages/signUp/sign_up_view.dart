@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fitness_buddy/utils/constants.dart';
 
 class Header extends StatelessWidget {
   final String title;
@@ -10,7 +11,7 @@ class Header extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Image(image: AssetImage("assets/images/logo.png"), height: 86),
+        const Image(image: AssetImage(Constants.pathImageLogo), height: 86),
         const SizedBox(height: 32),
         Card(
           color: Theme.of(context).primaryColor,
