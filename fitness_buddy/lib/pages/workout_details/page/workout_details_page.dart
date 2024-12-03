@@ -19,56 +19,80 @@ class WorkoutDetailsPage extends StatelessWidget {
   }
 
   BlocProvider<WorkoutDetailsBloc> _buildContext(BuildContext context) {
-    return BlocProvider<WorkoutDetailsBloc>(
-      create: (context) => WorkoutDetailsBloc(workout: workout),
-      child: BlocConsumer<WorkoutDetailsBloc, WorkoutDetailsState>(
-        buildWhen: (_, currState) => currState is WorkoutDetailsInitial,
-        builder: (context, state) {
-          return Scaffold(
-              floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-              floatingActionButton: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: FitnessButton(
-                  title: TextConstants.start,
-                  onTap: () {
-                    ExerciseData? exercise = workout.exerciseDataList!.firstWhereOrNull((element) => element.progress! < 1);
-                    exercise ??= workout.exerciseDataList!.first;
-                    int exerciseIndex = workout.exerciseDataList!.indexOf(exercise);
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                          builder: (_) => BlocProvider.value(
-                                value: BlocProvider.of<WorkoutDetailsBloc>(context),
-                                child: StartWorkoutPage(
-                                  exercise: exercise!,
-                                  currentExercise: exercise,
-                                  nextExercise: exerciseIndex + 1 < workout.exerciseDataList!.length ? workout.exerciseDataList![exerciseIndex + 1] : null,
-                                ),
-                              )),
-                    );
-                  },
-                ),
-              ),
-              body: WorkoutDetailsContent(workout: workout));
-        },
-        listenWhen: (_, currState) => currState is BackTappedState || currState is WorkoutExerciseCellTappedState,
-        listener: (context, state) {
-          if (state is BackTappedState) {
-            Navigator.pop(context);
-          } else if (state is WorkoutExerciseCellTappedState) {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                  builder: (_) => BlocProvider.value(
-                        value: BlocProvider.of<WorkoutDetailsBloc>(context),
-                        child: StartWorkoutPage(
-                          exercise: state.currentExercise,
-                          currentExercise: state.currentExercise,
-                          nextExercise: state.nextExercise,
-                        ),
-                      )),
-            );
-          }
-        },
+  return BlocProvider<WorkoutDetailsBloc>(
+    create: (context) => WorkoutDetailsBloc(workout: workout),
+    child: BlocConsumer<WorkoutDetailsBloc, WorkoutDetailsState>(
+      buildWhen: (_, currState) => currState is WorkoutDetailsInitial,
+      builder: _buildWorkoutDetails,
+      listenWhen: (_, currState) =>
+          currState is BackTappedState || currState is WorkoutExerciseCellTappedState,
+      listener: _handleStateChanges,
+    ),
+  );
+}
+
+Widget _buildWorkoutDetails(BuildContext context, WorkoutDetailsState state) {
+  return Scaffold(
+    floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+    floatingActionButton: _buildFloatingActionButton(context),
+    body: WorkoutDetailsContent(workout: workout),
+  );
+}
+
+Widget _buildFloatingActionButton(BuildContext context) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 20),
+    child: FitnessButton(
+      title: TextConstants.start,
+      onTap: () => _navigateToStartWorkout(context),
+    ),
+  );
+}
+
+void _navigateToStartWorkout(BuildContext context) {
+  ExerciseData? exercise = workout.exerciseDataList!.firstWhereOrNull(
+    (element) => element.progress! < 1,
+  );
+  exercise ??= workout.exerciseDataList!.first;
+  int exerciseIndex = workout.exerciseDataList!.indexOf(exercise);
+
+  Navigator.of(context).push(
+    MaterialPageRoute(
+      builder: (_) => BlocProvider.value(
+        value: BlocProvider.of<WorkoutDetailsBloc>(context),
+        child: StartWorkoutPage(
+          exercise: exercise!,
+          currentExercise: exercise,
+          nextExercise: exerciseIndex + 1 < workout.exerciseDataList!.length
+              ? workout.exerciseDataList![exerciseIndex + 1]
+              : null,
+        ),
       ),
-    );
+    ),
+  );
+}
+
+void _handleStateChanges(BuildContext context, WorkoutDetailsState state) {
+  if (state is BackTappedState) {
+    Navigator.pop(context);
+  } else if (state is WorkoutExerciseCellTappedState) {
+    _navigateToWorkoutExercise(context, state);
   }
+}
+
+void _navigateToWorkoutExercise(BuildContext context, WorkoutExerciseCellTappedState state) {
+  Navigator.of(context).push(
+    MaterialPageRoute(
+      builder: (_) => BlocProvider.value(
+        value: BlocProvider.of<WorkoutDetailsBloc>(context),
+        child: StartWorkoutPage(
+          exercise: state.currentExercise,
+          currentExercise: state.currentExercise,
+          nextExercise: state.nextExercise,
+        ),
+      ),
+    ),
+  );
+}
+
 }
