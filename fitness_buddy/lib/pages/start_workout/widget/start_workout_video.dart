@@ -19,6 +19,7 @@ class StartWorkoutVideo extends StatefulWidget {
     required this.onPauseTapped,
   });
   @override
+  // ignore: library_private_types_in_public_api
   _StartWorkoutVideoState createState() => _StartWorkoutVideoState();
 }
 
