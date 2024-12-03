@@ -22,7 +22,7 @@ void main() {
   late MockCollectionReference<Map<String, dynamic>> mockCollectionReference;
   late MockDocumentReference<Map<String, dynamic>> mockDocumentReference;
   late MockDocumentSnapshot<Map<String, dynamic>> mockDocumentSnapshot;
-  final mockUser = MockUser(); // Simular um usuário autenticado
+  final mockUser = MockUser();
 
   const String collectionPath = 'users';
   String? documentPath = 'teste@teste.com';
@@ -61,7 +61,6 @@ void main() {
         'birth': newBirth
       };
 
-      // Configuração dos mocks
       when(mockFirestore.collection(collectionPath))
           .thenReturn(mockCollectionReference);
       when(mockCollectionReference.doc(documentPath))
@@ -70,12 +69,11 @@ void main() {
           .thenAnswer((_) async => mockDocumentSnapshot);
       when(mockDocumentSnapshot.data()).thenReturn(data);
 
-      // Aqui você está incluindo um Scaffold para garantir que a tela renderize corretamente
       await tester.pumpWidget(MaterialApp(
         home: Scaffold(
           body: PersonalInfoChangePage(
             firebaseAuth: mockFirebaseAuth,
-            firebaseInstance: mockFirestore, // Pass the mock Firestore
+            firebaseInstance: mockFirestore,
           ),
         ),
       ));
@@ -84,42 +82,33 @@ void main() {
 
       await tester.pumpAndSettle();
 
-      // Localizando os campos e o botão
       final nameField = find.byKey(const Key('nameField'));
       final birthField = find.byKey(const Key('birthField'));
       final heightField = find.byKey(const Key('heightField'));
       final confirmButton = find.byKey(const Key('confirmButton'));
 
-      // Verificar se os campos existem
       expect(nameField, findsOneWidget);
       expect(birthField, findsOneWidget);
       expect(heightField, findsOneWidget);
 
-      // Inserir texto nos campos
       await tester.enterText(nameField, newName);
       await tester.enterText(birthField, newBirth);
       await tester.enterText(heightField, newHeight);
 
-      // Clicar no botão de confirmação
       await tester.tap(confirmButton);
 
-      // Atualizar a tela após o clique
       await tester
           .pumpAndSettle(); // Garantir que todas as animações e mudanças de estado terminem
 
-      // Verificar se o SnackBar foi exibido
       expect(find.text('Dados do usuário atualizados com sucesso'),
           findsOneWidget);
 
-      //Verificar se os método de atualização foi chamado com os novos dados
       verify(mockDocumentReference.update(newData));
 
-      // Mensagens de log para diagnóstico
       debugPrint("Nome atualizado: $newName");
       debugPrint("Nascimento atualizado: $newBirth");
       debugPrint("Altura atualizada: $newHeight");
 
-      // Verificar se o SnackBar realmente foi exibido (diagnóstico extra)
       expect(find.byType(SnackBar), findsOneWidget);
     },
   );
@@ -136,7 +125,6 @@ void main() {
         'birth': newBirth
       };
 
-      // Configuração dos mocks
       when(mockFirestore.collection(collectionPath))
           .thenReturn(mockCollectionReference);
       when(mockCollectionReference.doc(documentPath))
@@ -145,12 +133,11 @@ void main() {
           .thenAnswer((_) async => mockDocumentSnapshot);
       when(mockDocumentSnapshot.data()).thenReturn(data);
 
-      // Aqui você está incluindo um Scaffold para garantir que a tela renderize corretamente
       await tester.pumpWidget(MaterialApp(
         home: Scaffold(
           body: PersonalInfoChangePage(
             firebaseAuth: mockFirebaseAuth,
-            firebaseInstance: mockFirestore, // Pass the mock Firestore
+            firebaseInstance: mockFirestore,
           ),
         ),
       ));
@@ -159,40 +146,31 @@ void main() {
 
       await tester.pumpAndSettle();
 
-      // Localizando os campos e o botão
       final nameField = find.byKey(const Key('nameField'));
       final birthField = find.byKey(const Key('birthField'));
       final heightField = find.byKey(const Key('heightField'));
       final confirmButton = find.byKey(const Key('confirmButton'));
 
-      // Verificar se os campos existem
       expect(nameField, findsOneWidget);
       expect(birthField, findsOneWidget);
       expect(heightField, findsOneWidget);
 
-      // Inserir texto nos campos
       await tester.enterText(nameField, newName);
       await tester.enterText(birthField, newBirth);
       await tester.enterText(heightField, newHeight);
 
-      // Clicar no botão de confirmação
       await tester.tap(confirmButton);
 
-      // Atualizar a tela após o clique
-      await tester.pumpAndSettle(); // Garantir que todas as animações e mudanças de estado terminem
+      await tester.pumpAndSettle();
 
-      // Verificar se o SnackBar foi exibido
       expect(find.text('Data de nascimento inválida'), findsOneWidget);
 
-      //Verificar se o método de atualização realmente não foi chamado devido à data invalida
       verifyNever(mockDocumentReference.update(newData));
 
-      // Mensagens de log para diagnóstico
       debugPrint("Nome mantido: $oldName");
       debugPrint("Nascimento mantido: $oldBirth");
       debugPrint("Altura mantida: $oldHeight");
 
-      // Verificar se o SnackBar realmente foi exibido (diagnóstico extra)
       expect(find.byType(SnackBar), findsOneWidget);
     },
   );

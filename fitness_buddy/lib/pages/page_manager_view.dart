@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fitness_buddy/utils/constants.dart';
 
 class MainBottomNavigationBar extends StatelessWidget {
   final Function(int) _onTabTapped;
@@ -76,7 +77,7 @@ class AppBarHome extends StatelessWidget implements PreferredSizeWidget {
       leading: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Image.asset(
-          'assets/logo_images/logo.png',
+          Constants.pathImageLogo,
           height: 50,
         ),
       ),
