@@ -3,6 +3,7 @@ import 'package:fitness_buddy/utils/path_constants.dart';
 import 'package:fitness_buddy/data/exercise_data.dart';
 import 'package:fitness_buddy/data/workout_data.dart';
 import 'package:fitness_buddy/pages/workout_details/bloc/workout_details_bloc.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';

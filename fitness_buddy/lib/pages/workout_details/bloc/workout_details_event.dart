@@ -5,11 +5,13 @@ abstract class WorkoutDetailsEvent {}
 
 class BackTappedEvent extends WorkoutDetailsEvent {}
 
-class WorkoutDetailsInitialEvent extends WorkoutDetailsEvent {
-  final WorkoutData workout;
+class WorkoutExerciseCellTappedEvent extends WorkoutDetailsEvent {
+  final ExerciseData currentExercise;
+  final ExerciseData? nextExercise;
 
-  WorkoutDetailsInitialEvent({
-    required this.workout,
+  WorkoutExerciseCellTappedEvent({
+    required this.currentExercise,
+    required this.nextExercise,
   });
 }
 
