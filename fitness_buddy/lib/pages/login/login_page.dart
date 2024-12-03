@@ -29,14 +29,11 @@ class LoginPageState extends State<LoginPage> {
       _auth = FirebaseAuth.instance;
     }
 
-    // _emailController.text = "Ludivikeduardo@gmail.com";
-    // _passwordController.text = "12345678";
-
     super.initState();
   }
 
   Future<void> _loginUser(context) async {
-    SnackBar? snackBar;
+    SnackBar snackBar = SnackBars.erroDesconhecido();
     try {
       await _auth!.signInWithEmailAndPassword(
         email: _emailController.text,
