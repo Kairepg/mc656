@@ -10,10 +10,10 @@ import 'login_page_test.mocks.dart';
 // Gerar mocks para FirebaseAuth
 @GenerateMocks([FirebaseAuth, User, UserCredential])
 void main() {
-  group("Pairwise", ()
+  group("Classes de equivalência", ()
   {
     testWidgets(
-      'Login com email válido e senha válida',
+      'Classe válida: login bem-sucedido',
       (WidgetTester tester) async {
         final mockFirebaseAuth = MockFirebaseAuth();
         final mockUserCredential = MockUserCredential();
@@ -58,7 +58,7 @@ void main() {
     );
 
     testWidgets(
-      'Login com email válido e senha errada',
+      'Classe inválida: invalid-credential',
       (WidgetTester tester) async {
         final mockFirebaseAuth = MockFirebaseAuth();
         final mockUser = MockUser();
@@ -98,7 +98,7 @@ void main() {
     );
 
     testWidgets(
-      'Login com email e senha inválidos',
+      'Classe inválida: invalid-email',
       (WidgetTester tester) async {
         final mockFirebaseAuth = MockFirebaseAuth();
         final mockUser = MockUser();
@@ -138,7 +138,7 @@ void main() {
     );
 
     testWidgets(
-      'Login com email errado e senha válida',
+      'Classe Inválida: Erro desconhecido',
       (WidgetTester tester) async {
         final mockFirebaseAuth = MockFirebaseAuth();
         final mockUser = MockUser();
@@ -146,12 +146,13 @@ void main() {
 
         when(mockFirebaseAuth.signInWithEmailAndPassword(
           email: 'email_invalido.com',
-          password: '123456',
+          password: 'senha_invalida',
         )).thenThrow(FirebaseAuthException(
-          code: 'invalid-email'
+          code: 'wrong-password'
         ));
 
         when(mockFirebaseAuth.currentUser).thenReturn(mockUser);
+
         when(mockUser.email).thenReturn('email_invalido.com');
 
         await tester.pumpWidget(
@@ -162,7 +163,7 @@ void main() {
         final loginButton = find.byKey(const Key('loginButton'));
 
         await tester.enterText(emailField, 'email_invalido.com');
-        await tester.enterText(passwordField, '123456');
+        await tester.enterText(passwordField, 'senha_invalida');
 
         await tester.tap(loginButton);
 
@@ -170,53 +171,12 @@ void main() {
 
         verify(mockFirebaseAuth.signInWithEmailAndPassword(
           email: 'email_invalido.com',
-          password: '123456',
+          password: 'senha_invalida',
         )).called(1);
 
-        expect(find.text("Login inválido"),findsOneWidget );
+        expect(find.text("Erro ao logar usuário"),findsOneWidget );
       },
     );
-     });
+  });
 
-  testWidgets(
-    'Login inválido com erro desconhecido',
-    (WidgetTester tester) async {
-      final mockFirebaseAuth = MockFirebaseAuth();
-      final mockUser = MockUser();
-    
-
-      when(mockFirebaseAuth.signInWithEmailAndPassword(
-        email: 'email_invalido.com',
-        password: 'senha_invalida',
-      )).thenThrow(FirebaseAuthException(
-        code: 'wrong-password'
-      ));
-
-      when(mockFirebaseAuth.currentUser).thenReturn(mockUser);
-
-      when(mockUser.email).thenReturn('email_invalido.com');
-
-      await tester.pumpWidget(
-          MaterialApp(home: LoginPage(firebaseAuth: mockFirebaseAuth)));
-
-      final emailField = find.byKey(const Key('emailField'));
-      final passwordField = find.byKey(const Key('passwordField'));
-      final loginButton = find.byKey(const Key('loginButton'));
-
-      await tester.enterText(emailField, 'email_invalido.com');
-      await tester.enterText(passwordField, 'senha_invalida');
-
-      await tester.tap(loginButton);
-
-      await tester.pump();
-
-      verify(mockFirebaseAuth.signInWithEmailAndPassword(
-        email: 'email_invalido.com',
-        password: 'senha_invalida',
-      )).called(1);
-
-      expect(find.text("Erro ao logar usuário"),findsOneWidget );
-    },
-  );
- 
 }
