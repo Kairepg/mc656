@@ -74,17 +74,17 @@ class TextConstants {
   //Workout screen -> yoga card
   static const String yogaTitle = "Yoga";
   static const String yogaExercises = "16";
-  static const String yogaMinutes = "52";
+  static const String yogaMinutes = "32";
 
   //Workout screen -> pilates card
   static const String pilatesTitle = "Pilates";
   static const String pilatesExercises = "20";
-  static const String pilatesMinutes = "60";
+  static const String pilatesMinutes = "15";
 
   //Workout screen -> fullBody card
   static const String fullBodyTitle = "Corpo todo";
   static const String fullBodyExercises = "14";
-  static const String fullBodyMinutes = "48";
+  static const String fullBodyMinutes = "30";
 
   //Workout screen -> stretching card
   static const String stretchingTitle = "Alongamento";
@@ -115,10 +115,91 @@ class TextConstants {
   static const String warriorPose = "Postura do Guerreiro II";
   static const int warriorPoseMinutes = 12;
 
+// Workout Details Pilates screen -> card1
+  static const String theHundred = "The Hundred";
+  static const int theHundredMinutes = 5;
+
+// Workout Details Pilates screen -> card2
+  static const String theRollUp = "The Roll Up";
+  static const int theRollUpMinutes = 5;
+
+  // Workout Details Pilates screen -> card3
+  static const String theOneLegCircle = "The One Leg Circle";
+  static const int theOneLegCircleMinutes = 5;
+
+  // Workout Details FullBody screen -> card1
+  static const String squat = "Squat";
+  static const int squatMinutes = 10;
+
+  // Workout Details FullBody screen -> card2
+  static const String benchPress = "Bench Press";
+  static const int benchPressMinutes = 10;
+
+  // Workout Details FullBody screen -> card3
+  static const String pulleyFront = "Pulley Front";
+  static const int pulleyFrontMinutes = 10;
+
   // Start Workout screen
   static const String back = "Volta";
   static const String next = "Próximo";
   static const String nextExercise = "Próximo Exercício:";
+
+  // Start Workout screen -> The Hundred
+  static const String theHundredDescription = "O The Hundred é o primeiro movimento da lista de exercícios originais de Pilates. Embora seja considerado um exercício de nível técnico básico, exige muita concentração.";
+  static const String theHundredStep1 =
+    "Deite-se de costas com os braços ao longo do corpo e tornozelos em flexão plantar. Flexione levemente os quadris, mantendo a coluna lombar apoiada no MAT e os pés não tocam o solo.";
+  static const String theHundredStep2 =
+    "Eleve o tronco e os braços do solo, mantendo a escápula inferior apoiada no MAT. Olhe para os pés e comece a bombear os braços vigorosamente, alternando a flexão e extensão dos ombros.";
+  static const String theHundredStep3 =
+    "Realize 5 bombeios durante a inspiração e 5 durante a expiração, completando 10 ciclos. Mantenha a ativação dos flexores do tronco e quadris durante todo o movimento.";
+  
+  // Start Workout screen -> The Roll Up
+  static const String theRollUpDescription = 
+    "O The Roll Up é o segundo exercício da lista de Pilates. Embora seja de nível técnico básico, exige execução gradativa devido à complexidade e atenção aos detalhes.";
+  static const String theRollUpStep1 = 
+    "Deite-se de costas com os quadris abduzidos e tornozelos em dorsiflexão. Mantenha a coluna neutra e estabilizada, e inspire enquanto eleva os braços em direção ao teto.";
+  static const String theRollUpStep2 = 
+    "Ao atingir 90 graus com os ombros, expire e inicie a flexão da coluna, começando pela cervical e levando as mãos em direção aos pés, flexionando os quadris.";
+  static const String theRollUpStep3 = 
+    "Inspire para manter a posição e expire estendendo os quadris e a coluna, mobilizando-a vértebra por vértebra, retornando à posição inicial. Os braços devem acompanhar a linha dos ombros até o fim do movimento.";
+
+  // Start Workout screen -> The One Leg Circle
+  static const String theOneLegCircleDescription =
+    "O The One Leg Circle é um exercício de Pilates que exige concentração e estabilização global, trabalhando a dissociação da articulação coxofemoral e controle da lombar.";
+  static const String theOneLegCircleStep1 =
+    "Deite-se de costas com o quadril fletido a 90 graus unilateralmente e o tornozelo em flexão plantar. O tornozelo contralateral deve estar em dorsiflexão e os braços ao lado do corpo, palmas para baixo.";
+  static const String theOneLegCircleStep2 =
+    "Inspire e comece a circundução, cruzando a linha média do corpo e mantendo o sacro em contato com o MAT. Expire na outra metade do círculo até retornar à posição inicial.";
+  static const String theOneLegCircleStep3 =
+    "Mantenha a estabilidade da região lombopélvica durante todo o movimento, garantindo o controle e a dissociação da articulação do quadril.";
+
+  static const String squatDescription = "O agachamento é um exercício simples que não necessita de muitos preparos para ser realizado, bastando apenas manter as pernas afastadas, esticar os braços à frente do corpo e agachar até que as coxas fiquem paralelas ao chão.";
+  static const String squatStep1 =
+    "Mantenha os pés ligeiramente afastados e sempre bem apoiados no chão.";
+  static const String squatStep2 =
+    "Estique os braços à frente do corpo.";
+  static const String squatStep3 =
+    "Mantenha as costas retas e evite compensar com o quadril.";
+  static const String squatStep4 =
+    "Inspire antes de iniciar o agachamento e solte o ar enquanto desce.";
+  static const String squatStep5 =
+    "Desça o suficiente para manter as coxas paralelas ao chão.";
+
+  static const String benchPressDescription = "O supino é um dos principais exercícios para desenvolver a parte superior do corpo, amplamente utilizado por praticantes de treinamento de força, seja para ganhos estéticos ou para melhorar a performance.";
+  static const String benchPressStep1 =
+    "Posição dos pés: Os pés devem estar bem fixados no chão, garantindo estabilidade durante a execução do supino. Sem estabilidade, as cargas e a ativação muscular serão reduzidas.";
+  static const String benchPressStep2 =
+    "Posição dos ombros no ângulo certo: Os ombros devem acompanhar a posição da pegada e do cotovelo. Com uma pegada mais aberta, os ombros estarão em rotação externa. Já com uma pegada mais fechada, os ombros estarão em rotação interna.";
+  static const String benchPressStep3 =
+    "Posição das costas: As costas devem estar contraídas, mantendo o arco natural da lombar por meio da aproximação das escápulas. Isso aumenta a estabilidade, permitindo o uso de cargas maiores.";
+
+  static const String pulleyFrontDescription = "O Pulley Frente é um exercício eficaz para o desenvolvimento dos músculos das costas, especialmente o grande dorsal. É amplamente utilizado para melhorar a força e a estética da região superior do corpo.";
+  static const String pulleyFrontStep1 =
+    "Posição inicial: Sente-se no equipamento com os pés bem apoiados e segure a barra com uma pegada pronada (palmas das mãos voltadas para frente), em uma largura ligeiramente maior que os ombros.";
+  static const String pulleyFrontStep2 =
+    "Execução do movimento: Puxe a barra em direção à parte superior do peito, mantendo as costas retas e os cotovelos apontados para baixo. Evite balançar o tronco durante o movimento.";
+  static const String pulleyFrontStep3 =
+    "Retorno à posição inicial: Controle o movimento ao retornar a barra para a posição inicial, estendendo os braços sem perder a tensão nos músculos das costas.";
 
   // Start Workout screen -> Warrior II Pose
   static const String warriorDescription = "Nomeada por um guerreiro feroz, esta versão da postura aumenta a resistência.";
