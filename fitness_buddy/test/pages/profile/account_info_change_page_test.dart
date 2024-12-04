@@ -22,7 +22,7 @@ void main() {
   late MockCollectionReference<Map<String, dynamic>> mockCollectionReference;
   late MockDocumentReference<Map<String, dynamic>> mockDocumentReference;
   late MockDocumentSnapshot<Map<String, dynamic>> mockDocumentSnapshot;
-  final mockUser = MockUser(); // Simular um usuário autenticado
+  final mockUser = MockUser();
 
   const String collectionPath = 'users';
   String? documentPath = 'teste@teste.com';
@@ -75,7 +75,6 @@ void main() {
     final passwordField = find.byKey(const Key('passwordField'));
     final confirmButton = find.byKey(const Key('confirmButton'));
 
-    // Verificar se o campo existem
     expect(passwordField, findsOneWidget);
 
     // Inserir texto nos campos
@@ -88,31 +87,26 @@ void main() {
     await tester
         .pumpAndSettle(); // Garantir que todas as animações e mudanças de estado terminem
 
-    // Verificar se o SnackBar foi exibido
     expect(
         find.text('Dados do usuário atualizados com sucesso'), findsOneWidget);
 
-    //Verificar se o método de atualização de senha do firebase auth foi chamado
     verify(mockUser.updatePassword(newPassword)).called(1);
 
-    //Verificar se os método de atualização de dados do firestore foi chamado com oa nova senha
     verify(mockDocumentReference.update(newData)).called(1);
 
     // Mensagens de log para diagnóstico
     debugPrint("Senha atualizada: $newPassword");
 
-    // Verificar se o SnackBar realmente foi exibido (diagnóstico extra)
     expect(find.byType(SnackBar), findsOneWidget);
   });
+
   testWidgets(
     'Testando alteração de senha com senha fraca ou vazia',
     (WidgetTester tester) async {
-      //aqui, pode ser escolhida uma senha fraca (< 6 digitos) ou string vazia
       String newPassword = "fraca";
 
       Map<String, dynamic> newData = {'password': newPassword};
 
-      // Configuração dos mocks
       when(mockFirestore.collection(collectionPath))
           .thenReturn(mockCollectionReference);
       when(mockCollectionReference.doc(documentPath))
@@ -121,7 +115,6 @@ void main() {
           .thenAnswer((_) async => mockDocumentSnapshot);
       when(mockDocumentSnapshot.data()).thenReturn(data);
 
-      // mock da exceção de senha fraca ou vazia
       if (newPassword.isNotEmpty) {
         when(mockUser.updatePassword(newPassword))
             .thenThrow(FirebaseAuthException(code: 'weak-password'));
@@ -130,12 +123,11 @@ void main() {
             .thenThrow(FirebaseAuthException(code: 'invalid-password'));
       }
 
-      // Aqui você está incluindo um Scaffold para garantir que a tela renderize corretamente
       await tester.pumpWidget(MaterialApp(
         home: Scaffold(
           body: AccountInfoChangePage(
             firebaseAuth: mockFirebaseAuth,
-            firebaseInstance: mockFirestore, // Pass the mock Firestore
+            firebaseInstance: mockFirestore,
           ),
         ),
       ));
@@ -144,22 +136,17 @@ void main() {
 
       await tester.pumpAndSettle();
 
-      // Localizando o campo de senha e o botão de confirmar
       final passwordField = find.byKey(const Key('passwordField'));
       final confirmButton = find.byKey(const Key('confirmButton'));
 
-      // Verificar se o campo existe
       expect(passwordField, findsOneWidget);
 
-      // Inserir texto nos campos
       await tester.enterText(passwordField, newPassword);
 
-      // Clicar no botão de confirmação
       await tester.tap(confirmButton);
 
-      // Atualizar a tela após o clique
       await tester
-          .pumpAndSettle(); // Garantir que todas as animações e mudanças de estado terminem
+          .pumpAndSettle();
 
       if (newPassword.isNotEmpty) {
         expect(find.text('A senha é muito fraca'), findsOneWidget);
@@ -168,13 +155,10 @@ void main() {
       }
       verify(mockUser.updatePassword(newPassword)).called(1);
 
-      //Verificar se os método de atualização de dados do firestore foi chamado com oa nova senha
       verifyNever(mockDocumentReference.update(newData));
 
-      // Mensagens de log para diagnóstico
       debugPrint("Senha mantida: $oldPassword");
 
-      // Verificar se o SnackBar realmente foi exibido (diagnóstico extra)
       expect(find.byType(SnackBar), findsOneWidget);
     },
   );

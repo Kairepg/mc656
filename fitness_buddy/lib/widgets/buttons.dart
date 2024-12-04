@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fitness_buddy/utils/color_constants.dart';
 
 class BtnFilled extends StatelessWidget {
   final String text;
@@ -35,6 +36,44 @@ class BtnFilled extends StatelessWidget {
               fontSize: 16,
             ),
           )),
+    );
+  }
+}
+
+
+class FitnessButton extends StatelessWidget {
+  final String title;
+  final bool isEnabled;
+  final Function() onTap;
+
+  const FitnessButton({super.key, required this.title, this.isEnabled = true, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      height: 55,
+      decoration: BoxDecoration(
+        color: isEnabled ? const Color(0xFFF56606) : ColorConstants.disabledColor,
+        borderRadius: BorderRadius.circular(100),
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(100),
+          onTap: onTap,
+          child: Center(
+            child: Text(
+              title,
+              style: const TextStyle(
+                color: ColorConstants.white,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
