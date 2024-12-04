@@ -1,8 +1,6 @@
-import 'package:fitness_buddy/pages/favorite/favorite_page.dart';
 import 'package:fitness_buddy/pages/home/home_page.dart';
 import 'package:fitness_buddy/pages/page_manager_view.dart';
 import 'package:fitness_buddy/pages/profile/profile_navigator.dart';
-import 'package:fitness_buddy/pages/ranking/ranking_page.dart';
 import 'package:fitness_buddy/pages/workouts/page/workouts_page.dart';
 import 'package:flutter/material.dart';
 
@@ -28,16 +26,12 @@ class _PageManagerState extends State<PageManager> {
   final List<String> _childrenText = const <String>[
     'Home',
     'Workouts',
-    'Ranking',
-    'Favorito',
-    'Perfil',
+    'Perfil'
   ];
 
   final List<Widget> _children = const <Widget>[
     HomePage(),
     WorkoutsPage(),
-    RankingPage(),
-    FavoritePage(),
     ProfileNavigator(),
   ];
 
