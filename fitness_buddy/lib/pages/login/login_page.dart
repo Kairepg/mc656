@@ -8,7 +8,17 @@ import 'package:flutter/material.dart';
 class LoginPage extends StatefulWidget {
   final FirebaseAuth? firebaseAuth;
 
-  const LoginPage({super.key, this.firebaseAuth});
+  const LoginPage._({this.firebaseAuth});
+
+  static LoginPage?_instancia;
+  factory LoginPage() {
+    _instancia ??= const LoginPage._();
+    return _instancia!;
+  }
+  factory LoginPage.fromLoginPage(firebaseAuth) {
+    _instancia ??= LoginPage._(firebaseAuth: firebaseAuth);
+    return _instancia!;
+  }
 
   @override
   LoginPageState createState() => LoginPageState();

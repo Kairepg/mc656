@@ -19,7 +19,7 @@ class AppRoutes {
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
     case AppRoutes.login:
-      return MaterialPageRoute(builder: (context) => const LoginPage());
+      return MaterialPageRoute(builder: (context) => LoginPage());
     case AppRoutes.register:
       return MaterialPageRoute(builder: (context) => const SignUpPage());
     case AppRoutes.home:
