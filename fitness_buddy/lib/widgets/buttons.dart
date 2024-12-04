@@ -54,7 +54,7 @@ class FitnessButton extends StatelessWidget {
       width: double.infinity,
       height: 55,
       decoration: BoxDecoration(
-        color: isEnabled ? ColorConstants.primaryColor : ColorConstants.disabledColor,
+        color: isEnabled ? const Color(0xFFF56606) : ColorConstants.disabledColor,
         borderRadius: BorderRadius.circular(100),
       ),
       child: Material(
