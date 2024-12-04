@@ -128,15 +128,15 @@ class TextConstants {
   static const int theOneLegCircleMinutes = 5;
 
   // Workout Details FullBody screen -> card1
-  static const String squat = "Squat";
+  static const String squat = "Agachamento";
   static const int squatMinutes = 10;
 
   // Workout Details FullBody screen -> card2
-  static const String benchPress = "Bench Press";
+  static const String benchPress = "Supino Reto";
   static const int benchPressMinutes = 10;
 
   // Workout Details FullBody screen -> card3
-  static const String pulleyFront = "Pulley Front";
+  static const String pulleyFront = "Pulley Frente";
   static const int pulleyFrontMinutes = 10;
 
   // Start Workout screen
@@ -185,7 +185,7 @@ class TextConstants {
   static const String squatStep5 =
     "Desça o suficiente para manter as coxas paralelas ao chão.";
 
-  static const String benchPressDescription = "O supino é um dos principais exercícios para desenvolver a parte superior do corpo, amplamente utilizado por praticantes de treinamento de força, seja para ganhos estéticos ou para melhorar a performance.";
+  static const String benchPressDescription = "O supino reto é um dos principais exercícios para desenvolver a parte superior do corpo, amplamente utilizado por praticantes de treinamento de força, seja para ganhos estéticos ou para melhorar a performance.";
   static const String benchPressStep1 =
     "Posição dos pés: Os pés devem estar bem fixados no chão, garantindo estabilidade durante a execução do supino. Sem estabilidade, as cargas e a ativação muscular serão reduzidas.";
   static const String benchPressStep2 =
