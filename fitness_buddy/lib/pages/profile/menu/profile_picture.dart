@@ -53,7 +53,7 @@ class _ProfilePicture extends State<ProfilePicture> {
       if (imageByte == null) return;
 
     } catch (e){
-      print('Foto de perfil não encontrada.');
+      return;
     }
   }
 
