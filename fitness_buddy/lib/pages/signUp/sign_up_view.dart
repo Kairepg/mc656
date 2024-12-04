@@ -49,7 +49,8 @@ class LinkedLabelCheckbox extends StatelessWidget {
     required this.checkValue,
     required this.onChanged,
     required this.contextRoute,
-    required this.route,
+    required this.route, 
+    this.checkbox,
   });
 
   final String label;
@@ -58,6 +59,7 @@ class LinkedLabelCheckbox extends StatelessWidget {
   final ValueChanged<bool> onChanged;
   final BuildContext contextRoute;
   final String route;
+  final Checkbox? checkbox;
 
   @override
   Widget build(BuildContext context) {
@@ -96,10 +98,18 @@ class LinkedLabelCheckbox extends StatelessWidget {
         ],
       )],
     );},validator: (value) {
-    if (!checkValue) {
-      return 'Você precisa aceitar os termos e condições';
-    } else {
+    if (checkbox == null){
+      if (!checkValue ) {
+        return 'Você precisa aceitar os termos e condições';
+      } else {
+        return null;
+     }
+    } else{
+      if (checkbox?.value == true){
       return null;
+      }else {
+        return 'Você precisa aceitar os termos e condições';
+      }
     }
   }, );
   }

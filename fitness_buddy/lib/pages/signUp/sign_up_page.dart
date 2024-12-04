@@ -8,8 +8,9 @@ import 'package:flutter/material.dart';
 
 class SignUpPage extends StatefulWidget {
   final FirebaseAuth? firebaseAuth;
+  final Checkbox? checkbox;
 
-  const SignUpPage({super.key, this.firebaseAuth});
+  const SignUpPage({super.key, this.firebaseAuth, this.checkbox});
 
   @override
   SignUpPageState createState() => SignUpPageState();
@@ -170,11 +171,13 @@ class SignUpPageState extends State<SignUpPage> {
                     ),
                     const SizedBox(height: 30),
                     LinkedLabelCheckbox(
+                        key: const Key("CheckBox"),
                         label: 'Li e concordo com os termos e condições',
                         padding: const EdgeInsets.symmetric(horizontal: 20.0),
                         checkValue: _isSelected,
                         contextRoute: context,
                         route: AppRoutes.terms,
+                        checkbox: widget.checkbox,
                         onChanged: (bool newValue) {
                           setState(() {
                             _isSelected = newValue;
