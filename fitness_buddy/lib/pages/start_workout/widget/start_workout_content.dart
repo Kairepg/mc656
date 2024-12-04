@@ -179,6 +179,7 @@ class StartWorkoutContent extends StatelessWidget {
           int currentExerciseIndex = exercisesList.indexOf(exercise);
           await _saveWorkout(currentExerciseIndex);
           if (currentExerciseIndex < exercisesList.length - 1) {
+            // ignore: use_build_context_synchronously
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(
                   builder: (_) => BlocProvider.value(
@@ -194,6 +195,7 @@ class StartWorkoutContent extends StatelessWidget {
           } 
         } else {
           await _saveWorkout(workout.exerciseDataList!.length - 1);
+          // ignore: use_build_context_synchronously
           Navigator.of(context).pop();
         }
       },
