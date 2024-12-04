@@ -163,7 +163,7 @@ class _PersonalInfoChangePageState extends State<PersonalInfoChangePage> {
                         controller: _birthController,
                         decoration: const InputDecoration(
                           border: UnderlineInputBorder(),
-                          labelText: 'Data de Nascimento',
+                          labelText: 'Data de Nascimento (DD/MM/YYYY)',
                         ),
                       ),
                       TextFormField(
@@ -171,7 +171,7 @@ class _PersonalInfoChangePageState extends State<PersonalInfoChangePage> {
                         controller: _heightController,
                         decoration: const InputDecoration(
                           border: UnderlineInputBorder(),
-                          labelText: 'Altura',
+                          labelText: 'Altura (cm)',
                         ),
                       ),
                       const SizedBox(height: 30),
