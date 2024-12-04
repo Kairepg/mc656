@@ -34,10 +34,12 @@ class _ProfilePicture extends State<ProfilePicture> {
       final XFile? image = await picker.pickImage(source: ImageSource.gallery);
       if (image == null) return;
 
-      final storage = FirebaseStorage.instance.ref();
-      final imageReference = storage.child('$emailId.jpg');
+      /* LINHAS COMENTADAS ESTÃO RELACIONADAS COM O UPLOAD AO FIREBASE - PRECISA ASSINAR O PLANO BLAZE :/ */ 
+      
+      // final storage = FirebaseStorage.instance.ref();
+      // final imageReference = storage.child('$emailId.jpg');
       final imageByte = await image.readAsBytes();
-      await imageReference.putData(imageByte);
+      // await imageReference.putData(imageByte);
 
       setState(() => pickedImage = imageByte);
   }
@@ -55,13 +57,12 @@ class _ProfilePicture extends State<ProfilePicture> {
     }
   }
 
-
- 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         Container(
+        width: 100,
         decoration: 
         BoxDecoration(
           color: Colors.grey,
@@ -74,18 +75,17 @@ class _ProfilePicture extends State<ProfilePicture> {
               fit: BoxFit.cover,
             ).image,
             ): null),
-        child: const Center(
-          child:  Icon(Icons.account_circle, size: 100),
+        child: Center(
+          child:  Icon(pickedImage == null ?Icons.account_circle:null, size: 100),
         ),
         ),
         Positioned(
           bottom: 1,
-          right: 230,
+          right: 6,
           child: GestureDetector( 
             onTap: onProfileTapped,
             child: 
             Container(
-           
             decoration: BoxDecoration(
                 border: Border.all(
                   width: 3,
