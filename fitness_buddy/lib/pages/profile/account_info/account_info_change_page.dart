@@ -24,7 +24,7 @@ class _AccountInfoChangeState extends State<AccountInfoChangePage> {
   FirebaseFirestore? users;
 
   Future<void> _changeAccountInfo(scaffoldMessenger) async {
-    SnackBar? snackBar;
+    SnackBar snackBar = SnackBars.erroAoCadastrar();
     final user = _auth!.currentUser;
 
     try {

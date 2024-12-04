@@ -45,7 +45,7 @@ class _PersonalInfoChangePageState extends State<PersonalInfoChangePage> {
   }
 
   Future<void> _changePersonalInfo(scaffoldMessenger) async {
-    SnackBar? snackBar;
+    SnackBar snackBar = SnackBars.erroDesconhecido();
     final user = _auth!.currentUser;
 
     try {
@@ -77,7 +77,6 @@ class _PersonalInfoChangePageState extends State<PersonalInfoChangePage> {
   onPressBtnChangeInfo() {
     // Captura o ScaffoldMessenger antes de qualquer operação assíncrona
     final scaffoldMessenger = ScaffoldMessenger.of(context);
-    // final null_check = (_formKey.currentState)?.validate();
     if ((_formKey.currentState)!.validate()) {
       _changePersonalInfo(scaffoldMessenger);
 
