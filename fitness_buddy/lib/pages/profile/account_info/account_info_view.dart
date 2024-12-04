@@ -27,21 +27,3 @@ Widget getUserPassword(documentId) {
     },
   );
 }
-
-// String getUserPasswordString(documentId) {
-//   final ref = FirebaseFirestore.instance.collection('users').doc(documentId);
-//   Map<String, dynamic> data;
-//   String val = 'bruno';
-//   return ref.get().then((value) => {
-//     data = value.data() as Map<String, dynamic>,
-//     val = data['password'],
-//   });
-// }
-//   ref.get().then(
-//     (snapshot) => {
-//       data = snapshot.data() as Map<String, dynamic>,
-//       val = data['password']
-//     }
-//   );
-//   return val;
-// }

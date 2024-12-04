@@ -38,7 +38,7 @@ class SignUpPageState extends State<SignUpPage> {
   }
 
   Future<void> _registerUser(context) async {
-    SnackBar? snackBar;
+    SnackBar snackBar = SnackBars.erroDesconhecido();
     try {
       await _auth!.createUserWithEmailAndPassword(
         email: _emailController.text,
@@ -70,8 +70,7 @@ class SignUpPageState extends State<SignUpPage> {
       }
     }
 
-    // TODO - Isso ainda é uma má prática mas por enquanto é oq temos  
-    ScaffoldMessenger.of(context).showSnackBar(snackBar!);
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
     if (_auth!.currentUser != null && !_isTestEmail(_auth!.currentUser!.email!)) {
       Navigator.pushNamed(context, AppRoutes.home);
     }
@@ -118,7 +117,6 @@ class SignUpPageState extends State<SignUpPage> {
                     TextFormField(
                       key: const Key('nameField'),
                       controller: _nameController,
-                      // style: const TextStyle(fontSize: 12.0),
                       decoration: const InputDecoration(labelText: 'Nome'),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -131,7 +129,6 @@ class SignUpPageState extends State<SignUpPage> {
                       key: const Key('emailField'),
                       controller: _emailController,
                       decoration: const InputDecoration(labelText: 'Email'),
-                      // style: const TextStyle(fontSize: 12.0),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Por favor insira seu email';
@@ -143,7 +140,6 @@ class SignUpPageState extends State<SignUpPage> {
                       key: const Key('passwordField'),
                       controller: _passwordController,
                       decoration: const InputDecoration(labelText: 'Senha'),
-                      // style: const TextStyle(fontSize: 12.0),
                       obscureText: true,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -157,7 +153,6 @@ class SignUpPageState extends State<SignUpPage> {
                       controller: _confirmPasswordController,
                       decoration: const InputDecoration(
                           labelText: 'Confirme sua senha'),
-                      // style: const TextStyle(fontSize: 12.0),
                       obscureText: true,
                       validator: (value) {
                         if (value == null || value.isEmpty) {

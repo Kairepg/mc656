@@ -25,7 +25,6 @@ void main() {
   testWidgets(
     'Testando tela de cadastro com Firebase',
     (WidgetTester tester) async {
-      // Mock do FirebaseAuth
       final mockFirebaseAuth = MockFirebaseAuth();
       final mockUserCredential = MockUserCredential();
       final mockUser = MockUser();
@@ -43,23 +42,18 @@ void main() {
         password: 'senha12345',
       )).thenAnswer((_) async => mockUserCredential);
 
-      // Simular que o usuário está autenticado após o cadastro
       when(mockFirebaseAuth.currentUser).thenReturn(mockUser);
-      // Simular o comportamento do email do usuário
       when(mockUser.email).thenReturn('testadastro@teste.com');
 
-      // Construir a tela de cadastro
       await tester.pumpWidget(
           MaterialApp(home: SignUpPage(firebaseAuth: mockFirebaseAuth, checkbox: mockCheckbox)));
 
-      // Encontrar os campos de texto e o botão
       final nameField = find.byKey(const Key('nameField'));
       final emailField = find.byKey(const Key('emailField'));
       final passwordField = find.byKey(const Key('passwordField'));
       final confirmPasswordField = find.byKey(const Key('confirmPasswordField'));
       final signUpButton = find.byKey(const Key('signUpButton'));
 
-      // Inserir texto nos campos
       await tester.enterText(nameField, 'Testadastro');
       await tester.enterText(emailField, 'testadastro@teste.com');
       await tester.enterText(passwordField, 'senha12345');
@@ -69,16 +63,13 @@ void main() {
       await tester.ensureVisible(signUpButton);
       await tester.tap(signUpButton);
 
-      // // Atualizar a tela após o clique
       await tester.pump();
 
-      // Verificar se o método de cadastro foi chamado
       verify(mockFirebaseAuth.createUserWithEmailAndPassword(
         email: 'testadastro@teste.com',
         password: 'senha12345',
       )).called(1);
 
-      // Verificar se o usuário foi autenticado
       expect(mockFirebaseAuth.currentUser, isNotNull);
 
       expect(find.text("Usuário cadastrado com sucesso"), findsOneWidget);
@@ -88,7 +79,6 @@ void main() {
   testWidgets(
     'Cadastro inválido com confirmação de senha diferente',
     (WidgetTester tester) async {
-      // Mock do FirebaseAuth
       final mockFirebaseAuth = MockFirebaseAuth();
 
 
@@ -101,14 +91,12 @@ void main() {
       await tester.pumpWidget(
           MaterialApp(home: SignUpPage(firebaseAuth: mockFirebaseAuth, checkbox: mockCheckbox)));
 
-      // Encontrar os campos de texto e o botão
       final nameField = find.byKey(const Key('nameField'));
       final emailField = find.byKey(const Key('emailField'));
       final passwordField = find.byKey(const Key('passwordField'));
       final confirmPasswordField = find.byKey(const Key('confirmPasswordField'));
       final signUpButton = find.byKey(const Key('signUpButton'));
 
-      // Inserir texto nos campos
       await tester.enterText(nameField, 'Testadastro');
       await tester.enterText(emailField, 'testadastro@teste.com');
       await tester.enterText(passwordField, 'senha12345');
@@ -121,13 +109,11 @@ void main() {
       // Atualizar a tela após o clique
       await tester.pump();
 
-      // Verificar se o método de cadastro NÃO foi chamado
       verifyNever(mockFirebaseAuth.createUserWithEmailAndPassword(
         email: 'testadastro@teste.com',
         password: 'senha12345',
       ));
 
-      // Verificar se a mensagem de erro é exibida
       expect(find.text('As senhas não coincidem'), findsOneWidget);
     },
   );
@@ -135,7 +121,6 @@ void main() {
   testWidgets(
     'Cadastro inválido com e-mail já utilizado',
     (WidgetTester tester) async {
-      // Mock do FirebaseAuth
       final mockFirebaseAuth = MockFirebaseAuth();
       final mockUser = MockUser();
 
@@ -152,18 +137,15 @@ void main() {
       when(mockFirebaseAuth.currentUser).thenReturn(mockUser);
       when(mockUser.email).thenReturn('testexistente@teste.com');
 
-      // Construir a tela de cadastro
       await tester.pumpWidget(
           MaterialApp(home: SignUpPage(firebaseAuth: mockFirebaseAuth, checkbox: mockCheckbox)));
 
-      // Encontrar os campos de texto e o botão
       final nameField = find.byKey(const Key('nameField'));
       final emailField = find.byKey(const Key('emailField'));
       final passwordField = find.byKey(const Key('passwordField'));
       final confirmPasswordField = find.byKey(const Key('confirmPasswordField'));
       final signUpButton = find.byKey(const Key('signUpButton'));
 
-      // Inserir texto nos campos
       await tester.enterText(nameField, 'Testexistente');
       await tester.enterText(emailField, 'testexistente@teste.com');
       await tester.enterText(passwordField, 'senha12345');
@@ -173,17 +155,13 @@ void main() {
       await tester.ensureVisible(signUpButton);
       await tester.tap(signUpButton);
 
-      // Atualizar a tela após o clique
       await tester.pump();
 
-      // Verificar se o método de cadastro foi chamado
       verify(mockFirebaseAuth.createUserWithEmailAndPassword(
         email: 'testexistente@teste.com',
         password: 'senha12345',
       )).called(1);
 
-      // Verificar se a mensagem de erro é exibida
-      // Brother eu fiz 37 testes errados e o problema era que tava escrito "e-mail" kkkkkkkk
       expect(find.text('O email já está em uso'), findsOneWidget);
     },
   );
