@@ -50,7 +50,7 @@ class PathConstants {
   static const String theHundredVideo = 'assets/videos/TheHundred.mp4';
   static const String theOneLegCircleVideo = 'assets/videos/LegCircle.mp4';
 
-  static const String SupinoRetoVideo = 'assets/videos/supinoReto.mp4';
-  static const String AgachamentoVideo = 'assets/videos/Agachamento.mp4';
-  static const String PulleyFrenteVideo = 'assets/videos/PulleyFrente.mp4';
+  static const String supinoRetoVideo = 'assets/videos/supinoReto.mp4';
+  static const String agachamentoVideo = 'assets/videos/Agachamento.mp4';
+  static const String pulleyFrenteVideo = 'assets/videos/PulleyFrente.mp4';
 }
