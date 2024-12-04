@@ -45,28 +45,3 @@ class _TermsAndConditionsPageState extends State<TermsAndConditionsPage> {
   }
 }
 
-
-
-
-  // @override
-  // Widget build(BuildContext context) {
-
-  //   return Scaffold(
-  //     body: Column(
-  //       children: [
-  //         Row(
-  //           children: [
-  //             GestureDetector(
-  //               onTap: (){
-  //                 Get.back();
-  //               }
-  //             )
-  //           ],
-
-  //         )
-  //       ],
-  //     ),
-  //   )
-    
-  // }
-
