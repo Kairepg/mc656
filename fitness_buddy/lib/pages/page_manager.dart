@@ -1,9 +1,9 @@
-import 'package:fitness_buddy/pages/activity/activity_page.dart';
 import 'package:fitness_buddy/pages/favorite/favorite_page.dart';
 import 'package:fitness_buddy/pages/home/home_page.dart';
 import 'package:fitness_buddy/pages/page_manager_view.dart';
 import 'package:fitness_buddy/pages/profile/profile_navigator.dart';
 import 'package:fitness_buddy/pages/ranking/ranking_page.dart';
+import 'package:fitness_buddy/pages/workouts/page/workouts_page.dart';
 import 'package:flutter/material.dart';
 
 class PageManager extends StatefulWidget {
@@ -27,7 +27,7 @@ class _PageManagerState extends State<PageManager> {
 
   final List<String> _childrenText = const <String>[
     'Home',
-    'Atividades',
+    'Workouts',
     'Ranking',
     'Favorito',
     'Perfil',
@@ -35,7 +35,7 @@ class _PageManagerState extends State<PageManager> {
 
   final List<Widget> _children = const <Widget>[
     HomePage(),
-    ActivityPage(),
+    WorkoutsPage(),
     RankingPage(),
     FavoritePage(),
     ProfileNavigator(),
