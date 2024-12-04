@@ -39,6 +39,7 @@ class WorkoutDetailsPage extends StatelessWidget {
                           builder: (_) => BlocProvider.value(
                                 value: BlocProvider.of<WorkoutDetailsBloc>(context),
                                 child: StartWorkoutPage(
+                                  workout: workout,
                                   exercise: exercise!,
                                   currentExercise: exercise,
                                   nextExercise: exerciseIndex + 1 < workout.exerciseDataList!.length ? workout.exerciseDataList![exerciseIndex + 1] : null,
@@ -60,6 +61,7 @@ class WorkoutDetailsPage extends StatelessWidget {
                   builder: (_) => BlocProvider.value(
                         value: BlocProvider.of<WorkoutDetailsBloc>(context),
                         child: StartWorkoutPage(
+                          workout: workout,
                           exercise: state.currentExercise,
                           currentExercise: state.currentExercise,
                           nextExercise: state.nextExercise,

@@ -1,3 +1,5 @@
+import 'package:fitness_buddy/data/workout_data.dart';
+import 'package:fitness_buddy/services/data_service.dart';
 import 'package:fitness_buddy/utils/color_constants.dart';
 import 'package:fitness_buddy/utils/path_constants.dart';
 import 'package:fitness_buddy/utils/text_constants.dart';
@@ -11,10 +13,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class StartWorkoutContent extends StatelessWidget {
+  final WorkoutData workout;
   final ExerciseData exercise;
   final ExerciseData? nextExercise;
 
-  const StartWorkoutContent({super.key, required this.exercise, required this.nextExercise});
+  const StartWorkoutContent({super.key, required this.workout ,required this.exercise, required this.nextExercise});
 
   @override
   Widget build(BuildContext context) {
@@ -170,30 +173,43 @@ class StartWorkoutContent extends StatelessWidget {
   Widget _createButton(BuildContext context) {
     return FitnessButton(
       title: nextExercise != null ? TextConstants.next : 'Finish',
-      onTap: () {
+      onTap: () async {
         if (nextExercise != null) {
           List<ExerciseData> exercisesList = BlocProvider.of<workout_bloc.WorkoutDetailsBloc>(context).workout.exerciseDataList!;
           int currentExerciseIndex = exercisesList.indexOf(exercise);
+          await _saveWorkout(currentExerciseIndex);
           if (currentExerciseIndex < exercisesList.length - 1) {
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(
                   builder: (_) => BlocProvider.value(
                         value: BlocProvider.of<workout_bloc.WorkoutDetailsBloc>(context),
                         child: StartWorkoutPage(
+                          workout: workout,
                           exercise: exercisesList[currentExerciseIndex + 1],
                           currentExercise: exercisesList[currentExerciseIndex + 1],
                           nextExercise: currentExerciseIndex + 2 < exercisesList.length ? exercisesList[currentExerciseIndex + 2] : null,
                         ),
                       )),
             );
-          }
+          } 
         } else {
+          await _saveWorkout(workout.exerciseDataList!.length - 1);
           Navigator.of(context).pop();
         }
       },
     );
   }
+
+  Future<void> _saveWorkout(int exerciseIndex) async {
+    if (workout.currentProgress! < exerciseIndex + 1) {
+      workout.currentProgress = exerciseIndex + 1;
+    }
+    workout.exerciseDataList![exerciseIndex].progress = 1;
+
+    await DataService.saveWorkout(workout);
+  }
 }
+  
 
 class Step extends StatelessWidget {
   final String number;

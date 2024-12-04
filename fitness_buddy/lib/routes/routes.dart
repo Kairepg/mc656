@@ -25,10 +25,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case AppRoutes.home:
       return MaterialPageRoute(
           builder: (context) => const PageManager(initialPage: 0));
-    case AppRoutes.favorite:
+    case AppRoutes.workouts:
       return MaterialPageRoute(
           builder: (context) => const PageManager(initialPage: 1));
-    case AppRoutes.workouts:
+    case AppRoutes.favorite:
       return MaterialPageRoute(
           builder: (context) => const PageManager(initialPage: 2));
     case AppRoutes.ranking:
