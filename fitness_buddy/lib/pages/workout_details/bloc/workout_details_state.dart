@@ -16,3 +16,14 @@ class WorkoutExerciseCellTappedState extends WorkoutDetailsState {
     required this.nextExercise,
   });
 }
+
+
+class StartTappedState extends WorkoutDetailsState {
+  final ExerciseData currentExercise;
+  final ExerciseData? nextExercise;
+
+  StartTappedState({
+    required this.currentExercise,
+    required this.nextExercise,
+  });
+}

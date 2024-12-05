@@ -16,13 +16,11 @@ class WorkoutExerciseCellTappedEvent extends WorkoutDetailsEvent {
 }
 
 class StartTappedEvent extends WorkoutDetailsEvent {
-  final WorkoutData? workout;
-  final int? index;
-  final bool isReplace;
+  final ExerciseData currentExercise;
+  final ExerciseData? nextExercise;
 
   StartTappedEvent({
-    this.workout,
-    this.index,
-    this.isReplace = false,
+    required this.currentExercise,
+    required this.nextExercise,
   });
 }

@@ -15,6 +15,7 @@ class WorkoutDetailsBloc extends Bloc<WorkoutDetailsEvent, WorkoutDetailsState> 
 
     // Event handler for WorkoutExerciseCellTappedEvent
     on<WorkoutExerciseCellTappedEvent>(_onWorkoutExerciseCellTapped);
+    on<StartTappedEvent>(_onStartedTapped);
   }
 
   void _onBackTapped(
@@ -29,6 +30,17 @@ class WorkoutDetailsBloc extends Bloc<WorkoutDetailsEvent, WorkoutDetailsState> 
     Emitter<WorkoutDetailsState> emit,
   ) {
     emit(WorkoutExerciseCellTappedState(
+      currentExercise: event.currentExercise,
+      nextExercise: event.nextExercise,
+    ));
+  }
+
+
+  void _onStartedTapped(
+    StartTappedEvent event,
+    Emitter<WorkoutDetailsState> emit,
+  ) {
+    emit(StartTappedState(
       currentExercise: event.currentExercise,
       nextExercise: event.nextExercise,
     ));

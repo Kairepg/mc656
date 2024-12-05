@@ -127,7 +127,7 @@ class StartWorkoutContent extends StatelessWidget {
       child: Column(
         children: [
           nextExercise != null
-              ? Row(
+              ? Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text(
@@ -148,9 +148,9 @@ class StartWorkoutContent extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(width: 6.5),
-                    const Icon(Icons.access_time, size: 20),
+                    Row(mainAxisAlignment: MainAxisAlignment.center,children: [ Icon(Icons.access_time, size: 20),
                     const SizedBox(width: 6.5),
-                    Text('${nextExercise!.minutes! > 9 ? nextExercise!.minutes : '0${nextExercise!.minutes}'}:00 minutes')
+                    Text('${nextExercise!.minutes! > 9 ? nextExercise!.minutes : '0${nextExercise!.minutes}'}:00 minutes')])
                     // BlocBuilder<StartWorkoutBloc, StartWorkoutState>(
                     //   buildWhen: (_, currState) => currState is PlayTimerState || currState is PauseTimerState,
                     //   builder: (context, state) {

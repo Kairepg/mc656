@@ -59,8 +59,8 @@ class ExerciseCell extends StatelessWidget {
           onTap: () {
             bloc.add(
               StartTappedEvent(
-                workout: workout,
-                index: index,
+                currentExercise: currentExercise,
+                nextExercise: nextExercise,
               ),
             );
           },
