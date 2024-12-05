@@ -45,7 +45,7 @@ class _PersonalInfoChangePageState extends State<PersonalInfoChangePage> {
   }
 
   Future<void> _changePersonalInfo(scaffoldMessenger) async {
-    SnackBar? snackBar;
+    SnackBar snackBar = SnackBars.erroDesconhecido();
     final user = _auth!.currentUser;
 
     try {
@@ -77,7 +77,6 @@ class _PersonalInfoChangePageState extends State<PersonalInfoChangePage> {
   onPressBtnChangeInfo() {
     // Captura o ScaffoldMessenger antes de qualquer operação assíncrona
     final scaffoldMessenger = ScaffoldMessenger.of(context);
-    // final null_check = (_formKey.currentState)?.validate();
     if ((_formKey.currentState)!.validate()) {
       _changePersonalInfo(scaffoldMessenger);
 
@@ -164,7 +163,7 @@ class _PersonalInfoChangePageState extends State<PersonalInfoChangePage> {
                         controller: _birthController,
                         decoration: const InputDecoration(
                           border: UnderlineInputBorder(),
-                          labelText: 'Data de Nascimento',
+                          labelText: 'Data de Nascimento (DD/MM/YYYY)',
                         ),
                       ),
                       TextFormField(
@@ -172,7 +171,7 @@ class _PersonalInfoChangePageState extends State<PersonalInfoChangePage> {
                         controller: _heightController,
                         decoration: const InputDecoration(
                           border: UnderlineInputBorder(),
-                          labelText: 'Altura',
+                          labelText: 'Altura (cm)',
                         ),
                       ),
                       const SizedBox(height: 30),

@@ -8,8 +8,9 @@ import 'package:flutter/material.dart';
 
 class SignUpPage extends StatefulWidget {
   final FirebaseAuth? firebaseAuth;
+  final Checkbox? checkbox;
 
-  const SignUpPage({super.key, this.firebaseAuth});
+  const SignUpPage({super.key, this.firebaseAuth, this.checkbox});
 
   @override
   SignUpPageState createState() => SignUpPageState();
@@ -23,6 +24,8 @@ class SignUpPageState extends State<SignUpPage> {
   final TextEditingController _confirmPasswordController =
       TextEditingController();
   FirebaseAuth? _auth;
+  bool _isSelected = false;
+
 
   @override
   void initState() {
@@ -35,7 +38,7 @@ class SignUpPageState extends State<SignUpPage> {
   }
 
   Future<void> _registerUser(context) async {
-    SnackBar? snackBar;
+    SnackBar snackBar = SnackBars.erroDesconhecido();
     try {
       await _auth!.createUserWithEmailAndPassword(
         email: _emailController.text,
@@ -67,8 +70,7 @@ class SignUpPageState extends State<SignUpPage> {
       }
     }
 
-    // TODO - Isso ainda é uma má prática mas por enquanto é oq temos  
-    ScaffoldMessenger.of(context).showSnackBar(snackBar!);
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
     if (_auth!.currentUser != null && !_isTestEmail(_auth!.currentUser!.email!)) {
       Navigator.pushNamed(context, AppRoutes.home);
     }
@@ -115,7 +117,6 @@ class SignUpPageState extends State<SignUpPage> {
                     TextFormField(
                       key: const Key('nameField'),
                       controller: _nameController,
-                      // style: const TextStyle(fontSize: 12.0),
                       decoration: const InputDecoration(labelText: 'Nome'),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -128,7 +129,6 @@ class SignUpPageState extends State<SignUpPage> {
                       key: const Key('emailField'),
                       controller: _emailController,
                       decoration: const InputDecoration(labelText: 'Email'),
-                      // style: const TextStyle(fontSize: 12.0),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Por favor insira seu email';
@@ -140,7 +140,6 @@ class SignUpPageState extends State<SignUpPage> {
                       key: const Key('passwordField'),
                       controller: _passwordController,
                       decoration: const InputDecoration(labelText: 'Senha'),
-                      // style: const TextStyle(fontSize: 12.0),
                       obscureText: true,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -154,7 +153,6 @@ class SignUpPageState extends State<SignUpPage> {
                       controller: _confirmPasswordController,
                       decoration: const InputDecoration(
                           labelText: 'Confirme sua senha'),
-                      // style: const TextStyle(fontSize: 12.0),
                       obscureText: true,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -165,6 +163,21 @@ class SignUpPageState extends State<SignUpPage> {
                         }
                         return null;
                       },
+                    ),
+                    const SizedBox(height: 30),
+                    LinkedLabelCheckbox(
+                        key: const Key("CheckBox"),
+                        label: 'Li e concordo com os termos e condições',
+                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                        checkValue: _isSelected,
+                        contextRoute: context,
+                        route: AppRoutes.terms,
+                        checkbox: widget.checkbox,
+                        onChanged: (bool newValue) {
+                          setState(() {
+                            _isSelected = newValue;
+                          });
+                        },
                     ),
                     const SizedBox(height: 30),
                     // Dá para juntar isso em um widget
