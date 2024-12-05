@@ -1,5 +1,4 @@
 import 'package:fitness_buddy/pages/home/home_statistics.dart';
-import 'package:fitness_buddy/services/data_service.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_buddy/data/workout_data.dart';
 import 'package:fitness_buddy/widgets/buttons.dart';
@@ -55,36 +54,26 @@ class HomeContent extends StatelessWidget {
     );
   }
 
+ Widget _hasWorkouts(BuildContext context) {
+    if(workouts.isEmpty){
+      return _createStartWorkout(context);
+    } else {
+      return HomeStatistics(userWorkouts: workouts);
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
-    // final bloc = BlocProvider.of<HomeBloc>(context);
-    return FutureBuilder(future: DataService.getUserWorkouts(), builder: 
-    (BuildContext context, AsyncSnapshot<List<WorkoutData>> snapshot) {
-    final workoutsL = snapshot.data;
-    Widget homeInfo;
-    if (workoutsL!.isNotEmpty){
-        homeInfo = HomeStatistics(userWorkouts: workoutsL);
-    } else{
-      homeInfo = _createStartWorkout(context);
-    }
-    if(snapshot.hasData){
-    
     return
     SafeArea(
       child: ListView(
         padding: const EdgeInsets.symmetric(vertical: 20),
         children: [
           const SizedBox(height: 35),
-          homeInfo,
+          _hasWorkouts(context)
         ],
       )
     );
-    }else {
-      return const Text("Loading");
-
-    }
-
-  });
   }
 }

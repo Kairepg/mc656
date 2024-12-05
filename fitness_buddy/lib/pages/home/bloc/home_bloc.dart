@@ -1,5 +1,6 @@
 // import 'dart:async';
 import 'package:bloc/bloc.dart';
+import 'package:fitness_buddy/services/data_service.dart';
 import 'package:meta/meta.dart';
 import 'package:fitness_buddy/data/workout_data.dart';
 // import 'package:fitness_buddy/services/data_service.dart';
@@ -22,21 +23,15 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   int timeSent = 0;
 
 
-  void _onHomeInitialEvent(
-      HomeInitialEvent event, Emitter<HomeState> emit) {
-    emit(HomeInitial());
+  Future<void> _onHomeInitialEvent(
+      HomeInitialEvent event, Emitter<HomeState> emit) async {
+    try{
+    workouts = await DataService.getUserWorkouts();
+    emit(WorkoutsGotState(workouts: workouts));
+    } catch(e){
+      emit(HomeInitial());
+    }
   }
-
-
-  // @override
-  // Stream<HomeState> mapEventToState(
-  //   HomeEvent event,
-  // ) async* {
-  //   if (event is HomeInitialEvent) {
-  //     workouts  = await DataService.getUserWorkouts();
-  //     yield WorkoutsGotState(workouts: workouts);
-  //   }
-  // }
 
 }
 
