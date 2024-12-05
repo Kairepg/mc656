@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitness_buddy/pages/profile/menu/menu_navigator_view.dart';
+import 'package:fitness_buddy/pages/profile/menu/profile_picture.dart';
 import 'package:fitness_buddy/routes/routes.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +20,7 @@ class _MenuNavigatorPageState extends State<MenuNavigatorPage> {
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      const Icon(Icons.account_circle, size: 100),
+      const ProfilePicture(),
       CardButton(
         onPressed: () {
           Navigator.pushNamed(context, '/accountInfoView');
