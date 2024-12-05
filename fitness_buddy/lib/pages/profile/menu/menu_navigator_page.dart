@@ -32,6 +32,12 @@ class _MenuNavigatorPageState extends State<MenuNavigatorPage> {
         },
         text: 'Informações pessoais',
       ),
+      CardButton(
+        onPressed: () {
+          Navigator.pushNamed(widget.contextRotasTema!, AppRoutes.terms);
+        },
+        text: 'Termos e Condições',
+      ),
       //TODO
       // CardButton(
       //   onPressed: () {

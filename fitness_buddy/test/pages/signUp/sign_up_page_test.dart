@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitness_buddy/pages/signUp/sign_up_page.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -7,9 +8,20 @@ import 'package:mockito/mockito.dart';
 
 import 'sign_up_page_test.mocks.dart';
 
+// ignore: must_be_immutable
+class MockCheckbox extends Mock implements Checkbox, Diagnosticable {
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'MockCheckbox'; // Or provide a more descriptive string
+  }
+}
+
+
 // Gerar mocks para FirebaseAuth
 @GenerateMocks([FirebaseAuth, User, UserCredential])
 void main() {
+
+
   testWidgets(
     'Testando tela de cadastro com Firebase',
     (WidgetTester tester) async {
@@ -17,6 +29,14 @@ void main() {
       final mockUserCredential = MockUserCredential();
       final mockUser = MockUser();
 
+
+      final mockCheckbox = MockCheckbox();
+        // Mock the checkbox's value
+      when(mockCheckbox.value).thenReturn(true); // Set the checkbox to checked
+      
+      
+
+      // Configurar o comportamento simulado do cadastro
       when(mockFirebaseAuth.createUserWithEmailAndPassword(
         email: 'testadastro@teste.com',
         password: 'senha12345',
@@ -26,7 +46,7 @@ void main() {
       when(mockUser.email).thenReturn('testadastro@teste.com');
 
       await tester.pumpWidget(
-          MaterialApp(home: SignUpPage(firebaseAuth: mockFirebaseAuth)));
+          MaterialApp(home: SignUpPage(firebaseAuth: mockFirebaseAuth, checkbox: mockCheckbox)));
 
       final nameField = find.byKey(const Key('nameField'));
       final emailField = find.byKey(const Key('emailField'));
@@ -39,6 +59,8 @@ void main() {
       await tester.enterText(passwordField, 'senha12345');
       await tester.enterText(confirmPasswordField, 'senha12345');
 
+      // Clicar no botão de cadastro
+      await tester.ensureVisible(signUpButton);
       await tester.tap(signUpButton);
 
       await tester.pump();
@@ -58,10 +80,16 @@ void main() {
     'Cadastro inválido com confirmação de senha diferente',
     (WidgetTester tester) async {
       final mockFirebaseAuth = MockFirebaseAuth();
+
+
+      final mockCheckbox = MockCheckbox();
+        // Mock the checkbox's value
+      when(mockCheckbox.value).thenReturn(true); // Set the checkbox to checked
+      
       
       // Construir a tela de cadastro
       await tester.pumpWidget(
-          MaterialApp(home: SignUpPage(firebaseAuth: mockFirebaseAuth)));
+          MaterialApp(home: SignUpPage(firebaseAuth: mockFirebaseAuth, checkbox: mockCheckbox)));
 
       final nameField = find.byKey(const Key('nameField'));
       final emailField = find.byKey(const Key('emailField'));
@@ -75,6 +103,7 @@ void main() {
       await tester.enterText(confirmPasswordField, 'senha54321');
 
       // Clicar no botão de cadastro
+      await tester.ensureVisible(signUpButton);
       await tester.tap(signUpButton);
 
       // Atualizar a tela após o clique
@@ -95,6 +124,11 @@ void main() {
       final mockFirebaseAuth = MockFirebaseAuth();
       final mockUser = MockUser();
 
+      final mockCheckbox = MockCheckbox();
+        // Mock the checkbox's value
+      when(mockCheckbox.value).thenReturn(true); // Set the checkbox to checked
+
+      // Configurar o comportamento simulado do cadastro com erro de e-mail já em uso
       when(mockFirebaseAuth.createUserWithEmailAndPassword(
         email: 'testexistente@teste.com',
         password: 'senha12345',
@@ -104,7 +138,7 @@ void main() {
       when(mockUser.email).thenReturn('testexistente@teste.com');
 
       await tester.pumpWidget(
-          MaterialApp(home: SignUpPage(firebaseAuth: mockFirebaseAuth)));
+          MaterialApp(home: SignUpPage(firebaseAuth: mockFirebaseAuth, checkbox: mockCheckbox)));
 
       final nameField = find.byKey(const Key('nameField'));
       final emailField = find.byKey(const Key('emailField'));
@@ -117,6 +151,8 @@ void main() {
       await tester.enterText(passwordField, 'senha12345');
       await tester.enterText(confirmPasswordField, 'senha12345');
 
+      // Clicar no botão de cadastro
+      await tester.ensureVisible(signUpButton);
       await tester.tap(signUpButton);
 
       await tester.pump();
@@ -130,3 +166,4 @@ void main() {
     },
   );
 }
+
