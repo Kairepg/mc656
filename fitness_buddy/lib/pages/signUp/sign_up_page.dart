@@ -8,8 +8,9 @@ import 'package:flutter/material.dart';
 
 class SignUpPage extends StatefulWidget {
   final FirebaseAuth? firebaseAuth;
+  final Checkbox? checkbox;
 
-  const SignUpPage({super.key, this.firebaseAuth});
+  const SignUpPage({super.key, this.firebaseAuth, this.checkbox});
 
   @override
   SignUpPageState createState() => SignUpPageState();
@@ -23,6 +24,8 @@ class SignUpPageState extends State<SignUpPage> {
   final TextEditingController _confirmPasswordController =
       TextEditingController();
   FirebaseAuth? _auth;
+  bool _isSelected = false;
+
 
   @override
   void initState() {
@@ -102,7 +105,7 @@ class SignUpPageState extends State<SignUpPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const Header(
+            Header(
                 title: "Cadastro",
                 subtitle: "Crie uma conta para começar a usar o Fitness Buddy"),
             Padding(
@@ -160,6 +163,21 @@ class SignUpPageState extends State<SignUpPage> {
                         }
                         return null;
                       },
+                    ),
+                    const SizedBox(height: 30),
+                    LinkedLabelCheckbox(
+                        key: const Key("CheckBox"),
+                        label: 'Li e concordo com os termos e condições',
+                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                        checkValue: _isSelected,
+                        contextRoute: context,
+                        route: AppRoutes.terms,
+                        checkbox: widget.checkbox,
+                        onChanged: (bool newValue) {
+                          setState(() {
+                            _isSelected = newValue;
+                          });
+                        },
                     ),
                     const SizedBox(height: 30),
                     // Dá para juntar isso em um widget

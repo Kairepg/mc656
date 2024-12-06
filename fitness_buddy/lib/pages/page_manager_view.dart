@@ -21,15 +21,7 @@ class MainBottomNavigationBar extends StatelessWidget {
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.fitness_center),
-          label: 'Atividades',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.leaderboard),
-          label: 'Ranking',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.favorite),
-          label: 'Favorito',
+          label: 'Workouts',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.person),
