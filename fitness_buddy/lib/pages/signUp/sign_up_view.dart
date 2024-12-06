@@ -5,7 +5,14 @@ class Header extends StatelessWidget {
   final String title;
   final String subtitle;
 
-  const Header({super.key, required this.title, required this.subtitle});
+  const Header._({super.key, required this.title, required this.subtitle});
+
+  static Header?_instancia;
+  factory Header({required title, required subtitle}) {
+    _instancia ??= Header._(title: title, subtitle: subtitle);
+    return _instancia!;
+  }
+  //const Header({super.key, required this.title, required this.subtitle});
 
   @override
   Widget build(BuildContext context) {

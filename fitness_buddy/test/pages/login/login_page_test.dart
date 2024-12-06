@@ -27,7 +27,7 @@ void main() {
 
       // Construir a tela de login
       await tester.pumpWidget(
-          MaterialApp(home: LoginPage.fromLoginPage(mockFirebaseAuth)));
+          MaterialApp(home: LoginPage(firebaseAuth: mockFirebaseAuth)));
 
       // Encontrar os campos de texto e o botão
       final emailField = find.byKey(const Key('emailField'));
@@ -73,7 +73,7 @@ void main() {
       when(mockUser.email).thenReturn('teste@teste.com');
 
       await tester.pumpWidget(
-          MaterialApp(home: LoginPage.fromLoginPage(mockFirebaseAuth)));
+          MaterialApp(home: LoginPage(firebaseAuth: mockFirebaseAuth)));
 
       final emailField = find.byKey(const Key('emailField'));
       final passwordField = find.byKey(const Key('passwordField'));
@@ -113,7 +113,7 @@ void main() {
       when(mockUser.email).thenReturn('email_invalido.com');
 
       await tester.pumpWidget(
-          MaterialApp(home: LoginPage.fromLoginPage(mockFirebaseAuth)));
+          MaterialApp(home: LoginPage(firebaseAuth: mockFirebaseAuth)));
 
       final emailField = find.byKey(const Key('emailField'));
       final passwordField = find.byKey(const Key('passwordField'));
@@ -153,7 +153,7 @@ void main() {
       when(mockUser.email).thenReturn('email_invalido.com');
 
       await tester.pumpWidget(
-          MaterialApp(home: LoginPage.fromLoginPage(mockFirebaseAuth)));
+          MaterialApp(home: LoginPage(firebaseAuth: mockFirebaseAuth)));
 
       final emailField = find.byKey(const Key('emailField'));
       final passwordField = find.byKey(const Key('passwordField'));
@@ -194,7 +194,7 @@ void main() {
       when(mockUser.email).thenReturn('email_invalido.com');
 
       await tester.pumpWidget(
-          MaterialApp(home: LoginPage.fromLoginPage(mockFirebaseAuth)));
+          MaterialApp(home: LoginPage(firebaseAuth: mockFirebaseAuth)));
 
       final emailField = find.byKey(const Key('emailField'));
       final passwordField = find.byKey(const Key('passwordField'));
