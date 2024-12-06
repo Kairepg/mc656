@@ -10,211 +10,173 @@ import 'login_page_test.mocks.dart';
 // Gerar mocks para FirebaseAuth
 @GenerateMocks([FirebaseAuth, User, UserCredential])
 void main() {
-  testWidgets(
-    'Testando tela de login com Firebase',
-    (WidgetTester tester) async {
-      final mockFirebaseAuth = MockFirebaseAuth();
-      final mockUserCredential = MockUserCredential();
-      final mockUser = MockUser(); // Simular um usuário autenticado
+  group("Classes de equivalência", ()
+  {
+    testWidgets(
+      'Classe válida: login bem-sucedido',
+      (WidgetTester tester) async {
+        final mockFirebaseAuth = MockFirebaseAuth();
+        final mockUserCredential = MockUserCredential();
+        final mockUser = MockUser(); // Simular um usuário autenticado
 
-      when(mockFirebaseAuth.signInWithEmailAndPassword(
-        email: 'teste@teste.com',
-        password: 'senha123',
-      )).thenAnswer((_) async => mockUserCredential);
+        when(mockFirebaseAuth.signInWithEmailAndPassword(
+          email: 'teste@teste.com',
+          password: 'senha123',
+        )).thenAnswer((_) async => mockUserCredential);
 
-      when(mockFirebaseAuth.currentUser).thenReturn(mockUser);
-      when(mockUser.email).thenReturn('teste@teste.com');
+        when(mockFirebaseAuth.currentUser).thenReturn(mockUser);
+        when(mockUser.email).thenReturn('teste@teste.com');
 
-      // Construir a tela de login
-      await tester.pumpWidget(
-          MaterialApp(home: LoginPage(firebaseAuth: mockFirebaseAuth)));
+        // Construir a tela de login
+        await tester.pumpWidget(
+            MaterialApp(home: LoginPage(firebaseAuth: mockFirebaseAuth)));
 
-      // Encontrar os campos de texto e o botão
-      final emailField = find.byKey(const Key('emailField'));
-      final passwordField = find.byKey(const Key('passwordField'));
-      final loginButton = find.byKey(const Key('loginButton'));
+        // Encontrar os campos de texto e o botão
+        final emailField = find.byKey(const Key('emailField'));
+        final passwordField = find.byKey(const Key('passwordField'));
+        final loginButton = find.byKey(const Key('loginButton'));
 
-      // Inserir texto nos campos
-      await tester.enterText(emailField, 'teste@teste.com');
-      await tester.enterText(passwordField, 'senha123');
+        // Inserir texto nos campos
+        await tester.enterText(emailField, 'teste@teste.com');
+        await tester.enterText(passwordField, 'senha123');
 
-      // Clicar no botão de login
-      await tester.tap(loginButton);
+        // Clicar no botão de login
+        await tester.tap(loginButton);
 
-      // // Atualizar a tela após o clique
-      await tester.pump();
+        // // Atualizar a tela após o clique
+        await tester.pump();
 
-      verify(mockFirebaseAuth.signInWithEmailAndPassword(
-        email: 'teste@teste.com',
-        password: 'senha123',
-      )).called(1);
+        verify(mockFirebaseAuth.signInWithEmailAndPassword(
+          email: 'teste@teste.com',
+          password: 'senha123',
+        )).called(1);
 
-      expect(mockFirebaseAuth.currentUser, isNotNull);
+        expect(mockFirebaseAuth.currentUser, isNotNull);
 
-      expect(find.text("Login realizado com sucesso"), findsOneWidget);
-    },
-  );
+        expect(find.text("Login realizado com sucesso"), findsOneWidget);
+      },
+    );
 
-  testWidgets(
-    'Login inválido com senha errada',
-    (WidgetTester tester) async {
-      final mockFirebaseAuth = MockFirebaseAuth();
-      final mockUser = MockUser();
-     
+    testWidgets(
+      'Classe inválida: invalid-credential',
+      (WidgetTester tester) async {
+        final mockFirebaseAuth = MockFirebaseAuth();
+        final mockUser = MockUser();
+      
 
-      when(mockFirebaseAuth.signInWithEmailAndPassword(
-        email: 'teste@teste.com',
-        password: 'senha_invalida',
-      )).thenThrow(FirebaseAuthException(
-        code: 'invalid-credential'
-      ));
+        when(mockFirebaseAuth.signInWithEmailAndPassword(
+          email: 'teste@teste.com',
+          password: 'senha_invalida',
+        )).thenThrow(FirebaseAuthException(
+          code: 'invalid-credential'
+        ));
 
-      when(mockFirebaseAuth.currentUser).thenReturn(mockUser);
-      when(mockUser.email).thenReturn('teste@teste.com');
+        when(mockFirebaseAuth.currentUser).thenReturn(mockUser);
+        when(mockUser.email).thenReturn('teste@teste.com');
 
-      await tester.pumpWidget(
-          MaterialApp(home: LoginPage(firebaseAuth: mockFirebaseAuth)));
+        await tester.pumpWidget(
+            MaterialApp(home: LoginPage(firebaseAuth: mockFirebaseAuth)));
 
-      final emailField = find.byKey(const Key('emailField'));
-      final passwordField = find.byKey(const Key('passwordField'));
-      final loginButton = find.byKey(const Key('loginButton'));
+        final emailField = find.byKey(const Key('emailField'));
+        final passwordField = find.byKey(const Key('passwordField'));
+        final loginButton = find.byKey(const Key('loginButton'));
 
-      await tester.enterText(emailField, 'teste@teste.com');
-      await tester.enterText(passwordField, 'senha_invalida');
+        await tester.enterText(emailField, 'teste@teste.com');
+        await tester.enterText(passwordField, 'senha_invalida');
 
-      await tester.tap(loginButton);
+        await tester.tap(loginButton);
 
-      await tester.pump();
+        await tester.pump();
 
-      verify(mockFirebaseAuth.signInWithEmailAndPassword(
-        email: 'teste@teste.com',
-        password: 'senha_invalida',
-      )).called(1);
+        verify(mockFirebaseAuth.signInWithEmailAndPassword(
+          email: 'teste@teste.com',
+          password: 'senha_invalida',
+        )).called(1);
 
-      expect(find.text("Login inválido"),findsOneWidget );
-    },
-  );
+        expect(find.text("Login inválido"),findsOneWidget );
+      },
+    );
 
-  testWidgets(
-    'Login inválido com email e senha errada',
-    (WidgetTester tester) async {
-      final mockFirebaseAuth = MockFirebaseAuth();
-      final mockUser = MockUser();
-     
+    testWidgets(
+      'Classe inválida: invalid-email',
+      (WidgetTester tester) async {
+        final mockFirebaseAuth = MockFirebaseAuth();
+        final mockUser = MockUser();
+      
 
-      when(mockFirebaseAuth.signInWithEmailAndPassword(
-        email: 'email_invalido.com',
-        password: 'senha_invalida',
-      )).thenThrow(FirebaseAuthException(
-        code: 'invalid-email'
-      ));
+        when(mockFirebaseAuth.signInWithEmailAndPassword(
+          email: 'email_invalido.com',
+          password: 'senha_invalida',
+        )).thenThrow(FirebaseAuthException(
+          code: 'invalid-email'
+        ));
 
-      when(mockFirebaseAuth.currentUser).thenReturn(mockUser);
-      when(mockUser.email).thenReturn('email_invalido.com');
+        when(mockFirebaseAuth.currentUser).thenReturn(mockUser);
+        when(mockUser.email).thenReturn('email_invalido.com');
 
-      await tester.pumpWidget(
-          MaterialApp(home: LoginPage(firebaseAuth: mockFirebaseAuth)));
+        await tester.pumpWidget(
+            MaterialApp(home: LoginPage(firebaseAuth: mockFirebaseAuth)));
 
-      final emailField = find.byKey(const Key('emailField'));
-      final passwordField = find.byKey(const Key('passwordField'));
-      final loginButton = find.byKey(const Key('loginButton'));
+        final emailField = find.byKey(const Key('emailField'));
+        final passwordField = find.byKey(const Key('passwordField'));
+        final loginButton = find.byKey(const Key('loginButton'));
 
-      await tester.enterText(emailField, 'email_invalido.com');
-      await tester.enterText(passwordField, 'senha_invalida');
+        await tester.enterText(emailField, 'email_invalido.com');
+        await tester.enterText(passwordField, 'senha_invalida');
 
-      await tester.tap(loginButton);
+        await tester.tap(loginButton);
 
-      await tester.pump();
+        await tester.pump();
 
-      verify(mockFirebaseAuth.signInWithEmailAndPassword(
-        email: 'email_invalido.com',
-        password: 'senha_invalida',
-      )).called(1);
+        verify(mockFirebaseAuth.signInWithEmailAndPassword(
+          email: 'email_invalido.com',
+          password: 'senha_invalida',
+        )).called(1);
 
-      expect(find.text("Login inválido"),findsOneWidget );
-    },
-  );
+        expect(find.text("Login inválido"),findsOneWidget );
+      },
+    );
 
-  testWidgets(
-    'Login inválido com email errado',
-    (WidgetTester tester) async {
-      final mockFirebaseAuth = MockFirebaseAuth();
-      final mockUser = MockUser();
-     
+    testWidgets(
+      'Classe Inválida: Erro desconhecido',
+      (WidgetTester tester) async {
+        final mockFirebaseAuth = MockFirebaseAuth();
+        final mockUser = MockUser();
+      
 
-      when(mockFirebaseAuth.signInWithEmailAndPassword(
-        email: 'email_invalido.com',
-        password: '123456',
-      )).thenThrow(FirebaseAuthException(
-        code: 'invalid-email'
-      ));
+        when(mockFirebaseAuth.signInWithEmailAndPassword(
+          email: 'email_invalido.com',
+          password: 'senha_invalida',
+        )).thenThrow(FirebaseAuthException(
+          code: 'wrong-password'
+        ));
 
-      when(mockFirebaseAuth.currentUser).thenReturn(mockUser);
-      when(mockUser.email).thenReturn('email_invalido.com');
+        when(mockFirebaseAuth.currentUser).thenReturn(mockUser);
 
-      await tester.pumpWidget(
-          MaterialApp(home: LoginPage(firebaseAuth: mockFirebaseAuth)));
+        when(mockUser.email).thenReturn('email_invalido.com');
 
-      final emailField = find.byKey(const Key('emailField'));
-      final passwordField = find.byKey(const Key('passwordField'));
-      final loginButton = find.byKey(const Key('loginButton'));
+        await tester.pumpWidget(
+            MaterialApp(home: LoginPage(firebaseAuth: mockFirebaseAuth)));
 
-      await tester.enterText(emailField, 'email_invalido.com');
-      await tester.enterText(passwordField, '123456');
+        final emailField = find.byKey(const Key('emailField'));
+        final passwordField = find.byKey(const Key('passwordField'));
+        final loginButton = find.byKey(const Key('loginButton'));
 
-      await tester.tap(loginButton);
+        await tester.enterText(emailField, 'email_invalido.com');
+        await tester.enterText(passwordField, 'senha_invalida');
 
-      await tester.pump();
+        await tester.tap(loginButton);
 
-      verify(mockFirebaseAuth.signInWithEmailAndPassword(
-        email: 'email_invalido.com',
-        password: '123456',
-      )).called(1);
+        await tester.pump();
 
-      expect(find.text("Login inválido"),findsOneWidget );
-    },
-  );
+        verify(mockFirebaseAuth.signInWithEmailAndPassword(
+          email: 'email_invalido.com',
+          password: 'senha_invalida',
+        )).called(1);
 
-  testWidgets(
-    'Login inválido com erro desconhecido',
-    (WidgetTester tester) async {
-      final mockFirebaseAuth = MockFirebaseAuth();
-      final mockUser = MockUser();
-     
-
-      when(mockFirebaseAuth.signInWithEmailAndPassword(
-        email: 'email_invalido.com',
-        password: 'senha_invalida',
-      )).thenThrow(FirebaseAuthException(
-        code: 'wrong-password'
-      ));
-
-      when(mockFirebaseAuth.currentUser).thenReturn(mockUser);
-
-      when(mockUser.email).thenReturn('email_invalido.com');
-
-      await tester.pumpWidget(
-          MaterialApp(home: LoginPage(firebaseAuth: mockFirebaseAuth)));
-
-      final emailField = find.byKey(const Key('emailField'));
-      final passwordField = find.byKey(const Key('passwordField'));
-      final loginButton = find.byKey(const Key('loginButton'));
-
-      await tester.enterText(emailField, 'email_invalido.com');
-      await tester.enterText(passwordField, 'senha_invalida');
-
-      await tester.tap(loginButton);
-
-      await tester.pump();
-
-      verify(mockFirebaseAuth.signInWithEmailAndPassword(
-        email: 'email_invalido.com',
-        password: 'senha_invalida',
-      )).called(1);
-
-      expect(find.text("Erro ao logar usuário"),findsOneWidget );
-    },
-  );
-
+        expect(find.text("Erro ao logar usuário"),findsOneWidget );
+      },
+    );
+  });
 
 }
