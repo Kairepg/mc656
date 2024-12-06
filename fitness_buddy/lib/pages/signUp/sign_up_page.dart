@@ -105,7 +105,7 @@ class SignUpPageState extends State<SignUpPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const Header(
+            Header(
                 title: "Cadastro",
                 subtitle: "Crie uma conta para começar a usar o Fitness Buddy"),
             Padding(
